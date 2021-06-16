@@ -1,6 +1,7 @@
 #include "minishell.h"
 //char *str; // глобальная переменная для главной команды
 
+
 char *ft_error(char *err)
 {
 	printf("%s\n", err);
@@ -28,7 +29,7 @@ char	*pars_bucket(char *str, int *i)
 	return tmp;
 }
 
-char	*pars_double_bucket(char *str, int *i)
+char	*pars_double_bucket(char *str, int *i, char **env)
 {
 	char	*tmp;
 	char	*tmp2;
@@ -40,7 +41,9 @@ char	*pars_double_bucket(char *str, int *i)
 	{
 		if (str[*i] == '\\' && (str[*i + 1] == '\"'
 		 || str[*i + 1] == '$' || str[*i + 1] == '\\'))
-
+			str = pars_slesh(str, i);
+		if (str[*i] == '$')
+			pars_dollar(str, i, env);
 		if (str[*i] == '\"')
 			break;
 	}
@@ -50,6 +53,8 @@ char	*pars_double_bucket(char *str, int *i)
 	tmp = ft_strjoin(tmp, tmp2);
 	tmp = ft_strjoin(tmp, tmp3);
 	//printf("%s\n", tmp);
+	free(tmp2);
+	free(tmp3);
 	free(str);
 	return tmp;
 
@@ -84,13 +89,13 @@ char	*command_parser(char *str, char **env)
 		if (str[i] == '\'')
 			str = pars_bucket(str, &i);
 		if (str[i] == '\"')
-			str = pars_double_bucket(str, &i);
+			str = pars_double_bucket(str, &i, env);
 		if (str[i] == '\\')
 			str = pars_slesh(str, &i);
 		if (str[i] == '$')
 			str = pars_dollar(str, &i, env);
-		//if (str[i] == '')
-		//	str = pars_bucket(str, &i);
+		if (str[i] == '>')// dup2 написать функцию которая перенаправляет ввод на редиректы
+			str = pars_redir(str, &i);
 	}
 	return str;
 }
@@ -101,7 +106,7 @@ int		main(int argc, char** argv, char **env)
 
 		//while (*argv)
 		//{
-			//command_pre_parser(str);
+			command_pre_parser(str);
 			str = command_parser(str, env);
 			//printf("%s", str);
 		//}
