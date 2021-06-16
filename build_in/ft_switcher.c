@@ -27,7 +27,7 @@ int	ft_switcher(char **args, char **env)
 	else if (ft_strcmp(args[0], "echo") == 0)
 		ft_echo(&args[1]);
 	else if (ft_strcmp(args[0], "pwd") == 0)
-		ft_pwd(&args[1]);
+		ft_pwd();
 	else
 		printf("no");
 	return (0);

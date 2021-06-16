@@ -23,4 +23,4 @@ int		ifkey(char c);
 int		ft_strcmp(char *s1, char *s2);
 int 	ft_echo(char **str);
 int 	ft_cd(char *path);
-int		ft_pwd(char **env);
+int		ft_pwd();
