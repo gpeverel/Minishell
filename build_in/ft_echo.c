@@ -7,15 +7,18 @@ int	ft_echo(char **str)
 
 	i = 0;
 	flag = 0;
-	if (ft_strcmp(str[i], "-n") == 0)
+	if (str[i] != NULL)
 	{
-		flag = 1;
-		i++;
-	}
-	while (str[i] != NULL)
-	{
-		printf("%s ", str[i]);
-		i++;
+		if (ft_strcmp(str[i], "-n") == 0)
+		{
+			flag = 1;
+			i++;
+		}
+		while (str[i] != NULL)
+		{
+			printf("%s ", str[i]);
+			i++;
+		}
 	}
 	if (flag == 0)
 		printf("\n");
