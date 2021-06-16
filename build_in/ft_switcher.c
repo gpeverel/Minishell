@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-int	ft_strcmp(char *s1, char *s2)
+int		ft_strcmp(char *s1, char *s2)
 {
 	size_t			i;
 	unsigned char	*src1;
@@ -20,20 +20,39 @@ int	ft_strcmp(char *s1, char *s2)
 	return (0);
 }
 
-int	ft_switcher(char **args, char **env)
+char	*ft_find_env(char **env, char *key)
+{
+	int i;
+	size_t len;
+
+	i = 0;
+	while (env[i] != NULL)
+	{
+		//printf("%s\n", env[i]);
+		len = ft_strlen(key);
+		if (ft_strncmp(&env[i][0], key, len) == 0)
+			return &env[i][len];
+		i++;
+	}
+	return NULL;
+}
+
+int		ft_switcher(char **args, char **env)
 {
 	if (ft_strcmp(args[0], "cd") == 0)
-		ft_cd(args[1]); //todo: может быть несколько аргументов
+		ft_cd(args[1], ft_find_env(env, "HOME=")); //todo: может быть несколько аргументов
 	else if (ft_strcmp(args[0], "echo") == 0)
 		ft_echo(&args[1]);
 	else if (ft_strcmp(args[0], "pwd") == 0)
 		ft_pwd();
+	else if (ft_strcmp(args[0], "export") == 0)
+		ft_export(env);
 	else
 		printf("no");
 	return (0);
 }
 
-int	main(int argc, char **argv, char **env)
+int		main(int argc, char **argv, char **env)
 {
 	ft_switcher(&argv[1], env);
 	return (0);

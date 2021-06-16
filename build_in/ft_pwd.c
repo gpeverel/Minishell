@@ -1,9 +1,8 @@
 #include "../minishell.h"
-#include <unistd.h>
 
-int	ft_pwd()
+int	ft_pwd(void)
 {
-	char *buf;
+	char	*buf;
 
 	buf = NULL;
 	printf("%s\n", getcwd(buf, 0));

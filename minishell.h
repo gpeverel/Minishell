@@ -22,5 +22,6 @@ int		ifkey(char c);
 //build-in
 int		ft_strcmp(char *s1, char *s2);
 int 	ft_echo(char **str);
-int 	ft_cd(char *path);
-int		ft_pwd();
+int 	ft_cd(char *path, char *home);
+int		ft_pwd(void);
+int		ft_export(char **env);
