@@ -1,10 +1,6 @@
 #include "minishell.h"
 
-void	redir_add_list(count)
-{
 
-
-}
 
 void	command_pre_parser(char *str)
 {
@@ -19,9 +15,6 @@ void	command_pre_parser(char *str)
 	{
 		if (str[i] == '\"')
 			count++;
-		if (str[i] == '>')
-			redir_add_list(count);
 
-		i++;
 	}
 }

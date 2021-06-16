@@ -84,6 +84,7 @@ char	*command_parser(char *str, char **env)
 	int i;
 
 	i = -1;
+	all.red_work = NULL;
 	while (str[++i])
 	{
 		if (str[i] == '\'')
@@ -95,18 +96,18 @@ char	*command_parser(char *str, char **env)
 		if (str[i] == '$')
 			str = pars_dollar(str, &i, env);
 		if (str[i] == '>')// dup2 написать функцию которая перенаправляет ввод на редиректы
-			str = pars_redir(str, &i);
+			str = pars_redir_one(str, &i, env);
 	}
 	return str;
 }
 
 int		main(int argc, char** argv, char **env)
 {
-	char *str = "awsd' $sd '_$USER #ggh asdf";
+	char *str = "awsd' $sd ' > 1 _$USER #ggh asdf";
 
 		//while (*argv)
 		//{
-			command_pre_parser(str);
+			//command_pre_parser(str);
 			str = command_parser(str, env);
 			//printf("%s", str);
 		//}

@@ -20,6 +20,7 @@ typedef struct	s_redir
 	int		red_count;
 	int		num;
 	char	type;
+	char	*file_name;
 
 }				t_red;
 
@@ -46,5 +47,8 @@ char	*pars_dollar(char *str, int *i, char **env);
 char	*get_key_in_env(char **env, char *key);
 char	*find_key_env(char **env, char *key, int *k, int *z);
 int		ifkey(char c);
+
+// pars_redirect
+char	*pars_redir_one(char *str, int *i, char **env);
 
 #endif
