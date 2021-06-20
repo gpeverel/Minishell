@@ -9,6 +9,7 @@ int	ft_cd(char *path, char *home)
 		path_final = home;
 	if (chdir(path_final) == -1)
 		printf("error cd: %s\n", strerror(errno));
-	printf("%s\n", path_final);
+	ft_pwd(1);
+	//todo: удалить при выкате на прод
 	return (0);
 }

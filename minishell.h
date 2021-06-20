@@ -1,11 +1,12 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "libft/libft.h"
-#include <unistd.h>
-#include <string.h>
-#include <errno.h>
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
-
+# include <stdio.h>
+# include <stdlib.h>
+# include "libft/libft.h"
+# include <unistd.h>
+# include <string.h>
+# include <errno.h>
 
 // minishell.c
 char	*ft_error(char *err);
@@ -21,7 +22,9 @@ int		ifkey(char c);
 
 //build-in
 int		ft_strcmp(char *s1, char *s2);
-int 	ft_echo(char **str);
-int 	ft_cd(char *path, char *home);
-int		ft_pwd(void);
-int		ft_export(char **env);
+int		ft_echo(int fd, char **str);
+int		ft_cd(char *path, char *home);
+int		ft_pwd(int fd);
+int		ft_export(char **args, char **env);
+
+#endif

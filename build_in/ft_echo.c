@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-int	ft_echo(char **str)
+int	ft_echo(int fd, char **str)
 {
 	int	i;
 	int	flag;
@@ -16,11 +16,11 @@ int	ft_echo(char **str)
 		}
 		while (str[i] != NULL)
 		{
-			printf("%s ", str[i]);
+			write(fd, str[i], ft_strlen(str[i]));
 			i++;
 		}
 	}
 	if (flag == 0)
-		printf("\n");
+		write(fd, "\n", 1);
 	return (0);
 }
