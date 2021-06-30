@@ -37,6 +37,7 @@ typedef struct	s_all
 	//char	**arg;
 	t_arg	*a_first;
 	t_arg	*a_last;
+	int		check_dol;
 
 
 }				t_all;
@@ -49,7 +50,7 @@ t_all all;// единственная глобальная переменная
 char	*ft_error(char *err);
 char	*pars_bucket(char *str, int *i);
 char	*pars_double_bucket(char *str, int *i, char **env);
-char	*pars_slesh(char *str, int *i);
+//char	*pars_slesh(char *str, int *i);
 
 //pars_dollar
 char	*pars_dollar(char *str, int *i, char **env);

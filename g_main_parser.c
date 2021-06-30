@@ -6,20 +6,26 @@ char	*delete_space(char *str, int *i)
 	char	*tmp;
 	char	*tmp2;
 
+	if (str[*i] != ' ')
+		return (str);
 	j = *i;
 	if (*i == 0)
 	{
 		while (str[j] == ' ')
 			j++;
-		return(tmp = ft_strdup(str + j));
+		tmp = ft_strdup(str + j);
 	}
-	while (str[j] == ' ')
-		j++;
-	tmp = ft_substr(str, 0, *i);
-	tmp2 = ft_strdup(str + j - 1);
-	tmp = ft_strjoin(tmp, tmp2);
-	free(tmp2);
-	return (tmp);
+	else
+	{
+		while (str[j] == ' ')
+			j++;
+		tmp = ft_substr(str, 0, *i);
+		tmp2 = ft_strdup(str + j - 1);
+		tmp = ft_strjoin(tmp, tmp2);
+		free(tmp2);
+	}
+	free(str);
+	return(tmp);
 }
 
 char	*init_arg(char *str, int start, int end)
@@ -45,9 +51,40 @@ char	*check_main_symbols_str(char *str, int *i, char **env)
 		str = pars_bucket(str, i);
 	if (str[*i] == '\"')
 		str = pars_double_bucket(str, i, env);
-	if (str[*i] == '\\')
-		str = pars_slesh(str, i);
+	//if (str[*i] == '\\')
+	//	str = pars_slesh(str, i);
 	if (str[*i] == '$')
 		str = pars_dollar(str, i, env);
+		if (str[*i] == ' ')
+			str = delete_space(str, i);
 	return (str);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	unsigned char	*s3;
+	size_t			l1;
+	size_t			l2;
+	size_t			i;
+	size_t			j;
+
+	i = 0;
+	j = i;
+	if (!s1 || !s2)
+		return (0);
+	l1 = ft_strlen((char *)s1);
+	l2 = ft_strlen((char *)s2);
+	s3 = (unsigned char *)malloc(((l1 + l2) * sizeof(char)) + 1);
+	if (!s3)
+		return (0);
+	while (i < l1)
+	{
+		s3[i] = s1[i];
+		i++;
+	}
+	while (j < l2)
+		s3[i++] = s2[j++];
+	s3[i] = '\0';
+	free((char *)s1);
+	return ((char *)s3);
 }

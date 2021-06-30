@@ -30,8 +30,10 @@ void	push_redir(char *str, int i, char *filename)
 		tmp->type = '1';
 	else if (str[i] == '>' && str[i + 1] == '>')
 		tmp->type = '2';
-	else
+	else if (str[i] == '<' && str[i + 1] != '<')
 		tmp->type = '3';
+		else if (str[i] == '<' && str[i + 1] == '<')
+		tmp->type = '4';
 	tmp->file_name = filename;
 	printf("\nfile name = %s, type = %c\n", tmp->file_name, tmp->type);
 	tmp->next = all.red_work;
@@ -73,8 +75,8 @@ char	*pars_redir_one(char *str, int *i, char **env)
 			str = pars_bucket(str, &j);
 		if (str[j] == '\"')
 			str = pars_double_bucket(str, &j, env);
-		if (str[j] == '\\')
-			str = pars_slesh(str, &j);
+		//if (str[j] == '\\')
+		//	str = pars_slesh(str, &j);
 		if (str[j] == '$')
 			str = pars_dollar(str, &j, env);
 		if (str[j] == '>' || str[j] == '<')

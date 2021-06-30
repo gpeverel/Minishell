@@ -69,6 +69,7 @@ char	*pars_dollar(char *str, int *i, char **env)
 	char	*key;
 	char	*tmp2;
 	int		j;
+	int		z = *i;
 
 	j = *i;
 	while (str[++(*i)])
@@ -81,7 +82,10 @@ char	*pars_dollar(char *str, int *i, char **env)
 	free(key);
 	key = ft_substr(str, 0, j);// взяли все до $
 	if (tmp2 == NULL)
+	{
 		tmp2 = ft_strdup(str + *i);// пропустили весь ключ
+		all.check_dol = 1;// чтобы нормально работать с пробелами при парсере
+	}
 	else
 	{// если ключ нашли то берем его и все что после него
 		key = ft_strjoin(key, tmp2);
@@ -92,5 +96,6 @@ char	*pars_dollar(char *str, int *i, char **env)
 	free(tmp2);
 	//printf("%s\n", key);
 	free(str);
+	*i = z;
 	return key;
 }
