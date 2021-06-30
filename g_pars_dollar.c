@@ -90,7 +90,7 @@ char	*pars_dollar(char *str, int *i, char **env)
 	}
 	key = ft_strjoin(key, tmp2);
 	free(tmp2);
-	printf("%s\n", key);
+	//printf("%s\n", key);
 	free(str);
 	return key;
 }
