@@ -53,7 +53,9 @@ char	*get_key_in_env(char **env, char *key)
 		// 	}
 		// 	free(tmp2);
 		// }
+		//printf("%s\n", env[k]);
 		tmp2 = find_key_env(env, key, &k, &z);
+		//printf("%s\n", tmp2);
 		if (tmp2 == NULL)// значит нашел
 			break ;
 		//tmp2 = "0";// чтобы потом проверить на NULL
@@ -61,7 +63,19 @@ char	*get_key_in_env(char **env, char *key)
 	if (tmp2 != NULL)
 		return (NULL);
 	tmp2 = ft_substr(env[k], z + 1, ft_strlen(env[k]) - z);
+	//printf("\n%s\n", tmp2);
 	return (tmp2);
+}
+
+int		go_to_end_key(char *tmp2, int z)
+{
+	int	i;
+
+	i = 0;
+	while (tmp2[i])
+		i++;
+	i += z;
+	return (i);
 }
 
 char	*pars_dollar(char *str, int *i, char **env)
@@ -88,6 +102,8 @@ char	*pars_dollar(char *str, int *i, char **env)
 	}
 	else
 	{// если ключ нашли то берем его и все что после него
+		//printf("Нашел в env %s\n", tmp2);
+		z = go_to_end_key(tmp2, z);
 		key = ft_strjoin(key, tmp2);
 		free(tmp2);
 		tmp2 = ft_substr(str, *i, ft_strlen(str) - *i);

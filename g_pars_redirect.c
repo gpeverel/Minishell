@@ -23,9 +23,9 @@ char	*ft_strnewcpy(char *str, int size)
 
 void	push_redir(char *str, int i, char *filename)
 {
-	t_red	*tmp;
+	t_arg	*tmp;
 
-	tmp = malloc(sizeof(t_red));
+	tmp = malloc(sizeof(t_arg));
 	if (str[i] == '>' && str[i + 1] != '>')
 		tmp->type = '1';
 	else if (str[i] == '>' && str[i + 1] == '>')
@@ -34,26 +34,38 @@ void	push_redir(char *str, int i, char *filename)
 		tmp->type = '3';
 		else if (str[i] == '<' && str[i + 1] == '<')
 		tmp->type = '4';
-	tmp->file_name = filename;
-	printf("\nfile name = %s, type = %c\n", tmp->file_name, tmp->type);
-	tmp->next = all.red_work;
-	all.red_work = tmp;
-}
-
-int		delete_redir()
-{
-	t_red	*out;
-
-	if (all.red_work != NULL)
+	tmp->item = filename;
+	printf("\nfile name = %s, type = %c\n", tmp->item, tmp->type);
+	//tmp->next = all.red_work;
+	//all.red_work = tmp;
+	if (all.a_last == NULL)
 	{
-		out = all.red_work;
-		all.red_work = all.red_work->next;
-		free(out->file_name);
-		free(out);
-		return (1);
+		tmp->next = tmp;
+		all.a_last = tmp;
+		all.a_first = tmp;
 	}
-	return (0);
+	else
+	{
+		tmp->next = all.a_first;
+		all.a_last->next = tmp;
+		all.a_last = tmp;
+	}
 }
+
+// int		delete_redir()
+// {
+// 	t_red	*out;
+
+// 	if (all.red_work != NULL)
+// 	{
+// 		out = all.red_work;
+// 		all.red_work = all.red_work->next;
+// 		free(out->file_name);
+// 		free(out);
+// 		return (1);
+// 	}
+// 	return (0);
+// }
 
 char	*pars_redir_one(char *str, int *i, char **env)
 {
@@ -84,14 +96,18 @@ char	*pars_redir_one(char *str, int *i, char **env)
 			printf("%d\n", j);
 			ft_error("Redirect error\n");
 		}
-		if (str[j] == ' ' || str[j] == '\t')
+		if (str[j] == ' ' || str[j] == '\t'|| str[j] == '\0')
 			break;
 	}
 	push_redir(str, *i, ft_strnewcpy(str + z, j - z));// пихаем в структуру
-	//*i = j;
 	tmp = ft_substr(str, 0, *i - 1);
 	tmp = ft_strjoin(tmp, str + j);
-	free(str);
+	//while (tmp[*i] == ' ')
+	//	(*i)++;
+	//tmp = delete_space(tmp, i);
+	//free(str);
+	all.check_dol = 1;
+	//*i = j;
 	return (tmp);
 
 }

@@ -47,16 +47,39 @@ char	*init_arg(char *str, int start, int end)
 
 char	*check_main_symbols_str(char *str, int *i, char **env)
 {
-	if (str[*i] == '\'')
-		str = pars_bucket(str, i);
-	if (str[*i] == '\"')
-		str = pars_double_bucket(str, i, env);
-	//if (str[*i] == '\\')
-	//	str = pars_slesh(str, i);
-	if (str[*i] == '$')
-		str = pars_dollar(str, i, env);
-		if (str[*i] == ' ')
+	while (str[*i] != ' ' && str[*i])
+	{
+		if (str[*i] == '\'')
+		{
+			str = pars_bucket(str, i);
+			all.check_dol = 0;
+			if (str[*i] == '<' || str[*i] == '>')
+				break ;
+		}
+		else if (str[*i] == '\"')
+		{
+			str = pars_double_bucket(str, i, env);
+			all.check_dol = 0;
+			if (str[*i] == '<' || str[*i] == '>')
+				break ;
+		}
+		else if (str[*i] == '<' || str[*i] == '>')
+		{
+			str = pars_redir_one(str, i, env);
+			//break;
+		}
+		//if (str[*i] == '\\')
+		//	str = pars_slesh(str, i);
+		else if (str[*i] == '$')
+		{
+			str = pars_dollar(str, i, env);
+			//printf("str[i] = %c\n", str[*i]);
+		}
+		else if (str[*i] == ' ')
 			str = delete_space(str, i);
+		else
+			break;
+	}
 	return (str);
 }
 

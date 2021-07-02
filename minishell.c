@@ -57,7 +57,6 @@ char	*pars_double_bucket(char *str, int *i, char **env)// без ликов
 	free(tmp3);
 	free(str);
 	return tmp;
-
 }
 
 // char	*pars_slesh(char *str, int *i)
@@ -108,10 +107,23 @@ char	*pars_double_bucket(char *str, int *i, char **env)// без ликов
 
 int		check_start_arg_space(char **str, int *start)
 {
-	if (all.check_dol == 1)
+	if (all.check_dol == 1 && !*str[*start])
 	{
 		*str = delete_space(*str, start);
 		(*start)++;
+		all.check_dol = 0;
+		return (1);
+	}
+	return (0);
+}
+
+int		check_arg_end(char **str, int *start)
+{
+	if (all.check_dol == 1)
+	{
+		*str = delete_space(*str, start);
+		if(!*str[*start])
+			(*start)++;
 		all.check_dol = 0;
 		return (1);
 	}
@@ -132,16 +144,30 @@ char	*command_parser(char *str, char **env)
 	{
 		check_start_arg = i;
 		str = check_main_symbols_str(str, &i, env);
-		if (check_start_arg_space(&str, &i))
-			continue;
+		//printf("c = %c|\n", str[i]);
+		//if (check_start_arg_space(&str, &i))
+			//continue;
 		while (1) // 1 чтобы решить проблему с концом строки
 		{
-			if ((str[i] == ' ' || str[i + 1] == '\0'))
+			if ((str[i] == ' ' || str[i + 1] == '\0')
+			 || str[i] == '<' || str[i] == '>')// очень опасно i + 1
 			{
+				//if (str[i] == '<' || str[i] == '>')// защита от слипания
+				//	i--;// 						простых символов и <>
+				if (check_arg_end(&str, &i))
+				{
+					i++;
+					break;
+				}
 				arg = init_arg(str, check_start_arg, i);
 				push_elem(arg);
 				str = delete_space(str, &i);
-				i++;
+				if (*arg)// пиздец что это блять
+					i++;
+				if (str[i - 1] == '<' || str[i - 1] == '>')// защита от слипания
+					i--;// 						простых символов и <>
+				//while (str[i] == ' ')// ты ебанулся что ли так делать
+				//	i++;
 				printf("\n|%s|\n", arg);
 				break;
 			}
@@ -162,7 +188,7 @@ int		main(int argc, char** argv, char **env)
 	int	i = 0;
 	int	len;
 	//char *str ="      echo    ' $sd ' >>  myfile$USER  < newfile _$USER #ggh\' asdf";
-	char *str1 = "    echo $TERM '1b2m3' \"asd  11\"";
+	char *str1 = "   \'ASD\'\"QWE\">    123   $MY\"asd      15\"'1b2m3'";
 	len = ft_strlen(str1);
 	char *str = malloc(len + 1);
 
@@ -173,15 +199,15 @@ int		main(int argc, char** argv, char **env)
 	}
 	str[i] = '\0';
 	initstruct();// инициализируем все поля в структуре
-	printf("mainStr = %s\n", str);
+	printf("mainStr = %s|\n", str);
 		//while (*argv)
 		//{
 			//command_pre_parser(str);
 			str = command_parser(str, env);
 			free(str);
 			//printf("%s", str);
-			while (1)
-			{}
+			//while (1)
+			//{}
 
 
 

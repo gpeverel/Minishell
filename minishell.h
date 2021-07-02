@@ -32,8 +32,8 @@ typedef struct	s_arg
 typedef struct	s_all
 {
 	char	argument;// хранится бинарный код команды
-	int		red_count;
-	t_red	*red_work;
+	//int		red_count;
+	//t_red	*red_work;
 	//char	**arg;
 	t_arg	*a_first;
 	t_arg	*a_last;
