@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-char	*ft_print_env(char **env)
+/*char	*ft_print_env(char **env)
 {
 	int		i;
 
@@ -11,9 +11,9 @@ char	*ft_print_env(char **env)
 		i++;
 	}
 	return (NULL);
-}
+}*/
 
-char **ft_paste_env(char **env, char *arg)
+/*char **ft_paste_env(char **env, char *arg)
 {
 	int size;
 	int	i;
@@ -35,21 +35,18 @@ char **ft_paste_env(char **env, char *arg)
 	new_env[i] = ft_strdup(arg);
 	new_env[++i] = NULL;
 	return (new_env);
-}
+}*/
 
-int	ft_export(char **args, char **env)
+int	ft_export(t_env *my_env, char **args)
 {
 	int i;
 
 	i = 0;
 	if (args[i] == NULL)
-		ft_print_env(env);
+		ft_print_myenv(my_env);
 	else {
-		while (args[i] != NULL) {
-			env = ft_paste_env(env, args[i]);
-			i++;
-		}
-		ft_print_env(env);
+		my_env = ft_create_my_env(args, my_env);
+		//ft_print_myenv(my_env);
 	}
 	return (0);
 }

@@ -3,10 +3,11 @@
 int	ft_pwd(int fd)
 {
 	char	*buf;
+	char	*pwd;
 
 	buf = NULL;
-	write(fd, getcwd(buf, 0), ft_strlen(getcwd(buf, 0)));
-	write(fd, "\n", 1);
-	///printf("%s\n", getcwd(buf, 0));
+	pwd = getcwd(buf, 0);
+	printf("%s\n", pwd);
+	free(pwd);
 	return (0);
 }

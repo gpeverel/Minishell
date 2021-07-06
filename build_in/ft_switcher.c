@@ -20,18 +20,17 @@ int	ft_strcmp(char *s1, char *s2)
 	return (0);
 }
 
-char	*ft_find_env(char **env, char *key)
+char	*ft_find_env(t_env *my_env, char *key)
 {
 	int		i;
 	size_t	len;
 
-	i = 0;
-	while (env[i] != NULL)
+	while (my_env != NULL)
 	{
-		len = ft_strlen(key);
-		if (ft_strncmp(&env[i][0], key, len) == 0)
-			return (&env[i][len]);
-		i++;
+		len = ft_strlen(my_env->key);
+		if (ft_strncmp(my_env->key, key, len) == 0)
+			return (my_env->content);
+		my_env = my_env->next;
 	}
 	return (NULL);
 }
@@ -43,21 +42,21 @@ int	ft_switcher(char **args, char **env)
 	t_env	*my_env;
 
 	fd = 1;
-	my_env = ft_create_my_env(env);
-	ft_print_myenv(my_env);
-	/*if (ft_strcmp(args[0], "cd") == 0)
-		ft_cd(args[1], ft_find_env(env, "HOME="));
+	my_env = ft_create_my_env(env, NULL);
+	if (ft_strcmp(args[0], "cd") == 0)
+		ft_cd(args[1], ft_find_env(my_env, "HOME"));
 	//todo: может быть несколько аргументов
 	else if (ft_strcmp(args[0], "echo") == 0)
 		ft_echo(fd, &args[1]);
 	else if (ft_strcmp(args[0], "pwd") == 0)
 		ft_pwd(fd);
 	else if (ft_strcmp(args[0], "export") == 0)
-		ft_export(&args[1], my_env);
+		ft_export(my_env, &args[1]);
 	else
-		printf("no");*/
+		printf("no");
+	ft_print_myenv(my_env);
 
-		ft_lstclear_env(&my_env);
+	ft_lstclear_env(&my_env);
 	return (0);
 }
 
