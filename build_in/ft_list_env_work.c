@@ -2,14 +2,14 @@
 
 t_env	*ft_lstnew_env(char *key, char *content)
 {
-	t_env	*str;
+	t_env	*env;
 
-	if (!(str = (t_list *)malloc(sizeof(t_list))))
+	if (!(env = (t_env *)malloc(sizeof(t_env))))
 		return (NULL);
-	str->key = key;
-	str->content = content;
-	str->next = NULL;
-	return (str);
+	env->key = key;
+	env->content = content;
+	env->next = NULL;
+	return (env);
 }
 
 t_env	*ft_lstlast_env(t_env *lst)
@@ -32,12 +32,29 @@ void	ft_lstadd_back_env(t_env **lst, t_env *new)
 	}
 }
 
-void	ft_lstiter_env(t_env *lst, void (*f)(void *))
+void	ft_lstiter_env(t_env *lst, void (*f_key)(char *), void (*f_con)(char *))
 {
 	while (lst != NULL)
 	{
-		f(lst->content);
+		f_key(lst->key);
+		f_con(lst->content);
 		lst = lst->next;
+	}
+}
+
+void	ft_lstclear_env(t_env **lst)
+{
+	t_env	*l;
+
+	if (*lst)
+	{
+		while (*lst)
+		{
+			l = (*lst)->next;
+			free(*lst);
+			(*lst) = NULL;
+			*lst = l;
+		}
 	}
 }
 

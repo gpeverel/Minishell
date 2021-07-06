@@ -44,6 +44,7 @@ int	ft_switcher(char **args, char **env)
 
 	fd = 1;
 	my_env = ft_create_my_env(env);
+	ft_print_myenv(my_env);
 	/*if (ft_strcmp(args[0], "cd") == 0)
 		ft_cd(args[1], ft_find_env(env, "HOME="));
 	//todo: может быть несколько аргументов
@@ -55,6 +56,8 @@ int	ft_switcher(char **args, char **env)
 		ft_export(&args[1], my_env);
 	else
 		printf("no");*/
+
+		ft_lstclear_env(&my_env);
 	return (0);
 }
 

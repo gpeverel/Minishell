@@ -33,5 +33,12 @@ int		ft_echo(int fd, char **str);
 int		ft_cd(char *path, char *home);
 int		ft_pwd(int fd);
 int		ft_export(char **args, char **env);
+t_env 	*ft_create_my_env(char **env);
+t_env	*ft_lstnew_env(char *key, char *content);
+t_env	*ft_lstlast_env(t_env *lst);
+void	ft_lstadd_back_env(t_env **lst, t_env *new);
+void	ft_lstiter_env(t_env *lst, void (*f_key)(char *), void (*f_con)(char *));
+void 	ft_print_myenv(t_env *my_env);
+void	ft_lstclear_env(t_env **lst);
 
 #endif
