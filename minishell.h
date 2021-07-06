@@ -26,6 +26,7 @@ typedef struct		s_env
 	char			*key;
 	char			*content;
 	struct s_env	*next;
+	struct s_env	*prev;
 }					t_env;
 
 int		ft_strcmp(char *s1, char *s2);
@@ -38,10 +39,11 @@ t_env	*ft_lstnew_env(char *key, char *content);
 t_env	*ft_lstlast_env(t_env *lst);
 void	ft_lstadd_back_env(t_env **lst, t_env *new);
 void	ft_lstiter_env(t_env *lst, void (*f_key)(char *), void (*f_con)(char *));
-void 	ft_print_myenv(t_env *my_env);
+void 	ft_print_myenv(t_env *my_env, int i);
 void	ft_lstclear_env(t_env **lst);
 char	**ft_find_env(t_env *my_env, char *key);
 char	*ft_get_content(char *source);
 char	*ft_get_key(char *str);
+void	ft_unset(t_env *my_env, char **args);
 
 #endif

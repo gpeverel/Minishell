@@ -9,6 +9,7 @@ t_env	*ft_lstnew_env(char *key, char *content)
 	env->key = key;
 	env->content = content;
 	env->next = NULL;
+	env->prev = NULL;
 	return (env);
 }
 
@@ -23,10 +24,15 @@ t_env	*ft_lstlast_env(t_env *lst)
 
 void	ft_lstadd_back_env(t_env **lst, t_env *new)
 {
+	t_env *last;
 	if (new && lst)
 	{
 		if (*lst)
-			ft_lstlast_env(*lst)->next = new;
+		{
+			last = ft_lstlast_env(*lst);
+			last->next = new;
+			new->prev = last;
+		}
 		else
 			*lst = new;
 	}

@@ -27,7 +27,7 @@ int	ft_export(t_env *my_env, char **args)
 
 	i = 0;
 	if (args[i] == NULL)
-		ft_print_myenv(my_env);
+		ft_print_myenv(my_env, 1);
 	else {
 		//my_env = ft_create_my_env(args, my_env);
 		while (args[i] != NULL)
