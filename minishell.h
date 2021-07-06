@@ -21,6 +21,13 @@ char	*find_key_env(char **env, char *key, int *k, int *z);
 int		ifkey(char c);
 
 //build-in
+typedef struct		s_env
+{
+	char			*key;
+	char			*content;
+	struct s_env	*next;
+}					t_env;
+
 int		ft_strcmp(char *s1, char *s2);
 int		ft_echo(int fd, char **str);
 int		ft_cd(char *path, char *home);

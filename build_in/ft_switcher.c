@@ -36,38 +36,15 @@ char	*ft_find_env(char **env, char *key)
 	return (NULL);
 }
 
-char **ft_create_my_env(char **env)
-{
-	int size;
-	int	i;
-	char	**my_env;
-
-	i = 0;
-	size = 0;
-	while (env[size] != NULL)
-		size++;
-	if ((my_env = (char **)malloc((size + 2) * sizeof(char *))) == NULL)
-		return (NULL);
-	while (env[i] != NULL)
-	{
-		//todo: добавить кавычки у аргументов
-		my_env[i] = ft_strdup(env[i]);
-		i++;
-	}
-	my_env[i] = ft_strjoin("_=", getcwd(NULL, 0));
-	i++;
-	my_env[i] = NULL;
-	return (my_env);
-}
 
 int	ft_switcher(char **args, char **env)
 {
-	int fd;
-	char **my_env;
+	int		fd;
+	t_env	*my_env;
 
 	fd = 1;
 	my_env = ft_create_my_env(env);
-	if (ft_strcmp(args[0], "cd") == 0)
+	/*if (ft_strcmp(args[0], "cd") == 0)
 		ft_cd(args[1], ft_find_env(env, "HOME="));
 	//todo: может быть несколько аргументов
 	else if (ft_strcmp(args[0], "echo") == 0)
@@ -77,7 +54,7 @@ int	ft_switcher(char **args, char **env)
 	else if (ft_strcmp(args[0], "export") == 0)
 		ft_export(&args[1], my_env);
 	else
-		printf("no");
+		printf("no");*/
 	return (0);
 }
 
