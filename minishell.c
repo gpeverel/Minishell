@@ -188,7 +188,9 @@ int		main(int argc, char** argv, char **env)
 	int	i = 0;
 	int	len;
 	//char *str ="      echo    ' $sd ' >>  myfile$USER  < newfile _$USER #ggh\' asdf";
-	char *str1 = "   \'ASD\'\"QWE\">    123   $MY\"asd      15\"'1b2m3'";
+	//char *str1 = "   \'ASD\'\"QWE\">    123   $MY\"asd      15\"'1b2m3'";
+	char *str1 = "  ASD <\"13245\"<<< \"  ";// для препарсера
+
 	len = ft_strlen(str1);
 	char *str = malloc(len + 1);
 
@@ -202,8 +204,8 @@ int		main(int argc, char** argv, char **env)
 	printf("mainStr = %s|\n", str);
 		//while (*argv)
 		//{
-			//command_pre_parser(str);
-			str = command_parser(str, env);
+			i = command_pre_parser(str);
+			//str = command_parser(str, env);
 			free(str);
 			//printf("%s", str);
 			//while (1)

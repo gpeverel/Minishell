@@ -80,4 +80,18 @@ void	push_elem(char *str);
 void	show_list();
 char	find_type_arg(char *str);
 
+//	preparser
+char	*redir_pre_pars(char *str);
+int		backet_check(char *str, int buck, int *place, char c);
+char	*recalcul_backet(char *str);
+
+//	pre_redirect
+int		skip_first_redir(char *str, int i, char fir, char sec);
+char	*skip_clear_filename(char *str, int *i);
+char	*redir_pre_right(char *str, int *i);
+char	*redir_pre_left(char *str, int *i);
+int		command_pre_parser(char *str);
+
+
+
 #endif
