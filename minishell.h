@@ -30,7 +30,7 @@ typedef struct		s_env
 
 int		ft_strcmp(char *s1, char *s2);
 int		ft_echo(int fd, char **str);
-int		ft_cd(char *path, char *home);
+int		ft_cd(char *path, char **home);
 int		ft_pwd(int fd);
 int		ft_export(t_env *my_env, char **args);
 t_env 	*ft_create_my_env(char **env, t_env *my_env);
@@ -40,7 +40,7 @@ void	ft_lstadd_back_env(t_env **lst, t_env *new);
 void	ft_lstiter_env(t_env *lst, void (*f_key)(char *), void (*f_con)(char *));
 void 	ft_print_myenv(t_env *my_env);
 void	ft_lstclear_env(t_env **lst);
-char	*ft_find_env(t_env *my_env, char *key);
+char	**ft_find_env(t_env *my_env, char *key);
 char	*ft_get_content(char *source);
 char	*ft_get_key(char *str);
 

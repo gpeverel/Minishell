@@ -20,16 +20,18 @@ int	ft_strcmp(char *s1, char *s2)
 	return (0);
 }
 
-char	*ft_find_env(t_env *my_env, char *key)
+char	**ft_find_env(t_env *my_env, char *key)
 {
-	int		i;
 	size_t	len;
 
 	while (my_env != NULL)
 	{
 		len = ft_strlen(my_env->key);
 		if (ft_strncmp(my_env->key, key, len) == 0)
-			return (my_env->content);
+		{
+			printf("1 %p\n", &my_env->content);
+			return (&my_env->content);
+		}
 		my_env = my_env->next;
 	}
 	return (NULL);
