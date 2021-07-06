@@ -1,41 +1,22 @@
 #include "../minishell.h"
 
-/*char	*ft_print_env(char **env)
+t_env *ft_add_env(t_env *my_env, char *arg)
 {
-	int		i;
+	char	*key;
+	char	**content;
 
-	i = 0;
-	while (env[i] != NULL)
+	key = ft_get_key(arg);
+	content = ft_find_env(my_env, key);
+	if (content != NULL)
 	{
-		printf("declare -x %s\n", env[i]);
-		i++;
+		//*content = ft_get_content(arg);
 	}
-	return (NULL);
-}*/
-
-/*char **ft_paste_env(char **env, char *arg)
-{
-	int size;
-	int	i;
-	char	**new_env;
-
-	i = 0;
-	size = 0;
-	while (env[size] != NULL)
-		size++;
-	if ((new_env = malloc((size + 2) * sizeof(char *))) == NULL)
-		return (NULL);
-	while (env[i] != NULL)
+	else
 	{
-		new_env[i] = ft_strdup(env[i]);
-		free(env[i]);
-		i++;
+		ft_lstadd_back_env(&my_env, ft_lstnew_env(key, ft_get_content(arg)));
 	}
-	free(env);
-	new_env[i] = ft_strdup(arg);
-	new_env[++i] = NULL;
-	return (new_env);
-}*/
+	return my_env;
+}
 
 int	ft_export(t_env *my_env, char **args)
 {
@@ -45,7 +26,13 @@ int	ft_export(t_env *my_env, char **args)
 	if (args[i] == NULL)
 		ft_print_myenv(my_env);
 	else {
-		my_env = ft_create_my_env(args, my_env);
+		//my_env = ft_create_my_env(args, my_env);
+
+		while (args[i] != NULL)
+		{
+			my_env = ft_add_env(my_env, args[i]);
+			i++;
+		}
 		//ft_print_myenv(my_env);
 	}
 	return (0);

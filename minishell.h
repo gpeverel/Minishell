@@ -40,5 +40,8 @@ void	ft_lstadd_back_env(t_env **lst, t_env *new);
 void	ft_lstiter_env(t_env *lst, void (*f_key)(char *), void (*f_con)(char *));
 void 	ft_print_myenv(t_env *my_env);
 void	ft_lstclear_env(t_env **lst);
+char	*ft_find_env(t_env *my_env, char *key);
+char	*ft_get_content(char *source);
+char	*ft_get_key(char *str);
 
 #endif

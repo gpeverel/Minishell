@@ -2,18 +2,24 @@
 
 void 	ft_print_content(char *str)
 {
-	write(1, "\"", 1);
+	printf("\"%s\"\n", str);
+	/*write(1, "\"", 1);
 	write(1, str, ft_strlen(str));
 	write(1, "\"", 1);
-	write(1, "\n", 1);
+	write(1, "\n", 1);*/
 }
 
 void 	ft_print_key(char *str)
 {
-	//printf("declare -x");
-	write(1, "declare -x ", 11);
+	char *prefix;
+	char *posfix;
+
+	prefix = "declare -x ";
+	posfix = "=";
+	//printf("declare -x %s =", str);
+	write(1, prefix, ft_strlen(prefix));
 	write(1, str, ft_strlen(str));
-	write(1, "=", 1);
+	write(1, posfix, ft_strlen(posfix));
 }
 
 void 	ft_print_myenv(t_env *my_env)
