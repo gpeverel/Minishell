@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-t_env	**ft_find_node(t_env *my_env, char *key)
+t_env	*ft_find_node(t_env *my_env, char *key)
 {
 	size_t	len;
 
@@ -10,18 +10,18 @@ t_env	**ft_find_node(t_env *my_env, char *key)
 		if (ft_strncmp(my_env->key, key, len) == 0)
 		{
 			//printf("my_env->key=%s\n\n", my_env->key);
-			//printf("my_env->key=%s\n\n", my_env->key);
-			return (&my_env);
+			//printf("my_env=%p\n\n", my_env);
+			return (my_env);
 		}
 		my_env = my_env->next;
 	}
 	return (NULL);
 }
 
-void	ft_unset(t_env *my_env, char **args)
+t_env	*ft_unset(t_env *my_env, char **args)
 {
 	int 	i;
-	t_env	**temp;
+	t_env	*temp;
 	t_env	*prev;
 	t_env	*next;
 
@@ -30,19 +30,23 @@ void	ft_unset(t_env *my_env, char **args)
 	{
 		//printf("%s\n\n", args[i]);
 		temp = ft_find_node(my_env, args[i]);
+		//printf("temp=%p\n\n", temp);
 		if(temp != NULL)
 		{
-			prev = (*temp)->prev;
-			next = (*temp)->next;
-			prev->next = (*temp)->next;
-			next->prev = (*temp)->prev;
-			free((*temp)->content);
-			/*(*temp)->next = NULL;
-			(*temp)->prev = NULL;*/
-			free(*temp);
-			(*temp) = NULL;
+			prev = (temp)->prev;
+			next = (temp)->next;
+			if (prev != NULL)
+				prev->next = next;
+			else
+				my_env = my_env->next;
+			if (next != NULL)
+				next->prev = prev;
+			free((temp)->content);
+			free(temp);
+			(temp) = NULL;
 		}
 		i++;
 	}
+	return (my_env);
 }
 

@@ -44,6 +44,6 @@ void	ft_lstclear_env(t_env **lst);
 char	**ft_find_env(t_env *my_env, char *key);
 char	*ft_get_content(char *source);
 char	*ft_get_key(char *str);
-void	ft_unset(t_env *my_env, char **args);
+t_env	*ft_unset(t_env *my_env, char **args);
 
 #endif
