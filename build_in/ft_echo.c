@@ -9,7 +9,7 @@ int	ft_echo(int fd, char **str)
 	flag = 0;
 	if (str[i] != NULL)
 	{
-		if (ft_strcmp(str[i], "-n") == 0)
+		while (ft_strcmp(str[i], "-n") == 0)
 		{
 			flag = 1;
 			i++;
