@@ -7,7 +7,7 @@ int	ft_pwd(int fd)
 
 	buf = NULL;
 	pwd = getcwd(buf, 0);
-	printf("%s\n", pwd);
+	write(fd, pwd, ft_strlen(pwd));
 	free(pwd);
 	return (0);
 }

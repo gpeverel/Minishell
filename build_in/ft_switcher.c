@@ -68,7 +68,8 @@ int	ft_switcher(char **args, char **env)
 
 int	main(int argc, char **argv, char **env)
 {
-	ft_switcher(&argv[1], env);
+	if (argc > 1)
+		ft_switcher(&argv[1], env);
 	while (1);
 	return (0);
 }

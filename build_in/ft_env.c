@@ -2,13 +2,13 @@
 
 char	*ft_get_content(char *source)
 {
-	int		i;
+	size_t	i;
 	char	*str;
 
 	i = 0;
 	while (source[i] != '=' && source[i] != '\0')
 		i++;
-	if(i == ft_strlen(source))
+	if (i == ft_strlen(source))
 		str = NULL;
 	else
 	{

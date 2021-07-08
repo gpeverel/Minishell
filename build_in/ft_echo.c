@@ -17,6 +17,7 @@ int	ft_echo(int fd, char **str)
 		while (str[i] != NULL)
 		{
 			write(fd, str[i], ft_strlen(str[i]));
+			write(fd, " ", 1);
 			i++;
 		}
 	}
