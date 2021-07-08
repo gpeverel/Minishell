@@ -31,7 +31,7 @@ typedef struct		s_env
 
 int		ft_strcmp(char *s1, char *s2);
 int		ft_echo(int fd, char **str);
-int		ft_cd(char *path, char **home);
+int		ft_cd(t_env	*my_env, char *path);
 int		ft_pwd(int fd);
 int		ft_export(t_env *my_env, char **args);
 t_env 	*ft_create_my_env(char **env, t_env *my_env);
