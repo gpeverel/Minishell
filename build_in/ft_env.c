@@ -1,34 +1,39 @@
 #include "../minishell.h"
 
-char *ft_get_content(char *source)
+char	*ft_get_content(char *source)
 {
-	int i;
-	char *str;
+	int		i;
+	char	*str;
 
 	i = 0;
-	while (source[i] != '=')
+	while (source[i] != '=' && source[i] != '\0')
 		i++;
-	i++;
-	str = ft_strdup(&source[i]);
+	if(i == ft_strlen(source))
+		str = NULL;
+	else
+	{
+		i++;
+		str = ft_strdup(&source[i]);
+	}
 	return (str);
 }
 
-char *ft_get_key(char *str)
+char	*ft_get_key(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i] != '=')
 		i++;
 	str[i] = '\0';
-	return str;
+	return (str);
 }
 
-t_env *ft_create_my_env(char **env, t_env *my_env)
+t_env	*ft_create_my_env(char **env, t_env *my_env)
 {
 	int		i;
-	char 	*key;
-	char 	*content;
+	char	*key;
+	char	*content;
 
 	i = 0;
 	if (my_env == NULL)
@@ -44,4 +49,3 @@ t_env *ft_create_my_env(char **env, t_env *my_env)
 	}
 	return (my_env);
 }
-

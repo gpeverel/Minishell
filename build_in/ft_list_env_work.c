@@ -4,7 +4,8 @@ t_env	*ft_lstnew_env(char *key, char *content)
 {
 	t_env	*env;
 
-	if (!(env = (t_env *)malloc(sizeof(t_env))))
+	env = (t_env *)malloc(sizeof(t_env));
+	if (!env)
 		return (NULL);
 	env->key = key;
 	env->content = content;
@@ -24,7 +25,8 @@ t_env	*ft_lstlast_env(t_env *lst)
 
 void	ft_lstadd_back_env(t_env **lst, t_env *new)
 {
-	t_env *last;
+	t_env	*last;
+
 	if (new && lst)
 	{
 		if (*lst)
@@ -64,5 +66,3 @@ void	ft_lstclear_env(t_env **lst)
 		}
 	}
 }
-
-

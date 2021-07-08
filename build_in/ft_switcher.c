@@ -45,8 +45,8 @@ int	ft_switcher(char **args, char **env)
 
 	fd = 1;
 	my_env = ft_create_my_env(env, NULL);
-ft_print_myenv(my_env, 0);
-printf("\n\n");
+//ft_print_myenv(my_env, 0);
+//printf("\n\n");
 	if (ft_strcmp(args[0], "cd") == 0)
 		ft_cd(my_env, args[1]);
 	else if (ft_strcmp(args[0], "echo") == 0)
@@ -61,8 +61,7 @@ printf("\n\n");
 		my_env = ft_unset(my_env, &args[1]);
 	else
 		printf("no\n");
-ft_print_myenv(my_env, 0);
-
+//ft_print_myenv(my_env, 0);
 	ft_lstclear_env(&my_env);
 	return (0);
 }
