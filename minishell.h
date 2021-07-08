@@ -45,5 +45,6 @@ char	**ft_find_env(t_env *my_env, char *key);
 char	*ft_get_content(char *source);
 char	*ft_get_key(char *str);
 t_env	*ft_unset(t_env *my_env, char **args);
+void	ft_exit(char **args);
 
 #endif
