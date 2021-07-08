@@ -6,6 +6,8 @@
 #include <fcntl.h>
 #include <errno.h>
 #include "libft/libft.h"
+#include <readline/readline.h>
+#include <readline/history.h>
 
 # define echo 0b00000001;
 # define cd 0b00000001;
@@ -60,7 +62,8 @@ int		ifkey(char c);
 
 // pars_redirect
 char	*pars_redir_one(char *str, int *i, char **env);
-int		delete_redir();
+void	redir_go_check_line(char **str, int *j, char **env);
+int		check_main_symb(char **str, int *j, char **env);
 void	push_redir(char *str, int i, char *filename);
 char	*ft_strnewcpy(char *str, int size);
 
@@ -88,8 +91,9 @@ char	*recalcul_backet(char *str);
 //	pre_redirect
 int		skip_first_redir(char *str, int i, char fir, char sec);
 char	*skip_clear_filename(char *str, int *i);
-char	*redir_pre_right(char *str, int *i);
-char	*redir_pre_left(char *str, int *i);
+//char	*redir_pre_right(char *str, int *i); // убрать эти функции из файла
+//char	*redir_pre_left(char *str, int *i);
+char	*redir_pre_side(char *str, int *i);
 int		command_pre_parser(char *str);
 
 

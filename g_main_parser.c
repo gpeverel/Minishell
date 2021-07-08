@@ -45,40 +45,58 @@ char	*init_arg(char *str, int start, int end)
 	return (arg);
 }
 
+int		check_bucket_in_str(char **str, int *i, char **env)
+{
+	if ((*str)[*i] == '\'')
+	{
+		all.check_dol = 2;
+		(*str) = pars_bucket((*str), i);
+		return (1);
+	}
+	else if ((*str)[*i] == '\"')
+	{
+		all.check_dol = 2;
+		(*str) = pars_double_bucket((*str), i, env);
+		return (1);
+	}
+	return (0);
+}
+
 char	*check_main_symbols_str(char *str, int *i, char **env)
 {
 	while (str[*i] != ' ' && str[*i])
 	{
-		if (str[*i] == '\'')
-		{
-			str = pars_bucket(str, i);
-			all.check_dol = 0;
-			if (str[*i] == '<' || str[*i] == '>')
-				break ;
-		}
-		else if (str[*i] == '\"')
-		{
-			str = pars_double_bucket(str, i, env);
-			all.check_dol = 0;
-			if (str[*i] == '<' || str[*i] == '>')
-				break ;
-		}
+		// if (str[*i] == '\'')
+		// {
+		// 	all.check_dol = 2;
+		// 	str = pars_bucket(str, i);
+		// }
+		// else if (str[*i] == '\"')
+		// {
+		// 	all.check_dol = 2;
+		// 	str = pars_double_bucket(str, i, env);
+		// }
+		if (check_bucket_in_str(&str, i, env))
+			continue;
 		else if (str[*i] == '<' || str[*i] == '>')
 		{
 			str = pars_redir_one(str, i, env);
-			//break;
+			if (str[*i] != '<' || str[*i] != '>')
+				break;// чтобы не пропускать редиректы
 		}
-		//if (str[*i] == '\\')
-		//	str = pars_slesh(str, i);
 		else if (str[*i] == '$')
-		{
+		{		//  большие проблемы с этой штукой
 			str = pars_dollar(str, i, env);
-			//printf("str[i] = %c\n", str[*i]);
+			printf("$ str[i] = %c\n", str[*i]);
+			printf("$ str[i + 1] = %c\n", str[*i + 1]);
 		}
 		else if (str[*i] == ' ')
 			str = delete_space(str, i);
 		else
-			break;
+		{
+			all.check_dol = 2;
+			(*i)++;
+		}
 	}
 	return (str);
 }

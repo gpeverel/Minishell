@@ -38,22 +38,6 @@ char	*get_key_in_env(char **env, char *key)
 	k = -1;
 	while (env[++k])
 	{
-		// if (ft_strnstr(env[k], key, ft_strlen(env[k])))
-		// {
-		// 	z = 0;
-		// 	while (env[k][z] != '=' && env[k][z])
-		// 		z++;
-		// 	//tmp2 = ft_strnstr(env[k], )
-		// 	tmp2 = ft_substr(env[k], 0, z);// собираю все до =
-		// 	if (ft_strncmp(key, tmp2, ft_strlen(env[k])) == 0)
-		// 	{// нахожу в команде ключ
-		// 		free(tmp2);
-		// 		tmp2 = NULL;
-		// 		break ;
-		// 	}
-		// 	free(tmp2);
-		// }
-		//printf("%s\n", env[k]);
 		tmp2 = find_key_env(env, key, &k, &z);
 		//printf("%s\n", tmp2);
 		if (tmp2 == NULL)// значит нашел
@@ -98,7 +82,8 @@ char	*pars_dollar(char *str, int *i, char **env)
 	if (tmp2 == NULL)
 	{
 		tmp2 = ft_strdup(str + *i);// пропустили весь ключ
-		all.check_dol = 1;// чтобы нормально работать с пробелами при парсере
+		if (all.check_dol != 2)// если перед $ были другие символы
+			all.check_dol = 1;// чтобы нормально работать с пробелами при парсере
 	}
 	else
 	{// если ключ нашли то берем его и все что после него

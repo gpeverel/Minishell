@@ -12,6 +12,11 @@ int		skip_first_redir(char *str, int i, char fir, char sec)
 	}
 	while (str[i] == ' ')
 		i++;
+	if (str[i] == '\0')
+	{
+		ft_error("Нет названия файла для редиректа!");
+		return (-1);
+	}
 	return (i);
 }
 
