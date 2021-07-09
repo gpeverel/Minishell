@@ -9,13 +9,13 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-# define echo 0b00000001;
+/*# define echo 0b00000001;
 # define cd 0b00000001;
 # define pwd 0b00000001;
 # define export 0b00000001;
 # define unset 0b00000001;
 # define enva 0b00000001;
-# define exit 0b00000001;
+# define exit 0b00000001;*/
 
 typedef struct	s_redir
 {
@@ -114,7 +114,7 @@ t_env  *ft_create_my_env(char **env, t_env *my_env);
 t_env  *ft_lstnew_env(char *key, char *content);
 t_env  *ft_lstlast_env(t_env *lst);
 void   ft_lstadd_back_env(t_env **lst, t_env *new);
-void   ft_lstiter_env(t_env *lst, void (*f_key)(char *), void (*f_con)(char *));
+void   ft_iter_env(t_env *lst, void (*f_key)(char *), void (*f_con)(char *));
 void   ft_print_myenv(t_env *my_env, int i);
 void   ft_lstclear_env(t_env **lst);
 char   **ft_find_env(t_env *my_env, char *key);
@@ -122,5 +122,7 @@ char   *ft_get_content(char *source);
 char   *ft_get_key(char *str);
 t_env  *ft_unset(t_env *my_env, char **args);
 void   ft_exit(char **args);
+
+int ft_adapter(t_env *my_env);
 
 #endif

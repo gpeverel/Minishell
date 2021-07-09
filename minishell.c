@@ -83,11 +83,11 @@ char	*command_parser(char *str, char **env)
 		{
 			arg = init_arg(str, check_start_arg, i);
 			push_elem(arg);
-			printf("|%s|\n", arg);
+			//printf("|%s|\n", arg);
 			//continue;// вроде не нужен
 		}
 	}
-	show_list();
+	//show_list();
 	return (str);
 
 }
@@ -106,7 +106,11 @@ int		main(int argc, char** argv, char **env)
 
 	//char	*str1 = "   echo >>  $USER  \"NAME\"USER\"\'_file\'\"  <\'2file\'\"_best^\"";
 	//char	*str1 = "   echo  >> \"$MYY?$USER$MY very\">ASD\"asd\"";
-	char	*str1 = "   echo  >>\"first\"     >>  \"get\"$USER\"  !!!\"   Second\"asd\"";
+
+	//char	*str1 = "   echo 123  cad >> pwd >> \"pwd\" ";
+	//char	*str1 = "   echo $PATH  ";
+	char	*str1 = "   export  ";
+
 	//char	*str1 = "   echo   Second\"asd\"   ";
 	len = ft_strlen(str1);
 	char *str = ft_calloc(len + 1, 1);
@@ -119,12 +123,13 @@ int		main(int argc, char** argv, char **env)
 	//push_command_in_history(str);
 
 	initstruct();// инициализируем все поля в структуре
-	printf("mainStr = %s|\n", str);
+	//printf("mainStr = %s|\n", str);
 	//while (*argv)
 	//{
 		i = command_pre_parser(str);
 		if (i != -1)
 			str = command_parser(str, env);
+	ft_adapter(my_env);
 		free(str);
 		//printf("%s", str);
 		// while (1)

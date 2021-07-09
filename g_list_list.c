@@ -19,7 +19,7 @@ void	del_elem()
 	}
 }
 
-int		ft_strcmp(char *str1, char *str2)
+/*int		ft_strcmp(char *str1, char *str2)
 {
 	int i;
 
@@ -33,7 +33,7 @@ int		ft_strcmp(char *str1, char *str2)
 	if (!(str1[i] || str2[i]))
 		return (str1[i] - str2[i]);
 	return (0);
-}
+}*/
 
 void	push_elem(char *str)
 {
