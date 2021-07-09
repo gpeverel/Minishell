@@ -38,13 +38,11 @@ char	**ft_find_env(t_env *my_env, char *key)
 	return (NULL);
 }
 
-int	ft_switcher(char **args, char **env)
+int	ft_switcher(char **args, t_env	*my_env)
 {
 	int		fd;
-	t_env	*my_env;
 
 	fd = 1;
-	my_env = ft_create_my_env(env, NULL);
 //ft_print_myenv(my_env, 0);
 //printf("\n\n");
 	if (ft_strcmp(args[0], "cd") == 0)
@@ -64,14 +62,5 @@ int	ft_switcher(char **args, char **env)
 	else
 		printf("no\n");
 //ft_print_myenv(my_env, 0);
-	ft_lstclear_env(&my_env);
-	return (0);
-}
-
-int	main(int argc, char **argv, char **env)
-{
-	if (argc > 1)
-		ft_switcher(&argv[1], env);
-	while (1);
 	return (0);
 }

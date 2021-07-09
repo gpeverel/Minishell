@@ -100,6 +100,9 @@ int		main(int argc, char** argv, char **env)
 {
 	int	i = 0;
 	int	len;
+	t_env	*my_env;
+
+	my_env = ft_create_my_env(env, NULL);
 
 	//char	*str1 = "   echo >>  $USER  \"NAME\"USER\"\'_file\'\"  <\'2file\'\"_best^\"";
 	//char	*str1 = "   echo  >> \"$MYY?$USER$MY very\">ASD\"asd\"";
@@ -128,7 +131,8 @@ int		main(int argc, char** argv, char **env)
 		// {}
 
 
-
+	ft_lstclear_env(&my_env);
+	return (0);
 
 
 }
