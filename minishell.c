@@ -113,7 +113,7 @@ int		main(int argc, char** argv, char **env)
 		i++;
 	}
 
-	push_command_in_history(str);
+	//push_command_in_history(str);
 
 	initstruct();// инициализируем все поля в структуре
 	printf("mainStr = %s|\n", str);
