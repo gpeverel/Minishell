@@ -98,42 +98,59 @@ char	*command_parser(char *str, t_env *my_env)
 
 int		main(int argc, char** argv, char **env)
 {
-	int	i = 0;
-	int	len;
+	int		i = 0;
+	//int	len;
+	int		fd;
 	t_env	*my_env;
-
-	my_env = ft_create_my_env(env, NULL);
+	char	*str;
 
 	//char	*str1 = "   echo >>  $USER  \"NAME\"USER\"\'_file\'\"  <\'2file\'\"_best^\"";
 	//char	*str1 = "   echo  >> \"$MYY?$USER$MY very\">ASD\"asd\"";
 	//char	*str1 = "   echo  >>\"first\"     >>  \"get\"$USER\"  !!!\"  $USER Second\"asd\"";
 	//char	*str1 = "   echo   Second\"asd\"   ";
 	//char	*str1 = "   echo $USERR  Second\"asd\"   ";
-	char *str1 = " $MYY|$MY |\"bucket\"|\'awdASD\'  |"; // проверка пайпов
-	len = ft_strlen(str1);
-	char *str = ft_calloc(len + 1, 1);
-	while (i < len)
-	{
-		str[i] = str1[i];
-		i++;
-	}
-
-	//push_command_in_history(str);
-
-	initstruct();// инициализируем все поля в структуре
+	// char *str1 = " $MYY|$MY |\"bucket\"|\'awdASD\'  |"; // проверка пайпов
+	// len = ft_strlen(str1);
+	// char *str = ft_calloc(len + 1, 1);
+	// while (i < len)
+	// {
+	// 	str[i] = str1[i];
+	// 	i++;
+	// }
 	//printf("mainStr = %s|\n", str);
-	//while (*argv)
+
+	my_env = ft_create_my_env(env, NULL);
+	get_history_from_file();
+
+	fd = open("fhistory", O_WRONLY | O_APPEND, 0644);
+	int z = 0;
+	//while (z < 3)
 	//{
-		i = command_pre_parser(str);
-		if (i != -1)
-			str = command_parser(str, my_env);
-	free(str);
-		//printf("%s", str);
-		// while (1)
-		// {}
+		initstruct();// инициализируем все поля в структуре
+		str = readline ("syka_write: ");
+		//if (ft_strncmp("stop", str, 4) == 0)
+		//	break;
+		if (str && *str)
+		{
+			write(fd, str, ft_strlen(str));
+			write(fd, "\n", 1);
+			//add_history(str);
+			i = command_pre_parser(str);
+			if (i != -1)
+				str = command_parser(str, my_env);
 
-
+			//ft_adapter();
+			free(str);
+			del_all_pars_list();
+			//printf("str = %s\n", str);
+			z++;
+		}
+	//}
+	close(fd);
+	//printf("%s", str);
 	ft_lstclear_env(&my_env);
+		while (1)
+		{}
 	return (0);
 
 

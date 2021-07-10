@@ -7,6 +7,7 @@
 #include <errno.h>
 #include <string.h>
 #include "libft/libft.h"
+#include "GNL/get_next_line.h"
 #include <readline/readline.h>
 #include <readline/history.h>
 
@@ -87,10 +88,11 @@ void	initstruct();
 
 //list_list
 void	del_elem();
-int		ft_strcmp(char *str1, char *str2);
+//int		ft_strcmp(char *str1, char *str2);
 void	push_elem(char *str);
 void	show_list();
 char	find_type_arg(char *str);
+void	del_all_pars_list();
 
 //	preparser
 char	*redir_pre_pars(char *str);
@@ -105,7 +107,8 @@ char	*skip_clear_filename(char *str, int *i);
 char	*redir_pre_side(char *str, int *i);
 int		command_pre_parser(char *str);
 
-
+//		history
+void	get_history_from_file();
 
 
 int       ft_strcmp(char *s1, char *s2);
