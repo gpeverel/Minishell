@@ -127,7 +127,8 @@ int		main(int argc, char** argv, char **env)
 		i = command_pre_parser(str);
 		if (i != -1)
 			str = command_parser(str, my_env);
-		free(str);
+	ft_adapter(my_env);
+	free(str);
 		//printf("%s", str);
 		// while (1)
 		// {}
