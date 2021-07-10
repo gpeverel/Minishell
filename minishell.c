@@ -124,8 +124,8 @@ int		main(int argc, char** argv, char **env)
 
 	fd = open("fhistory", O_WRONLY | O_APPEND, 0644);
 	int z = 0;
-	//while (z < 3)
-	//{
+	while (1)
+	{
 		initstruct();// инициализируем все поля в структуре
 		str = readline ("syka_write: ");
 		//if (ft_strncmp("stop", str, 4) == 0)
@@ -134,23 +134,23 @@ int		main(int argc, char** argv, char **env)
 		{
 			write(fd, str, ft_strlen(str));
 			write(fd, "\n", 1);
-			//add_history(str);
+			add_history(str);
 			i = command_pre_parser(str);
 			if (i != -1)
 				str = command_parser(str, my_env);
 
-			//ft_adapter();
+			ft_adapter(my_env);
 			free(str);
 			del_all_pars_list();
 			//printf("str = %s\n", str);
-			z++;
+			//z++;
 		}
-	//}
+	}
 	close(fd);
 	//printf("%s", str);
 	ft_lstclear_env(&my_env);
-		while (1)
-		{}
+		//while (1)
+		//{}
 	return (0);
 
 
