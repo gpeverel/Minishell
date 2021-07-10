@@ -109,6 +109,7 @@ char	*pars_dollar(char *str, int *i, t_env *my_env)
 		z = go_to_end_key(tmp2, z);
 		key = ft_strjoin(key, tmp2);
 		free(tmp2);
+		all.check_dol = 2;// опасно, добавил для пайпов
 		tmp2 = ft_substr(str, *i, ft_strlen(str) - *i);
 	}
 	*i = z;

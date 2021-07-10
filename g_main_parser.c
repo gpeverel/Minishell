@@ -76,7 +76,18 @@ char	*check_main_symbols_str(char *str, int *i, t_env *my_env)
 		// 	all.check_dol = 2;
 		// 	str = pars_double_bucket(str, i, env);
 		// }
-		if (check_bucket_in_str(&str, i, my_env))
+
+
+		// if (str[*i] == '|' && (all.check_dol == 2 || all.check_dol == 1))
+		// 	break;
+		// if (str[*i] == '|')
+		// {
+		// 	(*i)++;
+		// 	break;
+		// }
+		if (check_pipe_in_str(str, i))
+			break;
+		else if (check_bucket_in_str(&str, i, my_env))
 			continue;
 		else if (str[*i] == '<' || str[*i] == '>')
 		{
@@ -87,15 +98,17 @@ char	*check_main_symbols_str(char *str, int *i, t_env *my_env)
 		else if (str[*i] == '$')
 		{		//  большие проблемы с этой штукой
 			str = pars_dollar(str, i, my_env);
-			printf("$ str[i] = %c\n", str[*i]);
-			printf("$ str[i + 1] = %c\n", str[*i + 1]);
+			//printf("$ str[i] = %c\n", str[*i]);
+			//printf("$ str[i + 1] = %c\n", str[*i + 1]);
 		}
-		else if (str[*i] == ' ')
-			str = delete_space(str, i);
+		//else if (str[*i] == ' ')// возможно не нужно
+		//	str = delete_space(str, i);
 		else
 		{
 			all.check_dol = 2;
 			(*i)++;
+			if (str[*i] == '|')
+				break;
 		}
 	}
 	return (str);

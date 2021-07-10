@@ -33,7 +33,7 @@ typedef struct	s_all
 	t_arg	*a_first;
 	t_arg	*a_last;
 	int		check_dol;
-
+	int		pipe_on;
 
 }				t_all;
 
@@ -66,6 +66,7 @@ int		ifkey(char c);
 void	while_key_end(int *i, char *str);
 void	if_str_null(char **tmp2, char *str, int *i);
 char	*join_all_part(char **key, char *tmp2, char *str);
+int		check_pipe_in_str(char *str, int *i);
 
 // pars_redirect
 char	*pars_redir_one(char *str, int *i, t_env *my_env);

@@ -91,7 +91,10 @@ char	find_type_arg(char *str)
 	if (str[0] == '-')
 		return ('f');
 	else if (str[0] == '|' && ft_strlen(str) == 1)
+	{
+		all.pipe_on = 1;
 		return ('p');
+	}
 	else
 		return ('a');
 }
