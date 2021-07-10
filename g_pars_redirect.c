@@ -50,7 +50,7 @@ void	push_redir(char *str, int i, char *filename)
 	}
 }
 
-int		check_main_symb(char **str, int *j, char **env)
+int		check_main_symb(char **str, int *j, t_env *my_env)
 {
 	if ((*str)[*j] == '\'')
 	{
@@ -60,13 +60,13 @@ int		check_main_symb(char **str, int *j, char **env)
 	}
 	if ((*str)[*j] == '\"')
 	{// указатель ставится как надо +
-		(*str) = pars_double_bucket((*str), j, env);
+		(*str) = pars_double_bucket((*str), j, my_env);
 		if ((*str)[*j] == '\'' || (*str)[*j] == '\"')
 			return (1);
 	}
 	if ((*str)[*j] == '$')//		???
 	{
-		(*str) = pars_dollar((*str), j, env);
+		(*str) = pars_dollar((*str), j, my_env);
 		if ((*str)[*j] == '\'' || (*str)[*j] == '\"' || (*str)[*j] == '$')
 			return (1);
 	}
@@ -76,7 +76,7 @@ int		check_main_symb(char **str, int *j, char **env)
 	return (0);
 }
 
-void	redir_go_check_line(char **str, int *j, char **env)
+void	redir_go_check_line(char **str, int *j, t_env *my_env)
 {
 	int	check;
 
@@ -84,12 +84,12 @@ void	redir_go_check_line(char **str, int *j, char **env)
 	while (str[*j])
 	{
 		//printf("%c - ", str[*j]);
-		check = check_main_symb(str, j, env);
+		check = check_main_symb(str, j, my_env);
 		if (check == 1)
 			continue;
 		else if (check == 2)
 			break;
-		j++;
+		(*j)++;
 	}
 }
 
@@ -109,7 +109,7 @@ void	redir_go_check_line(char **str, int *j, char **env)
 // 	return (*str);
 // }
 
-char	*pars_redir_one(char *str, int *i, char **env)
+char	*pars_redir_one(char *str, int *i, t_env *my_env)
 {
 	int		j;
 	int		z;
@@ -124,7 +124,7 @@ char	*pars_redir_one(char *str, int *i, char **env)
 		j++;
 	//printf("%d\n", j);
 	z = j;
-	redir_go_check_line(&str, &j, env);
+	redir_go_check_line(&str, &j, my_env);
 	push_redir(str, *i, ft_strnewcpy(str + z, j - z));// пихаем в структуру
 	tmp = ft_substr(str, 0, *i - 1);
 	tmp = ft_strjoin(tmp, str + j);

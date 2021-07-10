@@ -19,21 +19,21 @@ void	del_elem()
 	}
 }
 
-int		ft_strcmp(char *str1, char *str2)
-{
-	int i;
+// int		ft_strcmp(char *str1, char *str2)
+// {
+// 	int i;
 
-	i = 0;
-	while (str1[i] || str2[i])
-	{
-		if (str1[i] != str2[i])
-			return (str1[i] - str2[i]);
-		i++;
-	}
-	if (!(str1[i] || str2[i]))
-		return (str1[i] - str2[i]);
-	return (0);
-}
+// 	i = 0;
+// 	while (str1[i] || str2[i])
+// 	{
+// 		if (str1[i] != str2[i])
+// 			return (str1[i] - str2[i]);
+// 		i++;
+// 	}
+// 	if (!(str1[i] || str2[i]))
+// 		return (str1[i] - str2[i]);
+// 	return (0);
+// }
 
 void	push_elem(char *str)
 {
@@ -59,7 +59,7 @@ void	push_elem(char *str)
 void	show_list()
 {
 	t_arg* tmp;
-	t_arg* tmpsub;
+	//t_arg* tmpsub;
 
 	if (all.a_last == NULL)
 		return;
@@ -74,22 +74,24 @@ void	show_list()
 
 char	find_type_arg(char *str)
 {
-	if (!ft_strcmp(str, "echo"))
-		return ('c');
-	else if (!ft_strcmp(str, "cd"))
-		return ('c');
-	else if (!ft_strcmp(str, "pwd"))
-		return ('c');
-	else if (!ft_strcmp(str, "export"))
-		return ('c');
-	else if (!ft_strcmp(str, "unset"))
-		return ('c');
-	else if (!ft_strcmp(str, "env"))
-		return ('c');
-	else if (!ft_strcmp(str, "exit"))
-		return ('c');
-	else if (str[0] == '-')
+	// if (!ft_strcmp(str, "echo"))
+	// 	return ('c');
+	// else if (!ft_strcmp(str, "cd"))
+	// 	return ('c');
+	// else if (!ft_strcmp(str, "pwd"))
+	// 	return ('c');
+	// else if (!ft_strcmp(str, "export"))
+	// 	return ('c');
+	// else if (!ft_strcmp(str, "unset"))
+	// 	return ('c');
+	// else if (!ft_strcmp(str, "env"))
+	// 	return ('c');
+	// else if (!ft_strcmp(str, "exit"))
+	// 	return ('c');
+	if (str[0] == '-')
 		return ('f');
+	else if (str[0] == '|' && ft_strlen(str) == 1)
+		return ('p');
 	else
 		return ('a');
 }
