@@ -121,13 +121,12 @@ int		main(int argc, char** argv, char **env)
 	//push_command_in_history(str);
 
 	initstruct();// инициализируем все поля в структуре
-	printf("mainStr = %s|\n", str);
+	//printf("mainStr = %s|\n", str);
 	//while (*argv)
 	//{
 		i = command_pre_parser(str);
 		if (i != -1)
 			str = command_parser(str, my_env);
-	ft_adapter(my_env);
 	free(str);
 		//printf("%s", str);
 		// while (1)

@@ -70,7 +70,6 @@ int	ft_switcher(char **args, t_env	*my_env)
 	else
 		printf("no\n");
 //ft_print_myenv(my_env, 0);
-	while (1);
 	return (0);
 }
 
@@ -116,14 +115,14 @@ printf(">> begin <<\n\n");
 			}
 			args[n] = NULL;
 			arr = temp;
-
-			/*n = 0;
+/*
+			n = 0;
 			while (args[n] != NULL)
 			{
 				printf("arr: %s\n", args[n]);
 				n++;
-			}
-			*/
+			}*/
+
 			ft_switcher(args, my_env);
 			i = 0;
 			free(args);
@@ -144,7 +143,7 @@ printf(">> begin <<\n\n");
 			args[n] = NULL;
 			arr = temp;
 
-			/*n = 0;
+/*			n = 0;
 			while (args[n] != NULL)
 			{
 				printf("arr: %s\n", args[n]);
@@ -159,6 +158,6 @@ printf(">> begin <<\n\n");
 		//printf("type=%c, item=%s\n", temp->type, temp->item);
 		temp = temp->next;
 	} while (temp != all.a_first);
-
+	while (1);
 	return 0;
 }
