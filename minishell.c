@@ -109,7 +109,7 @@ int		main(int argc, char** argv, char **env)
 	//char	*str1 = "   echo  >>\"first\"     >>  \"get\"$USER\"  !!!\"  $USER Second\"asd\"";
 	//char	*str1 = "   echo   Second\"asd\"   ";
 	//char	*str1 = "   echo $USERR  Second\"asd\"   ";
-	char *str1 = "|echo >asd | ";
+	char *str1 = " $MYY|$MY |\"bucket\"|\'awdASD\'  |"; // проверка пайпов
 	len = ft_strlen(str1);
 	char *str = ft_calloc(len + 1, 1);
 	while (i < len)

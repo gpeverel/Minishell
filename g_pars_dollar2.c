@@ -21,3 +21,15 @@ char	*join_all_part(char **key, char *tmp2, char *str)
 	free(str);
 	return (*key);
 }
+
+int		check_pipe_in_str(char *str, int *i)
+{
+	if (str[*i] == '|' && (all.check_dol == 2 || all.check_dol == 1))
+			return (1);
+	else if (str[*i] == '|')
+	{
+		(*i)++;
+		return (1);
+	}
+	return (0);
+}
