@@ -43,6 +43,14 @@ int	ft_switcher(char **args, t_env	*my_env)
 	int		fd;
 
 	fd = 1;
+
+	int n = 0;
+/*	while (args[n] != NULL)
+	{
+		printf("arr: %s\n", args[n]);
+		n++;
+	}*/
+
 //ft_print_myenv(my_env, 0);
 //printf("\n\n");
 	if (ft_strcmp(args[0], "cd") == 0)
@@ -63,4 +71,93 @@ int	ft_switcher(char **args, t_env	*my_env)
 		printf("no\n");
 //ft_print_myenv(my_env, 0);
 	return (0);
+}
+
+int ft_adapter(t_env *my_env)
+{
+	char 	**args;
+	t_arg	*temp;
+	int 	i;
+	int 	n;
+	t_arg	*arr;
+
+
+	i = 0;
+	temp = all.a_first;
+	arr = temp;
+
+printf(">> begin <<\n\n");
+	do
+	{
+		/*while (temp != all.a_first && temp->type != 'p' && temp->type != '1' &&
+		temp->type != '2' && temp->type != '3' && temp->type != '4')
+		{
+			temp = temp->next;
+		}*/
+		/*while (temp != all.a_first && (temp->type == 'c' || temp->type == 'a'))
+		{
+			i++;
+			temp = temp->next;
+		}*/
+
+		if (temp->type == 'p' || temp->type == '1' ||
+		   temp->type == '2' || temp->type == '3' || temp->type == '4')
+		{
+			//printf("type=%c, item=%s, i=%d\n", temp->type, temp->item, i);
+			args = malloc(sizeof(char *) * (i + 1));
+			n = 0;
+			while (n < i)
+			{
+				args[n] = arr->item;
+				//printf("arr->item=%s, n=%d\n", arr->item, n);
+				arr = arr->next;
+				n++;
+			}
+			args[n] = NULL;
+			arr = temp;
+/*
+			n = 0;
+			while (args[n] != NULL)
+			{
+				printf("arr: %s\n", args[n]);
+				n++;
+			}*/
+
+			ft_switcher(args, my_env);
+			i = 0;
+			free(args);
+		}
+		if (temp->next == all.a_first)
+		{
+			i++;
+			//printf("type=%c, item=%s, i=%d\n", temp->type, temp->item, i);
+			args = malloc(sizeof(char *) * (i + 1));
+			n = 0;
+			while (n < i)
+			{
+				args[n] = arr->item;
+				//printf("arr->item=%s, n=%d\n", arr->item, n);
+				arr = arr->next;
+				n++;
+			}
+			args[n] = NULL;
+			arr = temp;
+
+/*			n = 0;
+			while (args[n] != NULL)
+			{
+				printf("arr: %s\n", args[n]);
+				n++;
+			}*/
+
+			ft_switcher(args, my_env);
+			i = 0;
+			free(args);
+		}
+		i++;
+		//printf("type=%c, item=%s\n", temp->type, temp->item);
+		temp = temp->next;
+	} while (temp != all.a_first);
+	while (1);
+	return 0;
 }

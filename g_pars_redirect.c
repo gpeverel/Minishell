@@ -35,7 +35,7 @@ void	push_redir(char *str, int i, char *filename)
 	else if (str[i] == '<' && str[i + 1] != '<')
 		tmp->type = '3';
 	tmp->item = filename;
-	printf("\nfile name = %s, type = %c\n", tmp->item, tmp->type);
+	//printf("\nfile name = %s, type = %c\n", tmp->item, tmp->type);
 	if (all.a_last == NULL)
 	{
 		tmp->next = tmp;
@@ -130,7 +130,7 @@ char	*pars_redir_one(char *str, int *i, t_env *my_env)
 	tmp = ft_strjoin(tmp, str + j);
 	if (str[j] == '\0' || str[*i] == '<' || str[*i] == '>')
 		(*i)--;// если редирект в конце команды, чтобы не вых за грань, или если редирек за редиректом
-	printf("%d\n", j);
+	//printf("%d\n", j);
 	free(str);
 	all.check_dol = 1;
 	return (tmp);

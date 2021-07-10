@@ -8,6 +8,7 @@ int	ft_pwd(int fd)
 	buf = NULL;
 	pwd = getcwd(buf, 0);
 	write(fd, pwd, ft_strlen(pwd));
+	write(fd, "\n", 1);
 	free(pwd);
 	return (0);
 }
