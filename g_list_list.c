@@ -19,6 +19,23 @@ void	del_elem()
 	}
 }
 
+void	del_all_pars_list()
+{
+	t_arg*	tmp;
+	t_arg*	tmpsub;
+
+	if (all.a_last == NULL)
+		return;
+	tmpsub = all.a_first;
+	do
+	{
+		tmp = tmpsub;
+		tmpsub = tmpsub->next;
+		free(tmp->item);
+		free(tmp);
+	} while (tmpsub != all.a_first);
+}
+
 // int		ft_strcmp(char *str1, char *str2)
 // {
 // 	int i;
