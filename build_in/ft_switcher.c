@@ -68,7 +68,7 @@ int	ft_switcher(char **args, t_env	*my_env)
 	else if (ft_strcmp(args[0], "exit") == 0)
 		ft_exit(&args[1]);
 	else
-		printf("no\n");
+//		ft_fork(my_env, args);
 //ft_print_myenv(my_env, 0);
 	return (0);
 }
