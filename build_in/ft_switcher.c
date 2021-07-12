@@ -161,6 +161,6 @@ printf(">> begin <<\n\n");
 		//printf("type=%c, item=%s\n", temp->type, temp->item);
 		temp = temp->next;
 	} while (temp != all.a_first);
-	while (1);
+	//while (1);
 	return 0;
 }
