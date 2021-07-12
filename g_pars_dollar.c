@@ -58,6 +58,11 @@ char	*get_key_in_env(t_env *my_env, char *key)
 	char	*item;
 
 	env = my_env;
+	//printf("key = %s\n", key);
+	if (key[0] == '?')
+	{
+		return(ft_itoa(errno));
+	}
 	while (env)
 	{
 		if (ft_strcmp(env->key, key) == 0)
@@ -91,7 +96,7 @@ char	*pars_dollar(char *str, int *i, t_env *my_env)
 	// 	if (!ifkey(str[*i]))
 	// 		break ;
 	while_key_end(i, str);
-	if (*i == j + 1)
+	if (*i == j + 1 && str[*i] != '?')
 		return (str);
 	key = ft_substr(str, j + 1, *i - j - 1);// взяли ключ
 	tmp2 = get_key_in_env(my_env, key);// получили наше значение

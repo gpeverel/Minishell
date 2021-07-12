@@ -3,8 +3,16 @@
 void	while_key_end(int *i, char *str)
 {
 	while (str[++(*i)])
+	{
+		if (str[(*i)] == '?')
+		{
+			(*i)++;
+			break ;
+		}
 		if (!ifkey(str[*i]))
 			break ;
+	}
+	//printf("\n%c\n", str[(*i)]);
 }
 
 void	if_str_null(char **tmp2, char *str, int *i)
