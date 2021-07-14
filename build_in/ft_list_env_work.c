@@ -1,5 +1,21 @@
 #include "../minishell.h"
 
+
+int	ft_lstsize_env(t_env *lst)
+{
+    int	len;
+
+    if (!lst)
+        return (0);
+    len = 1;
+    while (lst->next != NULL)
+    {
+        len++;
+        lst = lst->next;
+    }
+    return (len);
+}
+
 t_env	*ft_lstnew_env(char *key, char *content)
 {
 	t_env	*env;
