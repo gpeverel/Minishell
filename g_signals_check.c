@@ -8,11 +8,11 @@ void	handle_signals(void)
 	//{// для работы с дочерними процессами
 		rl_on_new_line();
 		rl_redisplay();
-		write(1, "  ", 2);
-		rl_replace_line("",0);
+		write(1, "  \n", 3);
+		//rl_replace_line("",0);
 		rl_on_new_line();
 		rl_replace_line("",0);
-		write(1, "\n", 1);
+		//write(1, "\n", 1);
 		rl_redisplay();
 	//}
 	//else
