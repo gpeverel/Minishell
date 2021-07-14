@@ -111,6 +111,7 @@ void fr_exec(t_env *my_env, char **args)
     {
         errno = 127;
         printf("%s: command not found\n", args[0]);
+		return;
     }
     env = ft_create_env_arr(my_env);
     pid = fork();

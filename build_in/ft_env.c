@@ -21,12 +21,13 @@ char	*ft_get_content(char *source)
 char	*ft_get_key(char *str)
 {
 	int	i;
+	char *key;
 
 	i = 0;
 	while (str[i] != '=')
 		i++;
-	str[i] = '\0';
-	return (str);
+	key = ft_substr(str, 0, i);
+	return (key);
 }
 
 t_env	*ft_create_my_env(char **env, t_env *my_env)
