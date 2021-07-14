@@ -68,7 +68,10 @@ int	ft_switcher(char **args, t_env	*my_env)
 	else if (ft_strcmp(args[0], "exit") == 0)
 		ft_exit(&args[1]);
 	else
+	{
 		printf("no\n");
+		//ft_fork(my_env, args);
+	}
 //ft_print_myenv(my_env, 0);
 	return (0);
 }
@@ -158,6 +161,6 @@ printf(">> begin <<\n\n");
 		//printf("type=%c, item=%s\n", temp->type, temp->item);
 		temp = temp->next;
 	} while (temp != all.a_first);
-	while (1);
+	//while (1);
 	return 0;
 }

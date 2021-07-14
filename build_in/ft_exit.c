@@ -22,6 +22,8 @@ void	ft_exit(char **args)
 	int	code;
 
 	i = 0;
+	if (args[0] == NULL)
+		exit(0);
 	ft_check_letter(args[0]);
 	code = ft_atoi(args[0]) % 256;
 	while (args[i] != NULL)
