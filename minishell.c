@@ -120,7 +120,7 @@ int		main(int argc, char** argv, char **env)
 	// }
 	//printf("mainStr = %s|\n", str);
 
-	ft_create_my_env(env, NULL);
+	my_env = ft_create_my_env(env, NULL);
 	get_history_from_file();
 	fd = open("fhistory", O_WRONLY | O_APPEND, 0644);
 	while (1)

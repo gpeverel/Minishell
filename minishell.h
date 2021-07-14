@@ -120,14 +120,14 @@ void	handle_signals(void);
 
 
 
-int       ft_strcmp(char *s1, char *s2);
-int       ft_echo(int fd, char **str);
-int       ft_cd(t_env *my_env, char *path);
-int       ft_pwd(int fd);
-int       ft_export(t_env *my_env, char **args);
-t_env  *ft_create_my_env(char **env, t_env *my_env);
-t_env  *ft_lstnew_env(char *key, char *content);
-t_env  *ft_lstlast_env(t_env *lst);
+int		ft_strcmp(char *s1, char *s2);
+int		ft_echo(int fd, char **str);
+int		ft_cd(t_env *my_env, char *path);
+int		ft_pwd(int fd);
+int		ft_export(t_env *my_env, char **args);
+t_env	*ft_create_my_env(char **env, t_env *my_env);
+t_env	*ft_lstnew_env(char *key, char *content);
+t_env	*ft_lstlast_env(t_env *lst);
 void   ft_lstadd_back_env(t_env **lst, t_env *new);
 void	ft_lstiter_env(t_env *lst, void (*f_key)(char *), void (*f_con)(char *));
 void   ft_print_myenv(t_env *my_env, int i);
@@ -139,6 +139,6 @@ t_env  *ft_unset(t_env *my_env, char **args);
 void   ft_exit(char **args);
 int ft_adapter(t_env *my_env);
 int	ft_lstsize_env(t_env *lst);
-
+void fr_exec(t_env *my_env, char **args);
 
 #endif

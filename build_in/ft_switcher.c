@@ -70,7 +70,7 @@ int	ft_switcher(char **args, t_env	*my_env)
 	else
 	{
 		printf("no\n");
-		//ft_fork(my_env, args);
+		fr_exec(my_env, args);
 	}
 //ft_print_myenv(my_env, 0);
 	return (0);
