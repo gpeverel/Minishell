@@ -6,6 +6,9 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <string.h>
+#include <signal.h>
+#include <term.h>
+#include <dirent.h>
 #include "libft/libft.h"
 #include "GNL/get_next_line.h"
 #include <readline/readline.h>
@@ -108,7 +111,13 @@ char	*redir_pre_side(char *str, int *i);
 int		command_pre_parser(char *str);
 
 //		history
-void	get_history_from_file();
+void	get_history_from_file(void);
+
+//		signals_check
+void	rl_replace_line(const char *c, int i);
+void	quit_signals(void);
+void	handle_signals(void);
+
 
 
 int       ft_strcmp(char *s1, char *s2);

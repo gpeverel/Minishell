@@ -96,6 +96,7 @@ char	*command_parser(char *str, t_env *my_env)
 // и потом проверять что за стрелка, когда уже определяю тип в списке,
 // затем уже отделить стрелку от названия файла и запихнуть куда надо
 
+
 int		main(int argc, char** argv, char **env)
 {
 	int		i = 0;
@@ -119,17 +120,22 @@ int		main(int argc, char** argv, char **env)
 	// }
 	//printf("mainStr = %s|\n", str);
 
-	my_env = ft_create_my_env(env, NULL);
+	ft_create_my_env(env, NULL);
 	get_history_from_file();
-
 	fd = open("fhistory", O_WRONLY | O_APPEND, 0644);
-	int z = 0;
 	while (1)
 	{
+		signal(SIGINT, handle_signals);
+		signal(SIGQUIT, quit_signals);
 		initstruct();// инициализируем все поля в структуре
-		str = readline ("syka_write: ");
-		//if (ft_strncmp("stop", str, 4) == 0)
-		//	break;
+		str = readline ("write: ");
+		if (str == NULL)
+		{
+			//write(1,"\n",1);
+			write(1, "\e[A\e[D", 6);
+			write(1, "write: exit\n", 17);
+			exit(0);
+		}
 		if (str && *str)
 		{
 			write(fd, str, ft_strlen(str));
@@ -138,12 +144,9 @@ int		main(int argc, char** argv, char **env)
 			i = command_pre_parser(str);
 			if (i != -1)
 				str = command_parser(str, my_env);
-
 			ft_adapter(my_env);
 			free(str);
 			del_all_pars_list();
-			//printf("str = %s\n", str);
-			//z++;
 		}
 	}
 	close(fd);

@@ -11,7 +11,9 @@ void	get_history_from_file()
 	while (get_check)
 	{// если файл уже создавался и там что то есть, запихиваем в историю
 		add_history(str);
+		free(str);
 		get_check = get_next_line(fd, &str);
 	}
+	free(str);
 	close(fd);
 }
