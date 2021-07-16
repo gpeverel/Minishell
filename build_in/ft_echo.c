@@ -9,7 +9,7 @@ void ft_print_str(int fd, char *const *str, int i)
 	{
 		while (str[i][j] == '$' && str[i][j + 1] == '?')
 		{
-			ft_putnbr_fd(errno, fd);
+			ft_putnbr_fd(all.error, fd);
 			j = j + 2;
 		}
 		write(fd, &str[i][j], ft_strlen(&str[i][j]));

@@ -59,7 +59,7 @@ int	ft_export(t_env *my_env, char **args)
 		}
 		else
 		{
-			errno = 1;
+			all.error = 1;
 			printf("export: `%s': not a valid identifier\n", args[i]);
 		}
 	}
