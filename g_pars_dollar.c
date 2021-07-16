@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int		ifkey(char c)
+int	ifkey(char c)
 {
 	if (c == '_' || ft_isalnum(c))
 		return (1);
@@ -55,24 +55,22 @@ int		ifkey(char c)
 char	*get_key_in_env(t_env *my_env, char *key)
 {
 	t_env	*env;
-	char	*item;
 
 	env = my_env;
-	//printf("key = %s\n", key);
 	if (key[0] == '?')
 	{
-		return(ft_itoa(errno));
+		return (ft_itoa(all.error));
 	}
 	while (env)
 	{
 		if (ft_strcmp(env->key, key) == 0)
-			return(ft_strnewcpy(env->content, ft_strlen(env->content)));
+			return (ft_strnewcpy(env->content, ft_strlen(env->content)));
 		env = env->next;
 	}
 	return (NULL);
 }
 
-int		go_to_end_key(char *tmp2, int z)
+int	go_to_end_key(char *tmp2, int z)
 {
 	int	i;
 
@@ -92,9 +90,6 @@ char	*pars_dollar(char *str, int *i, t_env *my_env)
 
 	z = *i;
 	j = *i;
-	// while (str[++(*i)])
-	// 	if (!ifkey(str[*i]))
-	// 		break ;
 	while_key_end(i, str);
 	if (*i == j + 1 && str[*i] != '?')
 		return (str);
@@ -119,8 +114,4 @@ char	*pars_dollar(char *str, int *i, t_env *my_env)
 	}
 	*i = z;
 	return (join_all_part(&key, tmp2, str));
-	// key = ft_strjoin(key, tmp2);
-	// free(tmp2);//printf("%s\n", key);
-	// free(str);
-	// return key;
 }

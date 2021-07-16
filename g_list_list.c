@@ -1,11 +1,13 @@
 #include "minishell.h"
 
-void	del_elem()
+void	del_elem(void)
 {
-	t_arg	*del_elem = NULL;
+	t_arg	*del_elem;
+
+	del_elem = NULL;
 	if (all.a_last == NULL)
 		return ;
-	if (all.a_last->next == all.a_last) // Если в кольце последний элемент
+	if (all.a_last->next == all.a_last)
 	{
 		free(all.a_last);
 		all.a_last = NULL;
@@ -19,44 +21,32 @@ void	del_elem()
 	}
 }
 
-void	del_all_pars_list()
+void	del_all_pars_list(void)
 {
-	t_arg*	tmp;
-	t_arg*	tmpsub;
+	t_arg	*tmp;
+	t_arg	*tmpsub;
 
 	if (all.a_last == NULL)
-		return;
+		return ;
 	tmpsub = all.a_first;
-	do
+	tmp = tmpsub;
+	tmpsub = tmpsub->next;
+	free(tmp->item);
+	free(tmp);
+	while (tmpsub != all.a_first)
 	{
 		tmp = tmpsub;
 		tmpsub = tmpsub->next;
 		free(tmp->item);
 		free(tmp);
-	} while (tmpsub != all.a_first);
+	}
 }
-
-// int		ft_strcmp(char *str1, char *str2)
-// {
-// 	int i;
-
-// 	i = 0;
-// 	while (str1[i] || str2[i])
-// 	{
-// 		if (str1[i] != str2[i])
-// 			return (str1[i] - str2[i]);
-// 		i++;
-// 	}
-// 	if (!(str1[i] || str2[i]))
-// 		return (str1[i] - str2[i]);
-// 	return (0);
-// }
 
 void	push_elem(char *str)
 {
-	t_arg*	tmp;
+	t_arg	*tmp;
 
-	tmp = (t_arg*)malloc(sizeof(t_arg));
+	tmp = (t_arg *)malloc(sizeof(t_arg));
 	tmp->item = str;
 	tmp->type = find_type_arg(str);
 	if (all.a_last == NULL)
@@ -73,38 +63,25 @@ void	push_elem(char *str)
 	}
 }
 
-void	show_list()
+void	show_list(void)
 {
-	t_arg* tmp;
-	//t_arg* tmpsub;
+	t_arg	*tmp;
 
 	if (all.a_last == NULL)
-		return;
+		return ;
 	tmp = all.a_first;
 	printf("Обзор списка\n");
-	do
+	printf("Эл: %s type = %c\n", tmp->item, tmp->type);
+	tmp = tmp->next;
+	while (tmp != all.a_first)
 	{
 		printf("Эл: %s type = %c\n", tmp->item, tmp->type);
 		tmp = tmp->next;
-	} while (tmp != all.a_first);
+	}
 }
 
 char	find_type_arg(char *str)
 {
-	// if (!ft_strcmp(str, "echo"))
-	// 	return ('c');
-	// else if (!ft_strcmp(str, "cd"))
-	// 	return ('c');
-	// else if (!ft_strcmp(str, "pwd"))
-	// 	return ('c');
-	// else if (!ft_strcmp(str, "export"))
-	// 	return ('c');
-	// else if (!ft_strcmp(str, "unset"))
-	// 	return ('c');
-	// else if (!ft_strcmp(str, "env"))
-	// 	return ('c');
-	// else if (!ft_strcmp(str, "exit"))
-	// 	return ('c');
 	if (str[0] == '-')
 		return ('f');
 	else if (str[0] == '|' && ft_strlen(str) == 1)

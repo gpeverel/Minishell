@@ -38,6 +38,7 @@ typedef struct	s_all
 	t_arg	*a_last;
 	int		check_dol;
 	int		pipe_on;
+	int		error;
 
 }				t_all;
 
@@ -88,6 +89,7 @@ int		check_bucket_in_str(char **str, int *i, t_env *my_env);
 
 //init_all
 void	initstruct();
+char	*join_str_bucket(char *str, int *i, int j);
 
 //list_list
 void	del_elem();
@@ -101,6 +103,9 @@ void	del_all_pars_list();
 char	*redir_pre_pars(char *str);
 int		backet_check(char *str, int buck, int *place, char c);
 char	*recalcul_backet(char *str);
+char	*pipe_pre_pars(char *str, int *i);
+char	*prepars_backet_check(char *str, int *i);
+
 
 //	pre_redirect
 int		skip_first_redir(char *str, int i, char fir, char sec);
@@ -117,7 +122,7 @@ void	get_history_from_file(void);
 void	rl_replace_line(const char *c, int i);
 void	quit_signals(void);
 void	handle_signals(void);
-
+int		main_loop_line(int fd, t_env *my_env);
 
 
 int		ft_strcmp(char *s1, char *s2);

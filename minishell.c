@@ -1,12 +1,12 @@
 #include "minishell.h"
 
-char *ft_error(char *err)
+char	*ft_error(char *err)
 {
 	printf("%s\n", err);
 	return (NULL);
 }
 
-char	*pars_bucket(char *str, int *i)// без ликов
+char	*pars_bucket(char *str, int *i)
 {
 	char	*tmp;
 	char	*tmp2;
@@ -16,7 +16,7 @@ char	*pars_bucket(char *str, int *i)// без ликов
 	j = *i;
 	while (str[++(*i)])
 		if (str[*i] == '\'')
-			break;
+			break ;
 	tmp = ft_substr(str, 0, j);
 	tmp2 = ft_substr(str, j + 1, *i - j - 1);
 	tmp3 = ft_strdup(str + *i + 1);
@@ -25,15 +25,13 @@ char	*pars_bucket(char *str, int *i)// без ликов
 	free(str);
 	free(tmp2);
 	free(tmp3);
-	(*i)-= 1;
-	return tmp;
+	(*i) -= 1;
+	return (tmp);
 }
 
 char	*pars_double_bucket(char *str, int *i, t_env *my_env)// без ликов
 {
 	char	*tmp;
-	char	*tmp2;
-	char	*tmp3;
 	int		j;
 
 	j = *i;
@@ -43,21 +41,14 @@ char	*pars_double_bucket(char *str, int *i, t_env *my_env)// без ликов
 		if (str[*i] == '$')
 		{
 			str = pars_dollar(str, i, my_env);// добавил str =
-			continue;
+			continue ;
 		}
 		if (str[*i] == '\"')
-			break;
+			break ;
 		++(*i);
 	}
-	tmp = ft_substr(str, 0, j);
-	tmp2 = ft_substr(str, j + 1, *i - j - 1);
-	tmp3 = ft_strdup(str + (*i)-- + 1);// уменьшаю I на 1 чтобы не переходить
-	tmp = ft_strjoin(tmp, tmp2);//			к следующему символу
-	tmp = ft_strjoin(tmp, tmp3);
-	free(tmp2);
-	free(tmp3);
-	free(str);
-	return tmp;
+	tmp = join_str_bucket(str, i, j);
+	return (tmp);
 }
 
 char	*command_parser(char *str, t_env *my_env)
@@ -75,7 +66,7 @@ char	*command_parser(char *str, t_env *my_env)
 		while (str[i] == ' ')
 			i++;
 		if (str[i] == '\0')
-			break;// защита от пробелов в конце
+			break ;
 		all.check_dol = 0;
 		check_start_arg = i;
 		str = check_main_symbols_str(str, &i, my_env);
@@ -89,7 +80,6 @@ char	*command_parser(char *str, t_env *my_env)
 	}
 	show_list();
 	return (str);
-
 }
 
 // сделать так чтобы редирект брал все от начала стрелки до конца названия файла
@@ -99,11 +89,11 @@ char	*command_parser(char *str, t_env *my_env)
 
 int		main(int argc, char** argv, char **env)
 {
-	int		i = 0;
+	//int		i = 0;
 	//int	len;
 	int		fd;
 	t_env	*my_env;
-	char	*str;
+	//char	*str;
 
 	//char	*str1 = "   echo >>  $USER  \"NAME\"USER\"\'_file\'\"  <\'2file\'\"_best^\"";
 	//char	*str1 = "   echo  >> \"$MYY?$USER$MY very\">ASD\"asd\"";
@@ -119,35 +109,16 @@ int		main(int argc, char** argv, char **env)
 	// 	i++;
 	// }
 	//printf("mainStr = %s|\n", str);
-
+	(void)argc;
+	(void)argv;
+	all.error = 0;
 	my_env = ft_create_my_env(env, NULL);
 	get_history_from_file();
 	fd = open("fhistory", O_WRONLY | O_APPEND, 0644);
 	while (1)
 	{
-		signal(SIGINT, handle_signals);
-		signal(SIGQUIT, quit_signals);
-		initstruct();// инициализируем все поля в структуре
-		str = readline ("write: ");
-		if (str == NULL)
-		{
-			//write(1,"\n",1);
-			write(1, "\e[A\e[D", 6);
-			write(1, "write: exit\n", 17);
-			exit(0);
-		}
-		if (str && *str)
-		{
-			write(fd, str, ft_strlen(str));
-			write(fd, "\n", 1);
-			add_history(str);
-			i = command_pre_parser(str);
-			if (i != -1)
-				str = command_parser(str, my_env);
-			ft_adapter(my_env);
-			free(str);
-			del_all_pars_list();
-		}
+		if (!main_loop_line(fd, my_env))
+			break;
 	}
 	close(fd);
 	//printf("%s", str);

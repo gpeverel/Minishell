@@ -12,7 +12,6 @@ void	while_key_end(int *i, char *str)
 		if (!ifkey(str[*i]))
 			break ;
 	}
-	//printf("\n%c\n", str[(*i)]);
 }
 
 void	if_str_null(char **tmp2, char *str, int *i)
@@ -30,10 +29,10 @@ char	*join_all_part(char **key, char *tmp2, char *str)
 	return (*key);
 }
 
-int		check_pipe_in_str(char *str, int *i)
+int	check_pipe_in_str(char *str, int *i)
 {
 	if (str[*i] == '|' && (all.check_dol == 2 || all.check_dol == 1))
-			return (1);
+		return (1);
 	else if (str[*i] == '|')
 	{
 		(*i)++;

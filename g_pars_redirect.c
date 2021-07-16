@@ -35,7 +35,6 @@ void	push_redir(char *str, int i, char *filename)
 	else if (str[i] == '<' && str[i + 1] != '<')
 		tmp->type = '3';
 	tmp->item = filename;
-	//printf("\nfile name = %s, type = %c\n", tmp->item, tmp->type);
 	if (all.a_last == NULL)
 	{
 		tmp->next = tmp;
@@ -50,27 +49,27 @@ void	push_redir(char *str, int i, char *filename)
 	}
 }
 
-int		check_main_symb(char **str, int *j, t_env *my_env)
+int	check_main_symb(char **str, int *j, t_env *my_env)
 {
 	if ((*str)[*j] == '\'')
 	{
-		(*str) = pars_bucket((*str), j);// указатель ставится как надо +
+		(*str) = pars_bucket((*str), j);
 		if ((*str)[*j] == '\'' || (*str)[*j] == '\"')
 			return (1);
 	}
 	if ((*str)[*j] == '\"')
-	{// указатель ставится как надо +
+	{
 		(*str) = pars_double_bucket((*str), j, my_env);
 		if ((*str)[*j] == '\'' || (*str)[*j] == '\"')
 			return (1);
 	}
-	if ((*str)[*j] == '$')//		???
+	if ((*str)[*j] == '$')
 	{
 		(*str) = pars_dollar((*str), j, my_env);
 		if ((*str)[*j] == '\'' || (*str)[*j] == '\"' || (*str)[*j] == '$')
 			return (1);
 	}
-	if ((*str)[*j] == ' ' || (*str)[*j] == '\t'|| (*str)[*j] == '\0' ||
+	if ((*str)[*j] == ' ' || (*str)[*j] == '\t' || (*str)[*j] == '\0' ||
 		(*str)[*j] == '>' || (*str)[*j] == '<')
 		return (2);
 	return (0);
@@ -83,20 +82,17 @@ void	redir_go_check_line(char **str, int *j, t_env *my_env)
 	check = 0;
 	while (str[*j])
 	{
-		//printf("%c - ", str[*j]);
 		check = check_main_symb(str, j, my_env);
 		if (check == 1)
-			continue;
+			continue ;
 		else if (check == 2)
-			break;
+			break ;
 		(*j)++;
 	}
 }
 
 // char	*work_left_two_redir(char **str)
 // {
-
-
 // 	gnl
 // 	while (1)
 // 	{
@@ -104,8 +100,6 @@ void	redir_go_check_line(char **str, int *j, t_env *my_env)
 // 		else
 // 			write()
 // 	}
-
-
 // 	return (*str);
 // }
 
@@ -134,5 +128,4 @@ char	*pars_redir_one(char *str, int *i, t_env *my_env)
 	free(str);
 	all.check_dol = 1;
 	return (tmp);
-
 }
