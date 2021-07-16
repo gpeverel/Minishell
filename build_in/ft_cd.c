@@ -16,7 +16,7 @@ int	ft_cd(t_env	*my_env, char *path)
 	{
 		free(old_pwd);
 		all.error = 1;
-		printf("error cd: %s: No such file or directory\n", path_final);
+		printf("cd: %s: No such file or directory\n", path_final);
 	}
 	else
 	{

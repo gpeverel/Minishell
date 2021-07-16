@@ -28,7 +28,7 @@ SRC_C = minishell.c \
 OBJECTS = $(SRC_C:.c=.o)
 LIBA = libft/libft.a
 #LIBH =  -lreadline -L/Users/gpeverel/.brew/opt/readline/include ~/.brew/Cellar/readline/8.1/lib/libreadline.8.1.dylib ~/.brew/Cellar/readline/8.1/lib/libhistory.8.1.dylib -I/Users/gpeverel/.brew/opt/readline/include -ltermcap
-LIBH = /Users/gpeverel/.brew/opt/readline/lib/libhistory.a /Users/gpeverel/.brew/opt/readline/lib/libreadline.a -ltermcap
+LIBH = ~/.brew/opt/readline/lib/libhistory.a ~/.brew/opt/readline/lib/libreadline.a -ltermcap
 all: $(LIBA) $(NAME)
 $(NAME): $(LIBA) $(OBJECTS) $(SRC_H)
 	gcc $(FLAGS) $(OBJECTS) $(LIBA) $(LIBH) -o $(NAME)
