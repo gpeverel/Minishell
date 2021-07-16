@@ -115,6 +115,7 @@ void	fr_exec(t_env *my_env, char **args)
 	}
 	env = ft_create_env_arr(my_env);
 	pid = fork();
+	flag = 1;
 	if (pid == 0)
 		execve(path, args, env);
 	else if (pid > 0)
@@ -124,6 +125,7 @@ void	fr_exec(t_env *my_env, char **args)
 		all.error = 1;
 		printf("error: fork\n");
 	}
+	flag = 0;
 	ft_free_arr(env);
 	free(path);
 	all.error = status;
