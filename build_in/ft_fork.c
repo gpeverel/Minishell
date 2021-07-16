@@ -30,7 +30,7 @@ char	*ft_check_path(t_env *my_env, char *arg)
         {
             free(path);
             path = NULL;
-            errno = 0;
+            //errno = 0;
         }
         else
             path_end = path;
@@ -109,7 +109,7 @@ void fr_exec(t_env *my_env, char **args)
     path = ft_check_path(my_env, args[0]);
     if (path == NULL)
     {
-        errno = 127;
+		all.error = 127;
         printf("%s: command not found\n", args[0]);
 		return;
     }
@@ -121,7 +121,7 @@ void fr_exec(t_env *my_env, char **args)
         wait(&status);
     else
     {
-        errno = 1;
+		all.error = 1;
         printf("error: fork\n");
     }
     ft_free_arr(env);

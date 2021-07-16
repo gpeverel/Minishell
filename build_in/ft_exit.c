@@ -30,7 +30,7 @@ void	ft_exit(char **args)
 		i++;
 	if (i > 1)
 	{
-		errno = 1;
+		all.error = 1;
 		printf("exit: too many arguments\n");
 	}
 	else
