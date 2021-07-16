@@ -24,7 +24,8 @@ SRC_C = minishell.c \
 		g_pars_redirect.c \
 		g_pre_redirect.c \
 		g_preparser.c \
-		g_signals_check.c
+		g_signals_check.c \
+		g_left_two_redir.c
 OBJECTS = $(SRC_C:.c=.o)
 LIBA = libft/libft.a
 #LIBH =  -lreadline -L/Users/gpeverel/.brew/opt/readline/include ~/.brew/Cellar/readline/8.1/lib/libreadline.8.1.dylib ~/.brew/Cellar/readline/8.1/lib/libhistory.8.1.dylib -I/Users/gpeverel/.brew/opt/readline/include -ltermcap

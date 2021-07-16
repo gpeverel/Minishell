@@ -39,6 +39,7 @@ typedef struct	s_all
 	int		check_dol;
 	int		pipe_on;
 	int		error;
+	int		flag;
 
 }				t_all;
 
@@ -79,6 +80,11 @@ int		check_main_symb(char **str, int *j, t_env *my_env);
 void	redir_go_check_line(char **str, int *j, t_env *my_env);
 void	push_redir(char *str, int i, char *filename);
 char	*ft_strnewcpy(char *str, int size);
+
+//		left_two_redir
+void	work_left_two_redir(void);
+
+
 
 //main_parser
 char	*delete_space(char *str, int *i);
