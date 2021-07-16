@@ -6,6 +6,7 @@ void	initstruct(void)
 	all.a_last = NULL;
 	all.check_dol = 0;
 	all.pipe_on = 0;
+	all.flag = 0;
 	//all.error = 0;
 }
 

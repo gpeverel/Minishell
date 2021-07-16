@@ -4,30 +4,30 @@
 
 void	handle_signals(void)
 {
-	//if (!g_flag)
-	//{// для работы с дочерними процессами
+	if (!all.flag)
+	{// для работы с дочерними процессами
 		rl_on_new_line();
 		rl_redisplay();
 		write(1, "  \n", 3);
 		rl_on_new_line();
 		rl_replace_line("",0);
 		rl_redisplay();
-	//}
-	//else
-		//write(1, "\n", 1);
+	}
+	else
+		write(1, "\n", 1);
 }
 
 void	quit_signals(void)
 {
-	//if (!g_flag)
-	//{
+	if (!all.flag)
+	{
 		rl_on_new_line();
 		rl_redisplay();
 		write(1, "  ", 2);
 		write(1, "\b\b", 2);
-	//}
-	//else
-	//	write(1, "Quit\n", 1);
+	}
+	else
+		write(1, "Quit\n", 1);
 }
 
 void	if_there_is_str(int fd, char *str, t_env *my_env)
@@ -53,9 +53,9 @@ int		main_loop_line(int fd, t_env *my_env)
 {
 	char	*str;
 
+	initstruct();
 	signal(SIGINT, (void *)handle_signals);
 	signal(SIGQUIT, (void *)quit_signals);
-	initstruct();
 	str = readline ("write: ");
 	if (str == NULL)
 	{

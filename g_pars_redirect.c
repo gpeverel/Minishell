@@ -120,6 +120,8 @@ char	*pars_redir_one(char *str, int *i, t_env *my_env)
 	z = j;
 	redir_go_check_line(&str, &j, my_env);
 	push_redir(str, *i, ft_strnewcpy(str + z, j - z));// пихаем в структуру
+	if (all.a_last->type == '4')
+		work_left_two_redir();// для <<
 	tmp = ft_substr(str, 0, *i - 1);
 	tmp = ft_strjoin(tmp, str + j);
 	if (str[j] == '\0' || str[*i] == '<' || str[*i] == '>')
