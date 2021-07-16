@@ -26,6 +26,7 @@ int	ft_cd(t_env	*my_env, char *path)
 		content = ft_find_env(my_env, "PWD");
 		free(*content);
 		*content = getcwd(NULL, 0);
+		all.error = 0;
 	}
 	return (0);
 }

@@ -20,8 +20,8 @@ char	*ft_get_content(char *source)
 
 char	*ft_get_key(char *str)
 {
-	int	i;
-	char *key;
+	int		i;
+	char	*key;
 
 	i = 0;
 	while (str[i] != '=')

@@ -56,6 +56,7 @@ int	ft_export(t_env *my_env, char **args)
 				my_env = ft_add_env(my_env, args[i]);
 				i++;
 			}
+			all.error = 0;
 		}
 		else
 		{

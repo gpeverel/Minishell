@@ -64,14 +64,11 @@ int	ft_switcher(char **args, t_env	*my_env)
 	else if (ft_strcmp(args[0], "env") == 0)
 		ft_print_myenv(my_env, 0);
 	else if (ft_strcmp(args[0], "unset") == 0)
-		my_env = ft_unset(my_env, &args[1]);
+		ft_unset(my_env, &args[1]);
 	else if (ft_strcmp(args[0], "exit") == 0)
 		ft_exit(&args[1]);
 	else
-	{
-		printf("no\n");
 		fr_exec(my_env, args);
-	}
 //ft_print_myenv(my_env, 0);
 	return (0);
 }

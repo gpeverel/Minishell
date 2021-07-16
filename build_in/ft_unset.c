@@ -41,5 +41,6 @@ t_env	*ft_unset(t_env *my_env, char **args)
 		}
 		i++;
 	}
+	all.error = 0;
 	return (my_env);
 }

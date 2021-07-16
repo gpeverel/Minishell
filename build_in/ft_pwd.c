@@ -10,5 +10,6 @@ int	ft_pwd(int fd)
 	write(fd, pwd, ft_strlen(pwd));
 	write(fd, "\n", 1);
 	free(pwd);
+	all.error = 0;
 	return (0);
 }

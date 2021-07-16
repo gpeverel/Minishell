@@ -50,4 +50,5 @@ void 	ft_print_myenv(t_env *my_env, int i)
 		f_con = &ft_print_content_env;
 	}
 	ft_lstiter_env(my_env, f_key, f_con);
+	all.error = 0;
 }
