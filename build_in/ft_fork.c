@@ -142,5 +142,5 @@ void	fr_exec(t_env *my_env, char **args)
 	all.flag = 0;
 	ft_free_arr(env);
 	free(path);
-	all.error = status;
+	all.error = status % 255;
 }

@@ -89,6 +89,7 @@ int ft_adapter(t_env *my_env)
 printf(">> begin <<\n\n");
 	do
 	{
+		//printf("type=%c, item=%s\n", temp->type, temp->item);
 		/*while (temp != all.a_first && temp->type != 'p' && temp->type != '1' &&
 		temp->type != '2' && temp->type != '3' && temp->type != '4')
 		{
@@ -155,7 +156,6 @@ printf(">> begin <<\n\n");
 			free(args);
 		}
 		i++;
-		//printf("type=%c, item=%s\n", temp->type, temp->item);
 		temp = temp->next;
 	} while (temp != all.a_first);
 	//while (1);
