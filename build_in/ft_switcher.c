@@ -29,12 +29,13 @@ void	ft_reddir_r(t_arg *temp, int *fd)
 	//printf("type=%c, item=%s\n", temp->type, temp->item);
 	file = temp->item;
 	//printf("file=%s\n", file);
+	if ((*fd) != 1)
+		close(*fd);
 	if (temp->type == '1')
 		(*fd) = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (temp->type == '2')
 		(*fd) = open(file, O_WRONLY | O_CREAT | O_APPEND, 0777);
-	//dup2(*fd, 1);
-	printf("fd=%d\n", (*fd));
+	//printf("fd=%d\n", (*fd));
 }
 
 void	ft_reddir_l(t_arg *temp, int *fd, int *flag)
@@ -44,6 +45,8 @@ void	ft_reddir_l(t_arg *temp, int *fd, int *flag)
 	//printf("type=%c, item=%s\n", temp->type, temp->item);
 	file = temp->item;
 	//printf("file=%s\n", file);
+	if ((*fd) != 0)
+		close(*fd);
 	if (temp->type == '3')
 	{
 		(*fd) = open(file, O_RDONLY, 0222);
@@ -107,7 +110,6 @@ int	ft_adapter(t_env *my_env)
 	flag = 0;
 	temp = all.a_first;
 	arr = temp;
-	printf(">> begin <<\n\n");
 	while (temp)
 	{
 		//printf("type=%c, item=%s\n", temp->type, temp->item);
