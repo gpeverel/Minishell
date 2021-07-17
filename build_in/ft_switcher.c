@@ -113,19 +113,19 @@ printf(">> begin <<\n\n");
 		}
 		if (temp->next == NULL)
 		{
-			printf("2type=%c, item=%s\n", temp->type, temp->item);
+			//printf("2type=%c, item=%s\n", temp->type, temp->item);
 			i++;
-			printf("11\n");
-			printf("type=%c, item=%s\n", temp->type, temp->item);
-			printf("i=%d\n", i);
+			//printf("11\n");
+			//printf("type=%c, item=%s\n", temp->type, temp->item);
+			//printf("i=%d\n", i);
 			args = malloc(sizeof(char *) * (i + 1));
 			n = 0;
 			while (n < i)
 			{
-				if (arr->type != '1')
+				if (arr->type != '1' && arr->type != '2')
 				{
 					args[n] = arr->item;
-					printf("args[n]=%s\n", args[n]);
+					//printf("args[n]=%s\n", args[n]);
 					n++;
 				}
 				arr = arr->next;
