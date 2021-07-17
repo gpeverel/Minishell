@@ -105,8 +105,6 @@ void ft_reddir_l(t_arg *temp, int *fd, int *flag)
 			*flag = 1;
 			(*fd) = 0;
 		}
-		else
-			all.error = 0;
 	}
 	if (temp->type == '4')
 		(*fd) = open("<<", O_RDONLY, 0222);
