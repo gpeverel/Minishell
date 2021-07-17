@@ -117,7 +117,7 @@ char	*ft_get_path(t_env *my_env, char *arg)
 	return path;
 }
 
-void	fr_exec(int fd, t_env *my_env, char **args)
+void	fr_exec(int fd_in, int fd_out, t_env *my_env, char **args)
 {
 	pid_t	pid;
 	char	*path;
@@ -132,7 +132,8 @@ void	fr_exec(int fd, t_env *my_env, char **args)
 	all.flag = 1;
 	if (pid == 0)
 	{
-		dup2(fd, 1);
+		dup2(fd_in, 0);
+		dup2(fd_out, 1);
 		execve(path, args, env);
 	}
 	else if (pid > 0)

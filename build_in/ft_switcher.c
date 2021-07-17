@@ -38,28 +38,28 @@ char	**ft_find_env(t_env *my_env, char *key)
 	return (NULL);
 }
 
-int	ft_switcher(int fd, char **args, t_env	*my_env)
+int	ft_switcher(int fd_in, int fd_out, char **args, t_env *my_env)
 {
 	if (ft_strcmp(args[0], "cd") == 0)
 		ft_cd(my_env, args[1]);
 	else if (ft_strcmp(args[0], "echo") == 0)
-		ft_echo(fd, &args[1]);
+		ft_echo(fd_out, &args[1]);
 	else if (ft_strcmp(args[0], "pwd") == 0)
-		ft_pwd(fd);
+		ft_pwd(fd_out);
 	else if (ft_strcmp(args[0], "export") == 0)
-		ft_export(fd, my_env, &args[1]);
+		ft_export(fd_out, my_env, &args[1]);
 	else if (ft_strcmp(args[0], "env") == 0)
-		ft_print_myenv(fd, my_env, 0);
+		ft_print_myenv(fd_out, my_env, 0);
 	else if (ft_strcmp(args[0], "unset") == 0)
 		ft_unset(my_env, &args[1]);
 	else if (ft_strcmp(args[0], "exit") == 0)
 		ft_exit(&args[1]);
 	else
-		fr_exec(fd, my_env, args);
+		fr_exec(fd_in, fd_out, my_env, args);
 	return (0);
 }
 
-void ft_double_redirect(t_env *my_env)
+/*void ft_double_redirect(t_env *my_env)
 {
 	char 	**args;
 
@@ -69,7 +69,7 @@ void ft_double_redirect(t_env *my_env)
 	args[2] = NULL;
 	ft_switcher(1, args, my_env);
 	free(args);
-}
+}*/
 
 void ft_reddir_r(t_arg *temp, int *fd)
 {
@@ -84,7 +84,22 @@ void ft_reddir_r(t_arg *temp, int *fd)
 	if (temp->type == '2')
 		(*fd) = open(file, O_WRONLY | O_CREAT | O_APPEND, 0777);
 	//dup2(*fd, 1);
-	//printf("fd=%d\n", (*fd));
+	printf("fd=%d\n", (*fd));
+}
+
+void ft_reddir_l(t_arg *temp, int *fd)
+{
+	char	*file;
+
+	//printf("00\n");
+	//printf("type=%c, item=%s\n", temp->type, temp->item);
+	file = temp->item;
+	//printf("file=%s\n", file);
+	if (temp->type == '3')
+		(*fd) = open(file, O_RDONLY, 0222);
+	if (temp->type == '4')
+		(*fd) = open("<<", O_RDONLY, 0222);
+	printf("fd=%d\n", (*fd));
 }
 
 int ft_adapter(t_env *my_env)
@@ -93,11 +108,13 @@ int ft_adapter(t_env *my_env)
 	t_arg	*temp;
 	int 	i;
 	int 	n;
-	int 	fd;
+	int 	fd_in;
+	int 	fd_out;
 	t_arg	*arr;
 
 	i = 0;
-	fd = 1;
+	fd_in = 0;
+	fd_out = 1;
 	temp = all.a_first;
 	arr = temp;
 printf(">> begin <<\n\n");
@@ -107,8 +124,14 @@ printf(">> begin <<\n\n");
 		//printf("type=%c, item=%s\n", temp->type, temp->item);
 		if (temp->type == '1' || temp->type == '2')
 		{
-			printf("1type=%c, item=%s\n", temp->type, temp->item);
-			ft_reddir_r(temp, &fd);
+			//printf("1type=%c, item=%s\n", temp->type, temp->item);
+			ft_reddir_r(temp, &fd_out);
+			i--;
+		}
+		if (temp->type == '3' || temp->type == '4')
+		{
+			//printf("3type=%c, item=%s\n", temp->type, temp->item);
+			ft_reddir_l(temp, &fd_in);
 			i--;
 		}
 		if (temp->next == NULL)
@@ -131,9 +154,11 @@ printf(">> begin <<\n\n");
 				arr = arr->next;
 			}
 			args[n] = NULL;
-			ft_switcher(fd, args, my_env);
-			if(fd != 1)
-				close(fd);
+			ft_switcher(fd_in, fd_out, args, my_env);
+			if(fd_out != 1)
+				close(fd_out);
+			if(fd_in != 0)
+				close(fd_in);
 			free(args);
 		}
 		i++;

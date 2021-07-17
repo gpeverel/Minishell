@@ -152,6 +152,6 @@ t_env	*ft_unset(t_env *my_env, char **args);
 void	ft_exit(char **args);
 int		ft_adapter(t_env *my_env);
 int		ft_lstsize_env(t_env *lst);
-void	fr_exec(int fd, t_env *my_env, char **args);
+void	fr_exec(int fd_in, int fd_out, t_env *my_env, char **args);
 
 #endif
