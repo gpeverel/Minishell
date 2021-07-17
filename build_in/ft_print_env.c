@@ -1,43 +1,46 @@
 #include "../minishell.h"
 
-void 	ft_print_content(char *str)
+void 	ft_print_content(char *str, int fd)
 {
-	printf("\"%s\"\n", str);
+	write(fd, "\"", 1);
+	write(fd, str, ft_strlen(str));
+	write(fd, "\"\n", 2);
 }
 
-void 	ft_print_key(char *str)
+void 	ft_print_key(char *str, int fd)
 {
 	char	*prefix;
 	char	*posfix;
 
 	prefix = "declare -x ";
 	posfix = "=";
-	write(1, prefix, ft_strlen(prefix));
-	write(1, str, ft_strlen(str));
-	write(1, posfix, ft_strlen(posfix));
+	write(fd, prefix, ft_strlen(prefix));
+	write(fd, str, ft_strlen(str));
+	write(fd, posfix, ft_strlen(posfix));
 }
 
-void 	ft_print_content_env(char *str)
+void 	ft_print_content_env(char *str, int fd)
 {
 	if (str != NULL)
 	{
-		printf("%s\n", str);
+		write(fd, str, ft_strlen(str));
+		write(fd, "\n", 1);
 	}
 }
 
-void 	ft_print_key_env(char *str)
+void 	ft_print_key_env(char *str, int fd)
 {
 	char	*posfix;
 
 	posfix = "=";
-	write(1, str, ft_strlen(str));
-	write(1, posfix, ft_strlen(posfix));
+	write(fd, str, ft_strlen(str));
+	write(fd, posfix, ft_strlen(posfix));
 }
 
-void 	ft_print_myenv(t_env *my_env, int i)
+void 	ft_print_myenv(int fd, t_env *my_env, int i)
 {
-	void	(*f_key)(char *);
-	void	(*f_con)(char *);
+	void	(*f_key)(char *, int);
+	void	(*f_con)(char *, int);
 
 	if (i != 0)
 	{
@@ -49,6 +52,6 @@ void 	ft_print_myenv(t_env *my_env, int i)
 		f_key = &ft_print_key_env;
 		f_con = &ft_print_content_env;
 	}
-	ft_lstiter_env(my_env, f_key, f_con);
+	ft_lstiter_env(my_env, f_key, f_con, fd);
 	all.error = 0;
 }

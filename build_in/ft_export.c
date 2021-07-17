@@ -40,13 +40,13 @@ int	ft_check_args(char *str)
 		return (0);
 }
 
-int	ft_export(t_env *my_env, char **args)
+int	ft_export(int fd, t_env *my_env, char **args)
 {
 	int	i;
 
 	i = 0;
 	if (args[i] == NULL)
-		ft_print_myenv(my_env, 1);
+		ft_print_myenv(fd, my_env, 1);
 	else
 	{
 		if (ft_check_args(args[i]) == 1)

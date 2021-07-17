@@ -5,7 +5,6 @@ void	ft_print_str(int fd, char **str, int i)
 	int	error;
 
 	error = all.error % 255;
-	printf("error: %d\n", error);
 	while (str[i] != NULL)
 	{
 		write(fd, &str[i][0], ft_strlen(&str[i][0]));
