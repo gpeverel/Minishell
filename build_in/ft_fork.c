@@ -99,6 +99,24 @@ void	ft_free_arr(char **env)
 	env = NULL;
 }
 
+char	*ft_get_path(t_env *my_env, char *arg)
+{
+	char	*path;
+
+	if (arg[0] == '/' || arg[0] == '.')
+		path = ft_strdup(arg);
+	else
+	{
+		path = ft_check_path(my_env, arg);
+		if (path == NULL)
+		{
+			all.error = 127;
+			printf ("%s: command not found\n", arg);
+		}
+	}
+	return path;
+}
+
 void	fr_exec(t_env *my_env, char **args)
 {
 	pid_t	pid;
@@ -106,13 +124,9 @@ void	fr_exec(t_env *my_env, char **args)
 	char	**env;
 	int		status;
 
-	path = ft_check_path(my_env, args[0]);
+	path = ft_get_path(my_env, args[0]);
 	if (path == NULL)
-	{
-		all.error = 127;
-		printf ("%s: command not found\n", args[0]);
 		return ;
-	}
 	env = ft_create_env_arr(my_env);
 	pid = fork();
 	all.flag = 1;
