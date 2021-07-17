@@ -14,7 +14,10 @@ void	handle_signals(void)
 		rl_redisplay();
 	}
 	else
+	{
 		write(1, "\n", 1);
+		write(1, "> ", 2);
+	}
 }
 
 void	quit_signals(void)
@@ -27,7 +30,12 @@ void	quit_signals(void)
 		write(1, "\b\b", 2);
 	}
 	else
-		write(1, "Quit\n", 1);
+	{
+		write(1, "\n", 1);
+		write(1, "> ", 2);
+	// 	//rl_replace_line("",0);
+	// 	//all.break_f = 1;
+	}
 }
 
 void	if_there_is_str(int fd, char *str, t_env *my_env)

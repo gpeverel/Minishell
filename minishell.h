@@ -40,6 +40,7 @@ typedef struct	s_all
 	int		pipe_on;
 	int		error;
 	int		flag;
+	int		notfile;
 
 }				t_all;
 
@@ -82,7 +83,7 @@ void	push_redir(char *str, int i, char *filename);
 char	*ft_strnewcpy(char *str, int size);
 
 //		left_two_redir
-void	work_left_two_redir(void);
+void	work_left_two_redir(t_env *my_env);
 
 
 
