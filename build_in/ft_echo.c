@@ -2,22 +2,12 @@
 
 void	ft_print_str(int fd, char **str, int i)
 {
-	int	j;
 	int	error;
 
-	j = 0;
 	error = all.error % 255;
-	printf("error: %d\n", error);
 	while (str[i] != NULL)
 	{
-		while (str[i][j] == '$' && str[i][j + 1] == '?')
-		{
-			printf("error: %d\n", error);
-			ft_putnbr_fd(error, fd);
-			printf("error: %d\n", error);
-			j = j + 2;
-		}
-		write(fd, &str[i][j], ft_strlen(&str[i][j]));
+		write(fd, &str[i][0], ft_strlen(&str[i][0]));
 		write(fd, " ", 1);
 		i++;
 	}
