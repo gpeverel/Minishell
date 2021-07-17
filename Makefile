@@ -13,6 +13,7 @@ SRC_C = minishell.c \
 		build_in/ft_switcher.c \
 		build_in/ft_unset.c \
 		build_in/ft_fork.c \
+		build_in/ft_utils.c \
 		GNL/get_next_line.c \
 		GNL/get_next_line_utils.c \
 		g_history_save.c \

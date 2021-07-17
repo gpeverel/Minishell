@@ -1,43 +1,5 @@
 #include "../minishell.h"
 
-int	ft_strcmp(char *s1, char *s2)
-{
-	size_t			i;
-	unsigned char	*src1;
-	unsigned char	*src2;
-
-	i = 0;
-	src1 = (unsigned char *)s1;
-	src2 = (unsigned char *)s2;
-	if (src1 == NULL || src2 == NULL)
-		return (-1);
-	while (src1[i] != '\0' || src2[i] != '\0')
-	{
-		if (src1[i] == '\0' && src2[i] == '\0')
-			return (0);
-		if (src1[i] != src2[i])
-			return (src1[i] - src2[i]);
-		i++;
-	}
-	return (0);
-}
-
-char	**ft_find_env(t_env *my_env, char *key)
-{
-	size_t	len;
-
-	while (my_env != NULL)
-	{
-		len = ft_strlen(my_env->key);
-		if (ft_strncmp(my_env->key, key, len) == 0)
-		{
-			return (&my_env->content);
-		}
-		my_env = my_env->next;
-	}
-	return (NULL);
-}
-
 int	ft_switcher(int fd_in, int fd_out, char **args, t_env *my_env)
 {
 	if (ft_strcmp(args[0], "cd") == 0)
@@ -59,18 +21,6 @@ int	ft_switcher(int fd_in, int fd_out, char **args, t_env *my_env)
 	return (0);
 }
 
-/*void ft_double_redirect(t_env *my_env)
-{
-	char 	**args;
-
-	args = malloc(sizeof(char *) * 3);
-	args[0] = "cat";
-	args[1] = "<<";
-	args[2] = NULL;
-	ft_switcher(1, args, my_env);
-	free(args);
-}*/
-
 void ft_reddir_r(t_arg *temp, int *fd)
 {
 	char	*file;
@@ -91,7 +41,6 @@ void ft_reddir_l(t_arg *temp, int *fd, int *flag)
 {
 	char	*file;
 
-	//printf("00\n");
 	//printf("type=%c, item=%s\n", temp->type, temp->item);
 	file = temp->item;
 	//printf("file=%s\n", file);

@@ -13,6 +13,8 @@
 #include "GNL/get_next_line.h"
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <unistd.h>
+#include <sys/stat.h>
 
 // typedef struct	s_redir
 // {
@@ -153,5 +155,8 @@ void	ft_exit(char **args);
 int		ft_adapter(t_env *my_env);
 int		ft_lstsize_env(t_env *lst);
 void	fr_exec(int fd_in, int fd_out, t_env *my_env, char **args);
+char	*ft_path_command(char *path, char *command);
+char	*ft_strcat(char *dst, char *src, char *three);
+void	ft_free_arr(char **env);
 
 #endif
