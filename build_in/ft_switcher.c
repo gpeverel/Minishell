@@ -55,14 +55,13 @@ int	ft_switcher(int fd, char **args, t_env	*my_env)
 	else if (ft_strcmp(args[0], "exit") == 0)
 		ft_exit(&args[1]);
 	else
-		fr_exec(my_env, args);
+		fr_exec(fd, my_env, args);
 	return (0);
 }
 
 void ft_double_redirect(t_env *my_env)
 {
 	char 	**args;
-
 
 	args = malloc(sizeof(char *) * 3);
 	args[0] = "cat";
@@ -84,6 +83,7 @@ void ft_reddir_r(t_arg *temp, int *fd)
 		(*fd) = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (temp->type == '2')
 		(*fd) = open(file, O_WRONLY | O_CREAT | O_APPEND, 0777);
+	//dup2(*fd, 1);
 	//printf("fd=%d\n", (*fd));
 }
 
@@ -101,47 +101,19 @@ int ft_adapter(t_env *my_env)
 	temp = all.a_first;
 	arr = temp;
 printf(">> begin <<\n\n");
-//printf("type=%c, item=%s\n", temp->type, temp->item);
-		if (temp->type == '1')
-		{
-			ft_reddir_r(temp, &fd);
-			i--;
-		}
-		if (temp->next == all.a_first)
-		{
-			i++;
-			printf("1\n");
-			printf("type=%c, item=%s\n", temp->type, temp->item);
-			printf("i=%d\n", i);
-			args = malloc(sizeof(char *) * (i + 1));
-			n = 0;
-			while (n < i)
-			{
-				if (arr->type != '1')
-				{
-					args[n] = arr->item;
-					printf("args[n]=%s\n", args[n]);
-					n++;
-				}
-				arr = arr->next;
-			}
-			args[n] = NULL;
-			ft_switcher(fd, args, my_env);
-			close(fd);
-			free(args);
-		}
-		i++;
-	printf("i=%d\n", i);
-	temp = temp->next;
-	while (temp != all.a_first)
+
+	while (temp)
 	{
+		//printf("type=%c, item=%s\n", temp->type, temp->item);
 		if (temp->type == '1' || temp->type == '2')
 		{
+			printf("1type=%c, item=%s\n", temp->type, temp->item);
 			ft_reddir_r(temp, &fd);
 			i--;
 		}
-		if (temp->next == all.a_first)
+		if (temp->next == NULL)
 		{
+			printf("2type=%c, item=%s\n", temp->type, temp->item);
 			i++;
 			printf("11\n");
 			printf("type=%c, item=%s\n", temp->type, temp->item);
@@ -165,7 +137,7 @@ printf(">> begin <<\n\n");
 			free(args);
 		}
 		i++;
-		printf("i=%d\n", i);
+		//printf("i=%d\n", i);
 		temp = temp->next;
 	}
 	//while (1);

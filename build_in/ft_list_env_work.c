@@ -56,13 +56,13 @@ void	ft_lstadd_back_env(t_env **lst, t_env *new)
 	}
 }
 
-void	ft_lstiter_env(t_env *lst, void (*f_key)(char *, int), void (*f_con)(char *, int), int fd)
+void	f(t_env *l, void (*k)(char *, int), void (*c)(char *, int), int fd)
 {
-	while (lst != NULL)
+	while (l != NULL)
 	{
-		f_key(lst->key, fd);
-		f_con(lst->content, fd);
-		lst = lst->next;
+		k(l->key, fd);
+		c(l->content, fd);
+		l = l->next;
 	}
 }
 

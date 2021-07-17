@@ -53,7 +53,7 @@ void	if_there_is_str(int fd, char *str, t_env *my_env)
 	if (i != -1)
 	{
 		str = command_parser(str, my_env);
-		//ft_adapter(my_env);
+		ft_adapter(my_env);
 	}
 	else
 		all.error = 258;
