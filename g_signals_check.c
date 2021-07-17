@@ -13,11 +13,13 @@ void	handle_signals(void)
 		rl_replace_line("",0);
 		rl_redisplay();
 	}
-	else
+	else if (all.flag_red)
 	{
 		write(1, "\n", 1);
 		write(1, "> ", 2);
 	}
+	else
+		write(1, "\n", 1);
 }
 
 void	quit_signals(void)
@@ -29,13 +31,15 @@ void	quit_signals(void)
 		write(1, "  ", 2);
 		write(1, "\b\b", 2);
 	}
-	else
+	else if (all.flag_red)
 	{
 		write(1, "\n", 1);
 		write(1, "> ", 2);
 	// 	//rl_replace_line("",0);
 	// 	//all.break_f = 1;
 	}
+	else
+		write(1, "\n", 1);
 }
 
 void	if_there_is_str(int fd, char *str, t_env *my_env)
@@ -49,7 +53,7 @@ void	if_there_is_str(int fd, char *str, t_env *my_env)
 	if (i != -1)
 	{
 		str = command_parser(str, my_env);
-		ft_adapter(my_env);
+		//ft_adapter(my_env);
 	}
 	else
 		all.error = 258;

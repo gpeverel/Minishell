@@ -41,6 +41,7 @@ typedef struct	s_all
 	int		error;
 	int		flag;
 	int		notfile;
+	int		flag_red;
 
 }				t_all;
 
@@ -84,7 +85,7 @@ char	*ft_strnewcpy(char *str, int size);
 
 //		left_two_redir
 void	work_left_two_redir(t_env *my_env);
-
+void	left_two_redir_str_push(char *str, int fd, t_env *my_env);
 
 
 //main_parser

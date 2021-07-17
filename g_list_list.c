@@ -29,11 +29,18 @@ void	del_all_pars_list(void)
 	if (all.a_last == NULL)
 		return ;
 	tmpsub = all.a_first;
-	tmp = tmpsub;
-	tmpsub = tmpsub->next;
-	free(tmp->item);
-	free(tmp);
-	while (tmpsub != all.a_first)
+	// tmp = tmpsub;
+	// tmpsub = tmpsub->next;
+	// free(tmp->item);
+	// free(tmp);
+	// while (tmpsub != all.a_first)
+	// {
+	// 	tmp = tmpsub;
+	// 	tmpsub = tmpsub->next;
+	// 	free(tmp->item);
+	// 	free(tmp);
+	// }
+	while (tmpsub)
 	{
 		tmp = tmpsub;
 		tmpsub = tmpsub->next;
@@ -49,17 +56,20 @@ void	push_elem(char *str)
 	tmp = (t_arg *)malloc(sizeof(t_arg));
 	tmp->item = str;
 	tmp->type = find_type_arg(str);
+	tmp->next = NULL;// добавил для NULL в конце
 	if (all.a_last == NULL)
 	{
-		tmp->next = tmp;
+		//tmp->next = tmp;
 		all.a_last = tmp;
 		all.a_first = tmp;
+		all.a_last->next = NULL;
 	}
 	else
 	{
-		tmp->next = all.a_first;
+		//tmp->next = all.a_first;
 		all.a_last->next = tmp;
 		all.a_last = tmp;
+		//tmp->next = NULL;// добавил для NULL в конце
 	}
 }
 
@@ -71,9 +81,14 @@ void	show_list(void)
 		return ;
 	tmp = all.a_first;
 	printf("Обзор списка\n");
-	printf("Эл: %s type = %c\n", tmp->item, tmp->type);
-	tmp = tmp->next;
-	while (tmp != all.a_first)
+	// printf("Эл: %s type = %c\n", tmp->item, tmp->type);
+	// tmp = tmp->next;
+	// while (tmp != all.a_first)
+	// {
+	// 	printf("Эл: %s type = %c\n", tmp->item, tmp->type);
+	// 	tmp = tmp->next;
+	// }
+	while (tmp)
 	{
 		printf("Эл: %s type = %c\n", tmp->item, tmp->type);
 		tmp = tmp->next;

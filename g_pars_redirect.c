@@ -35,15 +35,17 @@ void	push_redir(char *str, int i, char *filename)
 	else if (str[i] == '<' && str[i + 1] != '<')
 		tmp->type = '3';
 	tmp->item = filename;
+	tmp->next = NULL;
 	if (all.a_last == NULL)
 	{
-		tmp->next = tmp;
+		//tmp->next = tmp;
 		all.a_last = tmp;
 		all.a_first = tmp;
+		all.a_last->next = NULL;
 	}
 	else
 	{
-		tmp->next = all.a_first;
+		//tmp->next = all.a_first;
 		all.a_last->next = tmp;
 		all.a_last = tmp;
 	}
