@@ -21,7 +21,7 @@ int	ft_switcher(int fd_in, int fd_out, char **args, t_env *my_env)
 	return (0);
 }
 
-void ft_reddir_r(t_arg *temp, int *fd)
+void	ft_reddir_r(t_arg *temp, int *fd)
 {
 	char	*file;
 
@@ -37,7 +37,7 @@ void ft_reddir_r(t_arg *temp, int *fd)
 	printf("fd=%d\n", (*fd));
 }
 
-void ft_reddir_l(t_arg *temp, int *fd, int *flag)
+void	ft_reddir_l(t_arg *temp, int *fd, int *flag)
 {
 	char	*file;
 
@@ -60,71 +60,74 @@ void ft_reddir_l(t_arg *temp, int *fd, int *flag)
 	//printf("fd=%d\n", (*fd));
 }
 
-int ft_adapter(t_env *my_env)
+int	getExec(t_env *my_env, int i, int *fd, t_arg *arr)
 {
-	char 	**args;
+	int		n;
+	char	**args;
+
+	//printf("2type=%c, item=%s\n", temp->type, temp->item);
+	i++;
+	//printf("11\n");
+	//printf("type=%c, item=%s\n", temp->type, temp->item);
+	//printf("i=%d\n", i);
+	args = malloc(sizeof(char *) * (i + 1));
+	n = 0;
+	while (n < i)
+	{
+		if (arr->type != '1' && arr->type != '2' && arr->type != '3'
+			&& arr->type != '4')
+		{
+			args[n] = arr->item;
+			//printf("args[n]=%s\n", args[n]);
+			n++;
+		}
+		arr = arr->next;
+	}
+	args[n] = NULL;
+	ft_switcher(fd[0], fd[1], args, my_env);
+	if (fd[1] != 1)
+		close(fd[1]);
+	if (fd[0] != 0)
+		close(fd[0]);
+	free(args);
+	return (i);
+}
+
+int	ft_adapter(t_env *my_env)
+{
 	t_arg	*temp;
-	int 	i;
-	int 	flag;
-	int 	n;
-	int 	fd_in;
-	int 	fd_out;
+	int		i;
+	int		flag;
+	int		fd[2];
 	t_arg	*arr;
 
 	i = 0;
-	fd_in = 0;
-	fd_out = 1;
+	fd[0] = 0;
+	fd[1] = 1;
 	flag = 0;
 	temp = all.a_first;
 	arr = temp;
-printf(">> begin <<\n\n");
-
+	printf(">> begin <<\n\n");
 	while (temp)
 	{
 		//printf("type=%c, item=%s\n", temp->type, temp->item);
 		if (temp->type == '1' || temp->type == '2')
 		{
 			//printf("1type=%c, item=%s\n", temp->type, temp->item);
-			ft_reddir_r(temp, &fd_out);
+			ft_reddir_r(temp, &fd[1]);
 			i--;
 		}
 		if (temp->type == '3' || temp->type == '4')
 		{
 			//printf("3type=%c, item=%s\n", temp->type, temp->item);
-			ft_reddir_l(temp, &fd_in, &flag);
+			ft_reddir_l(temp, &fd[0], &flag);
 			i--;
 		}
 		if (temp->next == NULL && flag == 0)
-		{
-			//printf("2type=%c, item=%s\n", temp->type, temp->item);
-			i++;
-			//printf("11\n");
-			//printf("type=%c, item=%s\n", temp->type, temp->item);
-			//printf("i=%d\n", i);
-			args = malloc(sizeof(char *) * (i + 1));
-			n = 0;
-			while (n < i)
-			{
-				if (arr->type != '1' && arr->type != '2' && arr->type != '3' && arr->type != '4')
-				{
-					args[n] = arr->item;
-					//printf("args[n]=%s\n", args[n]);
-					n++;
-				}
-				arr = arr->next;
-			}
-			args[n] = NULL;
-			ft_switcher(fd_in, fd_out, args, my_env);
-			if(fd_out != 1)
-				close(fd_out);
-			if(fd_in != 0)
-				close(fd_in);
-			free(args);
-		}
+			i = getExec(my_env, i, fd, arr);
 		i++;
 		//printf("i=%d\n", i);
 		temp = temp->next;
 	}
-	//while (1);
-	return 0;
+	return (0);
 }

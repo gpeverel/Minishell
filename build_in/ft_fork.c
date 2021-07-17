@@ -63,7 +63,7 @@ char	*ft_get_path(t_env *my_env, char *arg)
 			printf ("%s: command not found\n", arg);
 		}
 	}
-	return path;
+	return (path);
 }
 
 void	fr_exec(int fd_in, int fd_out, t_env *my_env, char **args)
