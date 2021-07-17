@@ -87,7 +87,7 @@ void ft_reddir_r(t_arg *temp, int *fd)
 	printf("fd=%d\n", (*fd));
 }
 
-void ft_reddir_l(t_arg *temp, int *fd)
+void ft_reddir_l(t_arg *temp, int *fd, int *flag)
 {
 	char	*file;
 
@@ -96,10 +96,21 @@ void ft_reddir_l(t_arg *temp, int *fd)
 	file = temp->item;
 	//printf("file=%s\n", file);
 	if (temp->type == '3')
+	{
 		(*fd) = open(file, O_RDONLY, 0222);
+		if ((*fd) < 0)
+		{
+			all.error = 1;
+			printf("%s: No such file or directory\n", file);
+			*flag = 1;
+			(*fd) = 0;
+		}
+		else
+			all.error = 0;
+	}
 	if (temp->type == '4')
 		(*fd) = open("<<", O_RDONLY, 0222);
-	printf("fd=%d\n", (*fd));
+	//printf("fd=%d\n", (*fd));
 }
 
 int ft_adapter(t_env *my_env)
@@ -107,6 +118,7 @@ int ft_adapter(t_env *my_env)
 	char 	**args;
 	t_arg	*temp;
 	int 	i;
+	int 	flag;
 	int 	n;
 	int 	fd_in;
 	int 	fd_out;
@@ -115,6 +127,7 @@ int ft_adapter(t_env *my_env)
 	i = 0;
 	fd_in = 0;
 	fd_out = 1;
+	flag = 0;
 	temp = all.a_first;
 	arr = temp;
 printf(">> begin <<\n\n");
@@ -131,10 +144,10 @@ printf(">> begin <<\n\n");
 		if (temp->type == '3' || temp->type == '4')
 		{
 			//printf("3type=%c, item=%s\n", temp->type, temp->item);
-			ft_reddir_l(temp, &fd_in);
+			ft_reddir_l(temp, &fd_in, &flag);
 			i--;
 		}
-		if (temp->next == NULL)
+		if (temp->next == NULL && flag == 0)
 		{
 			//printf("2type=%c, item=%s\n", temp->type, temp->item);
 			i++;
@@ -145,7 +158,7 @@ printf(">> begin <<\n\n");
 			n = 0;
 			while (n < i)
 			{
-				if (arr->type != '1' && arr->type != '2')
+				if (arr->type != '1' && arr->type != '2' && arr->type != '3' && arr->type != '4')
 				{
 					args[n] = arr->item;
 					//printf("args[n]=%s\n", args[n]);
