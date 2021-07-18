@@ -154,6 +154,7 @@ void ft_pipe(t_env *my_env, int i, t_arg *arr, int *fd_old)
 		all.error = 1;
 		printf("error: fork\n");
 	}
+	ft_free_arr(env);
 	free(path);
 	free(args);
 }

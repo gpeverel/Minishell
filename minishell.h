@@ -160,5 +160,6 @@ char	*ft_strcat(char *dst, char *src, char *three);
 void	ft_free_arr(char **env);
 char	*ft_get_path(t_env *my_env, char *arg);
 char	**ft_create_env_arr(t_env *my_env);
+t_env	*ft_find_node(t_env *my_env, char *key);
 
 #endif

@@ -9,7 +9,7 @@ void	ft_check_letter(char *args)
 	{
 		if (ft_isdigit(args[i]) == 0)
 		{
-			printf("exit: fd: numeric argument required\n");
+			printf("exit: %s: numeric argument required\n", args);
 			exit(255);
 		}
 		i++;

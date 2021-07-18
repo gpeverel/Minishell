@@ -35,16 +35,22 @@ int	ft_strcmp(char *s1, char *s2)
 char	**ft_find_env(t_env *my_env, char *key)
 {
 	size_t	len;
+	t_env 	*temp;
 
-	while (my_env != NULL)
+	temp = ft_find_node(my_env, key);
+	if (temp != NULL)
 	{
-		len = ft_strlen(my_env->key);
-		if (ft_strncmp(my_env->key, key, len) == 0)
+		while (my_env != NULL)
 		{
-			return (&my_env->content);
+			len = ft_strlen(my_env->key);
+			if (ft_strncmp(my_env->key, key, len) == 0)
+			{
+				return (&my_env->content);
+			}
+			my_env = my_env->next;
 		}
-		my_env = my_env->next;
 	}
+	printf("temp\n");
 	return (NULL);
 }
 

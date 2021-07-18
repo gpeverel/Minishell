@@ -3,6 +3,7 @@
 char	*ft_check_path(t_env *my_env, char *arg)
 {
 	char		*path;
+	char		**path_test;
 	char		*path_end;
 	char		**paths_arr;
 	int			i;
@@ -10,7 +11,10 @@ char	*ft_check_path(t_env *my_env, char *arg)
 
 	i = 0;
 	path_end = NULL;
-	paths_arr = ft_split(*ft_find_env(my_env, "PATH"), ':');
+	path_test = ft_find_env(my_env, "PATH");
+	if (path_test == NULL)
+		return (NULL);
+	paths_arr = ft_split(*path_test, ':');
 	while (paths_arr[i] != NULL)
 	{
 		path = ft_path_command(paths_arr[i], arg);
