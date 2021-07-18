@@ -37,10 +37,10 @@ t_env	*ft_create_my_env(char **env, t_env *my_env)
 	char	*content;
 
 	i = 0;
-	if (my_env == NULL)
+	/*if (my_env == NULL)
 	{
 		my_env = ft_lstnew_env("_", getcwd(NULL, 0));
-	}
+	}*/
 	while (env[i] != NULL)
 	{
 		content = ft_get_content(env[i]);

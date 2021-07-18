@@ -60,6 +60,13 @@ void	ft_reddir_l(t_arg *temp, int *fd, int *flag)
 	}
 	if (temp->type == '4')
 		(*fd) = open("<<", O_RDONLY, 0222);
+		if ((*fd) < 0)
+		{
+			all.error = 1;
+			printf("%s: Error <<\n", file);
+			*flag = 1;
+			(*fd) = 0;
+		}
 	//printf("fd=%d\n", (*fd));
 }
 

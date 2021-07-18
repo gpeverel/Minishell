@@ -83,7 +83,8 @@ void	fr_exec(int fd_in, int fd_out, t_env *my_env, char **args)
 	{
 		dup2(fd_in, 0);
 		dup2(fd_out, 1);
-		execve(path, args, env);
+		if (execve(path, args, env) == -1)
+			exit(1);
 	}
 	else if (pid > 0)
 		wait(&status);
@@ -95,5 +96,5 @@ void	fr_exec(int fd_in, int fd_out, t_env *my_env, char **args)
 	all.flag = 0;
 	ft_free_arr(env);
 	free(path);
-	all.error = status % 255;
+	all.error = WEXITSTATUS(status);
 }
