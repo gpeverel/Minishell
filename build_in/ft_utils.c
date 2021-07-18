@@ -35,7 +35,7 @@ int	ft_strcmp(char *s1, char *s2)
 char	**ft_find_env(t_env *my_env, char *key)
 {
 	size_t	len;
-	t_env 	*temp;
+	t_env	*temp;
 
 	temp = ft_find_node(my_env, key);
 	if (temp != NULL)
@@ -50,7 +50,6 @@ char	**ft_find_env(t_env *my_env, char *key)
 			my_env = my_env->next;
 		}
 	}
-	printf("temp\n");
 	return (NULL);
 }
 

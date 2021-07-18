@@ -59,6 +59,7 @@ void	ft_reddir_l(t_arg *temp, int *fd, int *flag)
 		}
 	}
 	if (temp->type == '4')
+	{
 		(*fd) = open("<<", O_RDONLY, 0222);
 		if ((*fd) < 0)
 		{
@@ -67,6 +68,7 @@ void	ft_reddir_l(t_arg *temp, int *fd, int *flag)
 			*flag = 1;
 			(*fd) = 0;
 		}
+	}
 	//printf("fd=%d\n", (*fd));
 }
 
@@ -103,9 +105,9 @@ int	getExec(t_env *my_env, int i, int *fd, t_arg *arr)
 	return (i);
 }
 
-void ft_pipe(t_env *my_env, int i, t_arg *arr, int *fd_old)
+void	ft_pipe(t_env *my_env, int i, t_arg *arr, int *fd_old)
 {
-	int 	fd[2];
+	int		fd[2];
 	pid_t	pid;
 	char	*path;
 	char	**env;
@@ -127,7 +129,6 @@ void ft_pipe(t_env *my_env, int i, t_arg *arr, int *fd_old)
 		arr = arr->next;
 	}
 	args[n] = NULL;
-
 	pipe(fd);
 	path = ft_get_path(my_env, args[0]);
 	if (path == NULL)
@@ -144,7 +145,7 @@ void ft_pipe(t_env *my_env, int i, t_arg *arr, int *fd_old)
 	}
 	else if (pid > 0)
 	{
- 		dup2(fd[0], 0);
+		dup2(fd[0], 0);
 		close(fd[1]);
 		wait(&status);
 		close(fd[0]);
@@ -166,12 +167,11 @@ int	ft_adapter(t_env *my_env)
 	int		flag;
 	int		fd[2];
 	t_arg	*arr;
-	int 	fd_0;
-	int 	fd_1;
+	int		fd_0;
+	int		fd_1;
 
 	fd_0 = dup(0);
 	fd_1 = dup(1);
-
 	i = 0;
 	fd[0] = 0;
 	fd[1] = 1;
