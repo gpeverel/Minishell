@@ -158,5 +158,7 @@ void	fr_exec(int fd_in, int fd_out, t_env *my_env, char **args);
 char	*ft_path_command(char *path, char *command);
 char	*ft_strcat(char *dst, char *src, char *three);
 void	ft_free_arr(char **env);
+char	*ft_get_path(t_env *my_env, char *arg);
+char	**ft_create_env_arr(t_env *my_env);
 
 #endif
