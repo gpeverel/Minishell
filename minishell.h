@@ -13,6 +13,8 @@
 #include "GNL/get_next_line.h"
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <unistd.h>
+#include <sys/stat.h>
 
 // typedef struct	s_redir
 // {
@@ -143,7 +145,7 @@ t_env	*ft_create_my_env(char **env, t_env *my_env);
 t_env	*ft_lstnew_env(char *key, char *content);
 t_env	*ft_lstlast_env(t_env *lst);
 void	ft_lstadd_back_env(t_env **lst, t_env *new);
-void	ft_lstiter_env(t_env *lst, void (*f_key)(char *, int), void (*f_con)(char *, int), int fd);
+void	f(t_env *l, void (*k)(char *, int), void (*c)(char *, int), int fd);
 void	ft_print_myenv(int fd, t_env *my_env, int i);
 void	ft_lstclear_env(t_env **lst);
 char	**ft_find_env(t_env *my_env, char *key);
@@ -153,6 +155,12 @@ t_env	*ft_unset(t_env *my_env, char **args);
 void	ft_exit(char **args);
 int		ft_adapter(t_env *my_env);
 int		ft_lstsize_env(t_env *lst);
-void	fr_exec(t_env *my_env, char **args);
+void	fr_exec(int fd_in, int fd_out, t_env *my_env, char **args);
+char	*ft_path_command(char *path, char *command);
+char	*ft_strcat(char *dst, char *src, char *three);
+void	ft_free_arr(char **env);
+char	*ft_get_path(t_env *my_env, char *arg);
+char	**ft_create_env_arr(t_env *my_env);
+t_env	*ft_find_node(t_env *my_env, char *key);
 
 #endif

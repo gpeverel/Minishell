@@ -1,19 +1,18 @@
 #include "../minishell.h"
 
-
 int	ft_lstsize_env(t_env *lst)
 {
-    int	len;
+	int	len;
 
-    if (!lst)
-        return (0);
-    len = 1;
-    while (lst->next != NULL)
-    {
-        len++;
-        lst = lst->next;
-    }
-    return (len);
+	if (!lst)
+		return (0);
+	len = 1;
+	while (lst->next != NULL)
+	{
+		len++;
+		lst = lst->next;
+	}
+	return (len);
 }
 
 t_env	*ft_lstnew_env(char *key, char *content)
@@ -56,13 +55,13 @@ void	ft_lstadd_back_env(t_env **lst, t_env *new)
 	}
 }
 
-void	ft_lstiter_env(t_env *lst, void (*f_key)(char *, int), void (*f_con)(char *, int), int fd)
+void	f(t_env *l, void (*k)(char *, int), void (*c)(char *, int), int fd)
 {
-	while (lst != NULL)
+	while (l != NULL)
 	{
-		f_key(lst->key, fd);
-		f_con(lst->content, fd);
-		lst = lst->next;
+		k(l->key, fd);
+		c(l->content, fd);
+		l = l->next;
 	}
 }
 
