@@ -89,26 +89,9 @@ char	*command_parser(char *str, t_env *my_env)
 
 int		main(int argc, char** argv, char **env)
 {
-	//int		i = 0;
-	//int	len;
 	int		fd;
 	t_env	*my_env;
-	//char	*str;
 
-	//char	*str1 = "   echo >>  $USER  \"NAME\"USER\"\'_file\'\"  <\'2file\'\"_best^\"";
-	//char	*str1 = "   echo  >> \"$MYY?$USER$MY very\">ASD\"asd\"";
-	//char	*str1 = "   echo  >>\"first\"     >>  \"get\"$USER\"  !!!\"  $USER Second\"asd\"";
-	//char	*str1 = "   echo   Second\"asd\"   ";
-	//char	*str1 = "   echo $USERR  Second\"asd\"   ";
-	// char *str1 = " $MYY|$MY |\"bucket\"|\'awdASD\'  |"; // проверка пайпов
-	// len = ft_strlen(str1);
-	// char *str = ft_calloc(len + 1, 1);
-	// while (i < len)
-	// {
-	// 	str[i] = str1[i];
-	// 	i++;
-	// }
-	//printf("mainStr = %s|\n", str);
 	(void)argc;
 	(void)argv;
 	all.error = 0;
@@ -123,9 +106,44 @@ int		main(int argc, char** argv, char **env)
 	close(fd);
 	//printf("%s", str);
 	ft_lstclear_env(&my_env);
-		//while (1)
-		//{}
+		//while (1);
 	return (0);
 
 
 }
+
+
+// int		main(int argc, char** argv, char **env)
+// {
+// 	int		i = 0;
+// 	int		len;
+// 	int		fd;
+// 	t_env	*my_env;
+// 	//char	*str;
+
+// 	//char *str1 = ">> asd pwd << \"$MYfilename$USER\"";
+// 	//char	*str1 = "   echo >>  $USER  \"NAME\"USER\"\'_file\'\"  <\'2file\'\"_best^\"";
+// 	//char	*str1 = "   echo  >> \"$?MYY!$USER$MY very\">ASD\"asd\"";
+// 	//char	*str1 = "   echo  >>\"first\"     >>  \"get\"$USER\"  !!!\"  $USER Second\"asd\"";
+// 	//char	*str1 = "   echo   Second\"asd\"   ";
+// 	//char	*str1 = "   echo $USERR  Second\"asd\"   ";
+// 	//char *str1 = " $MYY|$MY |\"bucket\"|\'awdASD\'  "; // проверка пайпов
+// 	//char *str1 = ">> asd pwd > \"$MYfilename$USER\"";
+// 	len = ft_strlen(str1);
+// 	char *str = ft_calloc(len + 1, 1);
+// 	my_env = ft_create_my_env(env, NULL);
+// 	while (i < len)
+// 	{
+// 		str[i] = str1[i];
+// 		i++;
+// 	}
+// 	printf("mainStr = %s|\n", str);
+// 	i = command_pre_parser(str);
+// 	if (i != -1)
+// 	{
+// 	str = command_parser(str, my_env);
+// 	}
+// 	//while (1);
+// 	return (0);
+
+// }

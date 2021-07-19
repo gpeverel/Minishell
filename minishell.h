@@ -125,6 +125,7 @@ int		command_pre_parser(char *str);
 
 //		history
 void	get_history_from_file(void);
+char	*ft_substr_g(char const *s, unsigned int start, int len);
 
 //		signals_check
 void	rl_replace_line(const char *c, int i);

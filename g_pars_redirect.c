@@ -93,18 +93,6 @@ void	redir_go_check_line(char **str, int *j, t_env *my_env)
 	}
 }
 
-// char	*work_left_two_redir(char **str)
-// {
-// 	gnl
-// 	while (1)
-// 	{
-// 		if (str == stop)
-// 		else
-// 			write()
-// 	}
-// 	return (*str);
-// }
-
 char	*pars_redir_one(char *str, int *i, t_env *my_env)
 {
 	int		j;
@@ -124,9 +112,9 @@ char	*pars_redir_one(char *str, int *i, t_env *my_env)
 	push_redir(str, *i, ft_strnewcpy(str + z, j - z));// пихаем в структуру
 	if (all.a_last->type == '4')
 		work_left_two_redir(my_env);// для <<
-	tmp = ft_substr(str, 0, *i - 1);
+	tmp = ft_substr_g(str, 0, *i - 1);
 	tmp = ft_strjoin(tmp, str + j);
-	if (str[j] == '\0' || str[*i] == '<' || str[*i] == '>')
+	if ((str[j] == '\0' || str[*i] == '<' || str[*i] == '>') && *i != 0)
 		(*i)--;// если редирект в конце команды, чтобы не вых за грань, или если редирек за редиректом
 	//printf("%d\n", j);
 	free(str);

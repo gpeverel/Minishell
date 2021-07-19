@@ -87,17 +87,17 @@ char	*pipe_pre_pars(char *str, int *i)
 				return (ft_error("Пайп в конце команды!"));
 			if (str[*i] == '|')
 				return (ft_error("Несколько пайпов сразу!"));
+			continue ;
 		}
 		if (str[*i] == '>' || str[*i] == '<')
 		{
-			(*i)++;
-			if (str[*i] == '>' || str[*i] == '<')
+			while (str[*i] == '>' || str[*i] == '<')
 				(*i)++;
 			while (str[*i] == ' ')
 				(*i)++;
-			printf("%c\n", str[*i]);
 			if (str[*i] == '|')
 				return (ft_error(" Пайп в названии файла!"));
+			continue ;
 		}
 		(*i)++;
 	}
