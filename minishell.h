@@ -118,5 +118,9 @@ void	ft_free_arr(char **env);
 char	*ft_get_path(t_env *my_env, char *arg);
 char	**ft_create_env_arr(t_env *my_env);
 t_env	*ft_find_node(t_env *my_env, char *key);
+int		getExec(t_env *my_env, int i, int *fd, t_arg *arr);
+char	**ft_args(int i, t_arg *arr);
+void	ft_reddir_l(t_arg *temp, int *fd, int *flag);
+void	ft_reddir_r(t_arg *temp, int *fd);
 
 #endif

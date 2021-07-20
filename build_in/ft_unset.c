@@ -38,7 +38,6 @@ t_env	*ft_unset(t_env *my_env, char **args)
 			free((temp)->key);
 			free((temp)->content);
 			free(temp);
-			(temp) = NULL;
 		}
 		i++;
 	}

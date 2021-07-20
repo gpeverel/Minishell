@@ -36,7 +36,7 @@ size_t				ft_strlcpy(char *dest, const char *src, size_t i);
 void				*ft_memcpy(void *des, const void *src, size_t n);
 void				ft_lstdelone(t_list *lst, void (*del)(void *));
 void				ft_lstclear(t_list **lst, void (*del)(void *));
-size_t				ft_strlcat(char *dest, char *app, size_t size);
+size_t				ft_strlcat(char *dst, const	char *src, size_t dstsize);
 void				*ft_memset(void *destination, int c, size_t n);
 void				*ft_memchr(const void *arr, int c, size_t n);
 char				*ft_strjoin(char const *s1, char const *s2);
@@ -66,6 +66,6 @@ int					ft_toupper(int c);
 int					ft_isalnum(int c);
 int					ft_isascii(int c);
 int					ft_isprint(int c);
-char				*ft_itoa(int n);
+char				*ft_itoa(long long int n);
 
 #endif

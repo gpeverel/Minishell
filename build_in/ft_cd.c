@@ -8,7 +8,7 @@ void	ft_update_env(t_env *my_env, char **content, char *old_pwd)
 	content = ft_find_env(my_env, "PWD");
 	free(*content);
 	*content = getcwd(NULL, 0);
-	all.error = 0;
+	g_all.error = 0;
 }
 
 int	ft_cd(t_env	*my_env, char *path)
@@ -27,7 +27,7 @@ int	ft_cd(t_env	*my_env, char *path)
 	if (chdir(path_final) == -1)
 	{
 		free(old_pwd);
-		all.error = 1;
+		g_all.error = 1;
 		printf("cd: %s: No such file or directory\n", path_final);
 	}
 	else

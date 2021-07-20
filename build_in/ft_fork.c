@@ -63,7 +63,7 @@ char	*ft_get_path(t_env *my_env, char *arg)
 		path = ft_check_path(my_env, arg, i);
 		if (path == NULL)
 		{
-			all.error = 127;
+			g_all.error = 127;
 			printf ("%s: command not found\n", arg);
 		}
 	}
@@ -91,10 +91,10 @@ void	fr_exec(int *fd, t_env *my_env, char **args, pid_t pid)
 		wait(&status);
 	else
 	{
-		all.error = 1;
+		g_all.error = 1;
 		printf("error: fork\n");
 	}
 	ft_free_arr(env);
 	free(path);
-	all.error = WEXITSTATUS(status);
+	g_all.error = WEXITSTATUS(status);
 }

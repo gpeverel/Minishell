@@ -53,5 +53,5 @@ void 	ft_print_myenv(int fd, t_env *my_env, int i)
 		f_con = &ft_print_content_env;
 	}
 	f(my_env, f_key, f_con, fd);
-	all.error = 0;
+	g_all.error = 0;
 }

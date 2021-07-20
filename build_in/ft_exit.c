@@ -30,12 +30,12 @@ void	ft_exit(char **args)
 		i++;
 	if (i > 1)
 	{
-		all.error = 1;
+		g_all.error = 1;
 		printf("exit: too many arguments\n");
 	}
 	else
 	{
-		all.error = 0;
+		g_all.error = 0;
 		exit(code);
 	}
 }

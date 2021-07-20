@@ -28,6 +28,6 @@ int	ft_echo(int fd, char **str)
 	}
 	if (flag == 0)
 		write(fd, "\n", 1);
-	all.error = 0;
+	g_all.error = 0;
 	return (0);
 }
