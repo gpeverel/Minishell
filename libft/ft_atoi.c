@@ -1,40 +1,53 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: gpeverel <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/03 12:39:19 by gpeverel          #+#    #+#             */
-/*   Updated: 2020/11/10 17:47:10 by gpeverel         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "libft.h"
 
-int	ft_atoi(const char *str)
+static int	len_number(const char *str)
 {
-	int number;
-	int i;
-	int minus;
+	int	n;
+
+	n = 0;
+	while (str[n] >= '0' && str[n] <= '9')
+		n++;
+	return (n);
+}
+
+static int	check_sign(const char *str, int *i)
+{
+	int	flag;
+
+	flag = 1;
+	if (str[*i] == '+')
+		*i = *i + 1;
+	else if (str[*i] == '-')
+	{
+		flag = -flag;
+		*i = *i + 1;
+	}
+	return (flag);
+}
+
+int	ft_atoi(const char *nptr)
+{
+	int					i;
+	int					flag;
+	unsigned long int	res;
+	int					n;
 
 	i = 0;
-	minus = 0;
-	number = 0;
-	while (str[i] == 32 || str[i] < 27)
+	res = 0;
+	while (nptr[i] == ' ' || nptr[i] == '\n' || nptr[i] == '\f'
+		|| nptr[i] == '\r' || nptr[i] == '\t' || nptr[i] == '\v')
 		i++;
-	if (str[i] == 45 && str[i + 1] >= 48 && str[i + 1] <= 57)
+	flag = check_sign(nptr, &i);
+	n = len_number(&nptr[i]);
+	if (n > 18 && flag == 1)
+		return (-1);
+	if (n > 18 && flag == -1)
+		return (0);
+	while (nptr[i] >= '0' && nptr[i] <= '9')
 	{
-		minus++;
-		i++;
+		res = res + nptr[i++] - 48;
+		res *= 10;
 	}
-	else if (str[i] == 43 && str[i + 1] >= 48 && str[i + 1] <= 57)
-		i++;
-	while (str[i] >= 48 && str[i] <= 57)
-	{
-		number *= 10;
-		number = number + (str[i] - 48);
-		i++;
-	}
-	if (minus == 1)
-		number *= -1;
-	return (number);
+	res = res / 10;
+	return ((flag < 0) * -res + (flag >= 0) * res);
 }

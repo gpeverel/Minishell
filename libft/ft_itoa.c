@@ -1,57 +1,43 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: gpeverel <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/07 11:28:43 by gpeverel          #+#    #+#             */
-/*   Updated: 2020/11/10 17:47:10 by gpeverel         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "libft.h"
 
-static int	count_number(int n)
+static char	*ft_strndup(char *str, size_t len)
 {
-	int	i;
+	char	*dst;
+	char	*strcp;
 
-	i = 1;
-	if (n < 0)
-	{
-		n *= -1;
-		i++;
-	}
-	while (n /= 10)
-	{
-		i++;
-	}
-	return (i);
+	dst = (char *)malloc(len + 1);
+	if (NULL == dst)
+		return (NULL);
+	strcp = dst;
+	while (len-- != 0)
+		*strcp++ = *str++;
+	*strcp = '\0';
+	return (dst);
 }
 
-char		*ft_itoa(int n)
+char	*ft_itoa(long long int n)
 {
-	char	*s;
-	int		i;
+	char					*res;
+	char					buf[25];
+	unsigned long long int	nbr;
+	size_t					len;
 
-	if (n == -2147483647 - 1)
-		return (ft_strdup("-2147483648"));
-	i = count_number(n);
-	s = malloc(sizeof(char) * i + 1);
-	if (!s)
-		return (NULL);
-	s[i--] = '\0';
-	if (i == 0)
-		s[0] = '0';
+	len = 22;
+	buf[len--] = '\0';
+	nbr = (unsigned long long int)n;
 	if (n < 0)
+		nbr = (unsigned long long int)(-n);
+	else if (n == 0)
+		buf[len--] = '0';
+	while (nbr != 0)
 	{
-		s[0] = '-';
-		n *= -1;
+		buf[len--] = nbr % 10 + '0';
+		nbr /= 10;
 	}
-	while (n)
-	{
-		s[i--] = '0' + (n % 10);
-		n /= 10;
-	}
-	return (s);
+	if (n < 0)
+		buf[len--] = '-';
+	res = ft_strndup(&buf[len + 1], 21 - len);
+	if (res == NULL)
+		return (NULL);
+	return (res);
 }

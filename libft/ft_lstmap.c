@@ -1,36 +1,37 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: gpeverel <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/10 12:48:07 by gpeverel          #+#    #+#             */
-/*   Updated: 2020/11/10 17:47:10 by gpeverel         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "libft.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+static t_list	*ft_clean(t_list *start, void (*del)(void *))
 {
-	t_list	*cpulst;
-	t_list	*cpu;
+	t_list	*next;
 
-	cpu = NULL;
-	if (lst)
+	while (start)
 	{
-		while (lst)
-		{
-			cpulst = ft_lstnew((*f)(lst->content));
-			if (!cpulst)
-			{
-				ft_lstclear(&cpu, del);
-				return (NULL);
-			}
-			ft_lstadd_back(&cpu, cpulst);
-			lst = lst->next;
-		}
+		next = start->next;
+		(*del)(start->content);
+		free(start);
+		start = next;
 	}
-	return (cpu);
+	return (NULL);
+}
+
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *),
+					void (*del)(void *))
+{
+	t_list	*elem;
+	t_list	*result;
+	t_list	*tmp;
+
+	if (lst == NULL || f == NULL)
+		return (NULL);
+	result = NULL;
+	tmp = lst;
+	while (tmp != NULL)
+	{
+		elem = ft_lstnew((*f)(tmp->content));
+		if (elem == NULL)
+			return (ft_clean(result, (*del)));
+		ft_lstadd_back(&result, elem);
+		tmp = tmp->next;
+	}
+	return (result);
 }

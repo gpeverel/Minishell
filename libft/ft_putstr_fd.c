@@ -1,24 +1,13 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: gpeverel <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/07 15:48:24 by gpeverel          #+#    #+#             */
-/*   Updated: 2020/11/10 17:47:10 by gpeverel         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "libft.h"
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	int	i;
+	if (s != NULL)
+		write(fd, s, ft_strlen(s));
+}
 
-	if (!(s == NULL))
-	{
-		i = ft_strlen(s);
-		write(fd, s, i);
-	}
+void	ft_putstrn_fd(char *s, size_t len, int fd)
+{
+	if (s != NULL)
+		write(fd, s, len);
 }
