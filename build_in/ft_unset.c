@@ -35,12 +35,13 @@ t_env	*ft_unset(t_env *my_env, char **args)
 				my_env = my_env->next;
 			if (next != NULL)
 				next->prev = (temp)->prev;
+			free((temp)->key);
 			free((temp)->content);
 			free(temp);
 			(temp) = NULL;
 		}
 		i++;
 	}
-	all.error = 0;
+	g_all.error = 0;
 	return (my_env);
 }

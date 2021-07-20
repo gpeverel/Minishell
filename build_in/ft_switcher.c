@@ -29,30 +29,30 @@ void	ft_reddir_r(t_arg *temp, int *fd)
 {
 	char	*file;
 
-	//printf("00\n");
-	//printf("type=%c, item=%s\n", temp->type, temp->item);
+	if ((*fd) != 0)
+		close(*fd);
 	file = temp->item;
 	printf("file=%s\n", file);
 	if (temp->type == '1')
 		(*fd) = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (temp->type == '2')
 		(*fd) = open(file, O_WRONLY | O_CREAT | O_APPEND, 0777);
-	printf("fd=%d\n", (*fd));
+	//printf("fd=%d\n", (*fd));
 }
 
 void	ft_reddir_l(t_arg *temp, int *fd, int *flag)
 {
 	char	*file;
 
-	//printf("type=%c, item=%s\n", temp->type, temp->item);
+	if ((*fd) != 1)
+		close(*fd);
 	file = temp->item;
-	//printf("file=%s\n", file);
 	if (temp->type == '3')
 	{
 		(*fd) = open(file, O_RDONLY, 0222);
 		if ((*fd) < 0)
 		{
-			all.error = 1;
+			g_all.error = 1;
 			printf("%s: No such file or directory\n", file);
 			*flag = 1;
 			(*fd) = 0;
@@ -63,13 +63,13 @@ void	ft_reddir_l(t_arg *temp, int *fd, int *flag)
 		(*fd) = open("<<", O_RDONLY, 0222);
 		if ((*fd) < 0)
 		{
-			all.error = 1;
+			g_all.error = 1;
 			printf("%s: Error <<\n", file);
 			*flag = 1;
 			(*fd) = 0;
 		}
 	}
-	printf("fd=%d\n", (*fd));
+	//printf("fd=%d\n", (*fd));
 }
 
 char	**ft_args(int i, t_arg *arr)
@@ -98,11 +98,7 @@ int	getExec(t_env *my_env, int i, int *fd, t_arg *arr)
 {
 	char	**args;
 
-	//printf("2type=%c, item=%s\n", temp->type, temp->item);
 	i++;
-	//printf("11\n");
-	//printf("type=%c, item=%s\n", temp->type, temp->item);
-	//printf("i=%d\n", i);
 	args = ft_args(i, arr);
 	ft_switcher(fd, args, my_env);
 	if (fd[1] != 1)
@@ -134,8 +130,8 @@ void	ft_pipe(t_env *my_env, int i, t_arg *arr, int *fd_old)
 	{
 		dup2(fd[1], 1);
 		close(fd[0]);
-		execve(path, args, env);
 		close(fd[1]);
+		execve(path, args, env);
 	}
 	else if (pid > 0)
 	{
@@ -146,7 +142,7 @@ void	ft_pipe(t_env *my_env, int i, t_arg *arr, int *fd_old)
 	}
 	else
 	{
-		all.error = 1;
+		g_all.error = 1;
 		printf("error: fork\n");
 	}
 	ft_free_arr(env);
@@ -164,34 +160,31 @@ int	ft_adapter(t_env *my_env)
 	int		fd_0;
 	int		fd_1;
 
+	fd[0] = 0;
+	fd[1] = 1;
 	fd_0 = dup(0);
 	fd_1 = dup(1);
 	printf("fd_0=%d, fd_1=%d\n", fd_0, fd_1);
 	i = 0;
 	flag = 0;
-	temp = all.a_first;
+	temp = g_all.a_first;
 	arr = temp;
 	while (temp)
 	{
-		//printf("type=%c, item=%s\n", temp->type, temp->item);
 		if (temp->type == '1' || temp->type == '2')
 		{
-			//printf("1type=%c, item=%s\n", temp->type, temp->item);
 			ft_reddir_r(temp, &fd[1]);
 			i--;
 		}
 		if (temp->type == '3' || temp->type == '4')
 		{
-			//printf("3type=%c, item=%s\n", temp->type, temp->item);
 			ft_reddir_l(temp, &fd[0], &flag);
 			i--;
 		}
 		if (temp->type == 'p')
 		{
-			all.pipe_on = 1;
-			//printf("1p_type=%c, item=%s\n", temp->type, temp->item);
+			g_all.pipe_on = 1;
 			temp = temp->next;
-			//printf("2p_type=%c, item=%s\n", temp->type, temp->item);
 			ft_pipe(my_env, i, arr, fd);
 			i = 0;
 			arr = temp;
@@ -201,7 +194,6 @@ int	ft_adapter(t_env *my_env)
 			i = getExec(my_env, i, fd, arr);
 		}
 		i++;
-		//printf("i=%d\n", i);
 		temp = temp->next;
 	}
 	dup2(fd_0, 0);

@@ -11,6 +11,7 @@ t_env	*ft_add_env(t_env *my_env, char *arg)
 	content = ft_find_env(my_env, key);
 	if (content != NULL && arg_content != NULL)
 	{
+		free(key);
 		free(*content);
 		*content = arg_content;
 	}
@@ -56,11 +57,11 @@ int	ft_export(int fd, t_env *my_env, char **args)
 				my_env = ft_add_env(my_env, args[i]);
 				i++;
 			}
-			all.error = 0;
+			g_all.error = 0;
 		}
 		else
 		{
-			all.error = 1;
+			g_all.error = 1;
 			printf("export: `%s': not a valid identifier\n", args[i]);
 		}
 	}
