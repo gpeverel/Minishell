@@ -9,13 +9,13 @@ int	ft_switcher(int *fd, char **args, t_env *my_env)
 	else if (ft_strcmp(args[0], "cd") == 0)
 		ft_cd(my_env, args[1]);
 	else if (ft_strcmp(args[0], "echo") == 0)
-		ft_echo(fd[2], &args[1]);
+		ft_echo(fd[1], &args[1]);
 	else if (ft_strcmp(args[0], "pwd") == 0)
-		ft_pwd(fd[2]);
+		ft_pwd(fd[1]);
 	else if (ft_strcmp(args[0], "export") == 0)
-		ft_export(fd[2], my_env, &args[1]);
+		ft_export(fd[1], my_env, &args[1]);
 	else if (ft_strcmp(args[0], "env") == 0)
-		ft_print_myenv(fd[2], my_env, 0);
+		ft_print_myenv(fd[1], my_env, 0);
 	else if (ft_strcmp(args[0], "unset") == 0)
 		ft_unset(my_env, &args[1]);
 	else if (ft_strcmp(args[0], "exit") == 0)
