@@ -1,41 +1,31 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <string.h>
-#include <signal.h>
-#include <term.h>
-#include <dirent.h>
-#include "libft/libft.h"
-#include "GNL/get_next_line.h"
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <unistd.h>
-#include <sys/stat.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include <errno.h>
+# include <string.h>
+# include <signal.h>
+# include <term.h>
+# include <dirent.h>
+# include "libft/libft.h"
+# include "GNL/get_next_line.h"
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <unistd.h>
+# include <sys/stat.h>
 
-// typedef struct	s_redir
-// {
-// 	char	type;
-// 	char	*file_name;
-// 	struct s_redir	*next;
-// }				t_red;
-
-typedef struct	s_arg
+typedef struct s_arg
 {
 	char			type;
 	char			*item;
 	struct s_arg	*next;
 }				t_arg;
 
-typedef struct	s_all
+typedef struct s_all
 {
-	char	argument;// хранится бинарный код команды
-	//int		red_count;
-	//t_red	*red_work;
-	//char	**arg;
+	char	argument;
 	t_arg	*a_first;
 	t_arg	*a_last;
 	int		check_dol;
@@ -47,95 +37,61 @@ typedef struct	s_all
 
 }				t_all;
 
-typedef struct    s_env
+typedef struct s_env
 {
-   char         *key;
-   char         *content;
-   struct s_env   *next;
-   struct s_env   *prev;
-}              t_env;
+	char			*key;
+	char			*content;
+	struct s_env	*next;
+	struct s_env	*prev;
+}				t_env;
 
-t_all all;// единственная глобальная переменная
+t_all			g_all;
 
-
-
-// minishell.c
 char	*ft_error(char *err);
 char	*pars_bucket(char *str, int *i);
 char	*pars_double_bucket(char *str, int *i, t_env *my_env);
 char	*command_parser(char *str, t_env *my_env);
-//char	*pars_slesh(char *str, int *i);
-
-//pars_dollar
 char	*pars_dollar(char *str, int *i, t_env *my_env);
 char	*get_key_in_env(t_env *my_env, char *key);
 char	*find_key_env(t_env *my_env, char *key, int *k, int *z);
 int		ifkey(char c);
-
-//		dollar2
 void	while_key_end(int *i, char *str);
 void	if_str_null(char **tmp2, char *str, int *i);
 char	*join_all_part(char **key, char *tmp2, char *str);
 int		check_pipe_in_str(char *str, int *i);
-
-// pars_redirect
 char	*pars_redir_one(char *str, int *i, t_env *my_env);
 int		check_main_symb(char **str, int *j, t_env *my_env);
 void	redir_go_check_line(char **str, int *j, t_env *my_env);
 void	push_redir(char *str, int i, char *filename);
 char	*ft_strnewcpy(char *str, int size);
-
-//		left_two_redir
 void	work_left_two_redir(t_env *my_env);
 void	left_two_redir_str_push(char *str, int fd, t_env *my_env);
-
-
-//main_parser
 char	*delete_space(char *str, int *i);
 char	*init_arg(char *str, int start, int end);
-//void	check_main_symbols_str(char **str, int *i, char **env);
 char	*check_main_symbols_str(char *str, int *i, t_env *my_env);
 int		check_bucket_in_str(char **str, int *i, t_env *my_env);
-
-//init_all
-void	initstruct();
+void	initstruct(void);
 char	*join_str_bucket(char *str, int *i, int j);
-
-//list_list
-void	del_elem();
-//int		ft_strcmp(char *str1, char *str2);
+void	del_elem(void);
 void	push_elem(char *str);
-void	show_list();
+void	show_list(void);
 char	find_type_arg(char *str);
-void	del_all_pars_list();
-
-//	preparser
+void	del_all_pars_list(void);
 char	*redir_pre_pars(char *str);
 int		backet_check(char *str, int buck, int *place, char c);
 char	*recalcul_backet(char *str);
 char	*pipe_pre_pars(char *str, int *i);
 char	*prepars_backet_check(char *str, int *i);
-
-
-//	pre_redirect
 int		skip_first_redir(char *str, int i, char fir, char sec);
 char	*skip_clear_filename(char *str, int *i);
-//char	*redir_pre_right(char *str, int *i); // убрать эти функции из файла
-//char	*redir_pre_left(char *str, int *i);
 char	*redir_pre_side(char *str, int *i);
 int		command_pre_parser(char *str);
-
-//		history
 void	get_history_from_file(void);
 char	*ft_substr_g(char const *s, unsigned int start, int len);
-
-//		signals_check
 void	rl_replace_line(const char *c, int i);
 void	quit_signals(void);
 void	handle_signals(void);
 int		main_loop_line(int fd, t_env *my_env);
-
-
 int		ft_strcmp(char *s1, char *s2);
 int		ft_echo(int fd, char **str);
 int		ft_cd(t_env *my_env, char *path);

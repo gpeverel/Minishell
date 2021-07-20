@@ -11,7 +11,6 @@ void	left_two_redir_str_push(char *str, int fd, t_env *my_env)
 		if (str[i] == '$')
 		{
 			str = pars_dollar(str, &i, my_env);
-			//printf("\n%c\n", str[i]);
 			continue ;
 		}
 		i++;
@@ -48,5 +47,3 @@ void	work_left_two_redir(t_env *my_env)
 	all.flag_red = 0;
 	close(fd);
 }
-
-

@@ -16,15 +16,15 @@ void	while_key_end(int *i, char *str)
 
 void	if_str_null(char **tmp2, char *str, int *i)
 {
-	(*tmp2) = ft_strdup(str + *i);// пропустили весь ключ
-	if (all.check_dol != 2)// если перед $ были другие символы
-		all.check_dol = 1;// чтобы нормально работать с пробелами при парсере
+	(*tmp2) = ft_strdup(str + *i);
+	if (all.check_dol != 2)
+		all.check_dol = 1;
 }
 
 char	*join_all_part(char **key, char *tmp2, char *str)
 {
 	*key = ft_strjoin(*key, tmp2);
-	free(tmp2);//printf("%s\n", key);
+	free(tmp2);
 	free(str);
 	return (*key);
 }
