@@ -33,8 +33,6 @@ void	ft_reddir_r(t_arg *temp, int *fd)
 	//printf("type=%c, item=%s\n", temp->type, temp->item);
 	file = temp->item;
 	printf("file=%s\n", file);
-	if ((*fd) != 1)
-		close(*fd);
 	if (temp->type == '1')
 		(*fd) = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (temp->type == '2')
@@ -49,8 +47,6 @@ void	ft_reddir_l(t_arg *temp, int *fd, int *flag)
 	//printf("type=%c, item=%s\n", temp->type, temp->item);
 	file = temp->item;
 	//printf("file=%s\n", file);
-	if ((*fd) != 0)
-		close(*fd);
 	if (temp->type == '3')
 	{
 		(*fd) = open(file, O_RDONLY, 0222);
@@ -73,21 +69,16 @@ void	ft_reddir_l(t_arg *temp, int *fd, int *flag)
 			(*fd) = 0;
 		}
 	}
-	//printf("fd=%d\n", (*fd));
+	printf("fd=%d\n", (*fd));
 }
 
-int	getExec(t_env *my_env, int i, int *fd, t_arg *arr)
+char	**ft_args(int i, t_arg *arr)
 {
-	int		n;
-	char	**args;
+	char **args;
+	int	n;
 
-	//printf("2type=%c, item=%s\n", temp->type, temp->item);
-	i++;
-	//printf("11\n");
-	//printf("type=%c, item=%s\n", temp->type, temp->item);
-	//printf("i=%d\n", i);
-	args = malloc(sizeof(char *) * (i + 1));
 	n = 0;
+	args = malloc(sizeof(char *) * (i + 1));
 	while (n < i)
 	{
 		if (arr->type != '1' && arr->type != '2' && arr->type != '3'
@@ -100,6 +91,19 @@ int	getExec(t_env *my_env, int i, int *fd, t_arg *arr)
 		arr = arr->next;
 	}
 	args[n] = NULL;
+	return (args);
+}
+
+int	getExec(t_env *my_env, int i, int *fd, t_arg *arr)
+{
+	char	**args;
+
+	//printf("2type=%c, item=%s\n", temp->type, temp->item);
+	i++;
+	//printf("11\n");
+	//printf("type=%c, item=%s\n", temp->type, temp->item);
+	//printf("i=%d\n", i);
+	args = ft_args(i, arr);
 	ft_switcher(fd, args, my_env);
 	if (fd[1] != 1)
 		close(fd[1]);
@@ -117,22 +121,8 @@ void	ft_pipe(t_env *my_env, int i, t_arg *arr, int *fd_old)
 	char	**env;
 	int		status;
 	char	**args;
-	int 	n;
 
-	n = 0;
-	args = malloc(sizeof(char *) * (i + 1));
-	while (n < i)
-	{
-		if (arr->type != '1' && arr->type != '2' && arr->type != '3'
-			&& arr->type != '4')
-		{
-			args[n] = arr->item;
-			printf("args[n]=%s\n", args[n]);
-			n++;
-		}
-		arr = arr->next;
-	}
-	args[n] = NULL;
+	args = ft_args(i, arr);
 	pipe(fd);
 	path = ft_get_path(my_env, args[0]);
 	if (path == NULL)
@@ -171,11 +161,7 @@ int	ft_adapter(t_env *my_env)
 	int		flag;
 	int		fd[2];
 	t_arg	*arr;
-	int		fd_0;
-	int		fd_1;
 
-	fd_0 = dup(0);
-	fd_1 = dup(1);
 	i = 0;
 	fd[0] = 0;
 	fd[1] = 1;
@@ -210,8 +196,6 @@ int	ft_adapter(t_env *my_env)
 		if (temp->next == NULL && flag == 0)
 		{
 			i = getExec(my_env, i, fd, arr);
-			dup2(fd_0, 0);
-			dup2(fd_1, 1);
 		}
 		i++;
 		//printf("i=%d\n", i);
