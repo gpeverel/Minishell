@@ -36,18 +36,16 @@ void	push_redir(char *str, int i, char *filename)
 		tmp->type = '3';
 	tmp->item = filename;
 	tmp->next = NULL;
-	if (all.a_last == NULL)
+	if (g_all.a_last == NULL)
 	{
-		//tmp->next = tmp;
-		all.a_last = tmp;
-		all.a_first = tmp;
-		all.a_last->next = NULL;
+		g_all.a_last = tmp;
+		g_all.a_first = tmp;
+		g_all.a_last->next = NULL;
 	}
 	else
 	{
-		//tmp->next = all.a_first;
-		all.a_last->next = tmp;
-		all.a_last = tmp;
+		g_all.a_last->next = tmp;
+		g_all.a_last = tmp;
 	}
 }
 
@@ -100,24 +98,20 @@ char	*pars_redir_one(char *str, int *i, t_env *my_env)
 	char	*tmp;
 
 	j = *i + 1;
-	//if (str[*i + 1] == '<' )
-	//	return(work_left_two_redir(&str));
 	if (str[*i + 1] == '>' || str[*i + 1] == '<')
 		j++;
 	while (str[j] == ' ' || str[j] == '\t')
 		j++;
-	//printf("%d\n", j);
 	z = j;
 	redir_go_check_line(&str, &j, my_env);
-	push_redir(str, *i, ft_strnewcpy(str + z, j - z));// пихаем в структуру
-	if (all.a_last->type == '4')
-		work_left_two_redir(my_env);// для <<
+	push_redir(str, *i, ft_strnewcpy(str + z, j - z));
+	if (g_all.a_last->type == '4')
+		work_left_two_redir(my_env);
 	tmp = ft_substr_g(str, 0, *i - 1);
 	tmp = ft_strjoin(tmp, str + j);
 	if ((str[j] == '\0' || str[*i] == '<' || str[*i] == '>') && *i != 0)
-		(*i)--;// если редирект в конце команды, чтобы не вых за грань, или если редирек за редиректом
-	//printf("%d\n", j);
+		(*i)--;
 	free(str);
-	all.check_dol = 1;
+	g_all.check_dol = 1;
 	return (tmp);
 }

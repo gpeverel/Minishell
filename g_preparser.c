@@ -37,28 +37,11 @@ char	*prepars_backet_check(char *str, int *i)
 
 char	*recalcul_backet(char *str)
 {
-	//int	one_buck;
-	//int	two_buck;
 	int	i;
 
 	i = 0;
-	//one_buck = 0;
-	//two_buck = 0;
 	while (str[i])
 	{
-		// if (str[i] == '\'')
-		// {
-		// 	one_buck = backet_check(str, ++one_buck, &i, '\'');
-		// 	if (one_buck == 1)
-		// 		return (ft_error("Не закрыта одинарная ковычка!"));
-		// }
-		// if (str[i] == '\"')
-		// {
-		// 	two_buck = backet_check(str, ++two_buck, &i, '\"');
-		// 	if (two_buck == 1)
-		// 		return (ft_error("Не закрыта двойная ковычка!"));
-		// }
-
 		if (str[i] == '\'' || str[i] == '\"')
 			if (prepars_backet_check(str, &i) == NULL)
 				return (NULL);
@@ -78,9 +61,8 @@ char	*pipe_pre_pars(char *str, int *i)
 {
 	while (str[*i] != '\"' && str[*i] != '\'' && str[*i])
 	{
-		if (str[(*i)] == '|')
+		if (str[(*i)] == '|' && (*i)++)
 		{
-			(*i)++;
 			while (str[*i] == ' ')
 				(*i)++;
 			if (str[*i] == '\0')

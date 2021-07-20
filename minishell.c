@@ -29,7 +29,7 @@ char	*pars_bucket(char *str, int *i)
 	return (tmp);
 }
 
-char	*pars_double_bucket(char *str, int *i, t_env *my_env)// без ликов
+char	*pars_double_bucket(char *str, int *i, t_env *my_env)
 {
 	char	*tmp;
 	int		j;
@@ -40,7 +40,7 @@ char	*pars_double_bucket(char *str, int *i, t_env *my_env)// без ликов
 	{
 		if (str[*i] == '$')
 		{
-			str = pars_dollar(str, i, my_env);// добавил str =
+			str = pars_dollar(str, i, my_env);
 			continue ;
 		}
 		if (str[*i] == '\"')
@@ -67,83 +67,35 @@ char	*command_parser(char *str, t_env *my_env)
 			i++;
 		if (str[i] == '\0')
 			break ;
-		all.check_dol = 0;
+		g_all.check_dol = 0;
 		check_start_arg = i;
 		str = check_main_symbols_str(str, &i, my_env);
-		if (all.check_dol != 1)
+		if (g_all.check_dol != 1)
 		{
 			arg = init_arg(str, check_start_arg, i);
 			push_elem(arg);
-			printf("|%s|\n", arg);
-			//continue;// вроде не нужен
 		}
 	}
-	show_list();
 	return (str);
 }
 
-// сделать так чтобы редирект брал все от начала стрелки до конца названия файла
-// и потом проверять что за стрелка, когда уже определяю тип в списке,
-// затем уже отделить стрелку от названия файла и запихнуть куда надо
-
-
-int		main(int argc, char** argv, char **env)
+int	main(int argc, char **argv, char **env)
 {
 	int		fd;
 	t_env	*my_env;
 
 	(void)argc;
 	(void)argv;
-	all.error = 0;
+	g_all.error = 0;
 	my_env = ft_create_my_env(env, NULL);
 	get_history_from_file();
 	fd = open("fhistory", O_WRONLY | O_APPEND, 0644);
 	while (1)
 	{
 		if (!main_loop_line(fd, my_env))
-			break;
+			break ;
 	}
 	close(fd);
-	//printf("%s", str);
 	ft_lstclear_env(&my_env);
-		//while (1);
 	return (0);
-
-
 }
-
-
-// int		main(int argc, char** argv, char **env)
-// {
-// 	int		i = 0;
-// 	int		len;
-// 	int		fd;
-// 	t_env	*my_env;
-// 	//char	*str;
-
-// 	//char *str1 = ">> asd pwd << \"$MYfilename$USER\"";
-// 	//char	*str1 = "   echo >>  $USER  \"NAME\"USER\"\'_file\'\"  <\'2file\'\"_best^\"";
-// 	//char	*str1 = "   echo  >> \"$?MYY!$USER$MY very\">ASD\"asd\"";
-// 	//char	*str1 = "   echo  >>\"first\"     >>  \"get\"$USER\"  !!!\"  $USER Second\"asd\"";
-// 	//char	*str1 = "   echo   Second\"asd\"   ";
-// 	//char	*str1 = "   echo $USERR  Second\"asd\"   ";
-// 	//char *str1 = " $MYY|$MY |\"bucket\"|\'awdASD\'  "; // проверка пайпов
-// 	//char *str1 = ">> asd pwd > \"$MYfilename$USER\"";
-// 	len = ft_strlen(str1);
-// 	char *str = ft_calloc(len + 1, 1);
-// 	my_env = ft_create_my_env(env, NULL);
-// 	while (i < len)
-// 	{
-// 		str[i] = str1[i];
-// 		i++;
-// 	}
-// 	printf("mainStr = %s|\n", str);
-// 	i = command_pre_parser(str);
-// 	if (i != -1)
-// 	{
-// 	str = command_parser(str, my_env);
-// 	}
-// 	//while (1);
-// 	return (0);
-
-// }
