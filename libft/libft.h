@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sjeffry <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gpeverel <gpeverel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 15:13:23 by sjeffry           #+#    #+#             */
-/*   Updated: 2020/11/10 17:47:10 by gpeverel         ###   ########.fr       */
+/*   Updated: 2021/07/20 16:05:03 by gpeverel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-typedef struct		s_list
+typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
@@ -29,7 +29,7 @@ int					ft_strncmp(const char *str1, const char *str2, size_t n);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
 void				*ft_memccpy(void *des, const void *src, int c, size_t n);
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
-													void (*del)(void *));
+						 void (*del)(void *));
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 void				*ft_memmove(void *dst, const void *src, size_t len);
 size_t				ft_strlcpy(char *dest, const char *src, size_t i);

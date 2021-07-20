@@ -1,76 +1,92 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: gpeverel <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/07 17:06:07 by gpeverel          #+#    #+#             */
-/*   Updated: 2020/11/11 19:02:37 by gpeverel         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "libft.h"
 
-static int	count_str(char const *s, char c)
+static char	*ft_strdupchr(char *s, char c)
 {
-	int i;
-	int count;
+	char	*res;
+	size_t	i;
 
-	count = 0;
 	i = 0;
-	while (s[i])
+	while (s[i] != c && s[i])
+		i++;
+	res = (char *)malloc(i + 1);
+	if (res == NULL)
+		return (NULL);
+	i = 0;
+	while (s[i] != c && s[i])
 	{
-		if (s[i] != c && (s[i + 1] == '\0' || s[i + 1] == c))
-			count++;
+		res[i] = s[i];
 		i++;
 	}
-	return (count);
+	res[i] = '\0';
+	return (res);
 }
 
-static char	**free_all(char **str, int n)
+static void	free_strs(char **res)
 {
-	n--;
-	while (n >= 0)
+	size_t	i;
+
+	i = 0;
+	while (res[i] != NULL)
 	{
-		free(str[n]);
-		n--;
+		free(res[i]);
+		res[i] = NULL;
+		i++;
 	}
-	free(str);
-	return (NULL);
+	free(res);
+	res = NULL;
 }
 
-static void	find_word(char const *s, char c, int *start, int *len)
+static size_t	get_nstrs(char *str, char c)
 {
-	*start = *start + *len;
-	*len = 0;
-	while (s[*start] == c)
-		(*start)++;
-	while (s[*start + *len] != c && s[*start + *len] != '\0')
-		(*len)++;
+	size_t	n_strs;
+
+	n_strs = 0;
+	while (*str)
+	{
+		while (*str && *str == c)
+			str++;
+		if (*str)
+			n_strs++;
+		while (*str && *str != c)
+			str++;
+	}
+	return (n_strs);
 }
 
-char		**ft_split(char const *s, char c)
+static void	ft_strscpy(char **res, size_t n, char *str, char c)
 {
-	int		start;
-	int		j;
-	int		end;
-	char	**str;
+	size_t	i;
 
-	j = 0;
-	start = 0;
-	end = 0;
+	i = 0;
+	while (*str && i < n)
+	{
+		while (*str && *str == c)
+			str++;
+		res[i] = ft_strdupchr(str, c);
+		if (res[i++] == NULL)
+		{
+			free_strs(res);
+			return ;
+		}
+		while (*str != c && *str)
+			str++;
+	}
+	res[i] = NULL;
+}
+
+char	**ft_split(char const *s, char c)
+{
+	char	*str;
+	char	**res;
+	size_t	nstrs;
+
 	if (s == NULL)
 		return (NULL);
-	if (!(str = (char **)ft_calloc(sizeof(char *), (count_str(s, c) + 1))))
+	str = (char *)s;
+	nstrs = get_nstrs(str, c);
+	res = (char **)malloc(sizeof(char *) * (nstrs + 1));
+	if (res == NULL)
 		return (NULL);
-	while (j < count_str(s, c))
-	{
-		find_word(s, c, &start, &end);
-		if (!(str[j] = (char *)malloc(sizeof(char) * (end + 1))))
-			return (free_all(str, j));
-		ft_strlcpy(str[j], &s[start], end + 1);
-		j++;
-	}
-	return (str);
+	ft_strscpy(res, nstrs, str, c);
+	return (res);
 }

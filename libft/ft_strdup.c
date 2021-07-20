@@ -1,31 +1,37 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: gpeverel <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/05 14:23:39 by gpeverel          #+#    #+#             */
-/*   Updated: 2020/11/10 17:47:10 by gpeverel         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "libft.h"
 
 char	*ft_strdup(const char *str)
 {
-	int		i;
-	char	*cpy;
+	char	*src;
+	size_t	len;
+	char	*dst;
+	char	*strcp;
 
-	i = 0;
-	cpy = malloc(sizeof(char) * ft_strlen(str) + 1);
-	if (!cpy)
+	src = (char *)str;
+	len = ft_strlen(src);
+	dst = (char *)malloc(len + 1);
+	if (NULL == dst)
 		return (NULL);
-	while (str[i] != '\0')
-	{
-		cpy[i] = str[i];
-		i++;
-	}
-	cpy[i] = '\0';
-	return (cpy);
+	strcp = dst;
+	while (len-- != 0)
+		*strcp++ = *src++;
+	*strcp = '\0';
+	return (dst);
+}
+
+char	*ft_strdupn(const char *str, size_t len)
+{
+	char	*src;
+	char	*dst;
+	char	*strcp;
+
+	src = (char *)str;
+	dst = (char *)malloc(len + 1);
+	if (NULL == dst)
+		return (NULL);
+	strcp = dst;
+	while (len-- != 0 && *src)
+		*strcp++ = *src++;
+	*strcp = '\0';
+	return (dst);
 }
