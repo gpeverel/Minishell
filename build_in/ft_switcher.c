@@ -32,7 +32,7 @@ void	ft_reddir_r(t_arg *temp, int *fd)
 	if ((*fd) != 0)
 		close(*fd);
 	file = temp->item;
-	printf("file=%s\n", file);
+	//printf("file=%s\n", file);
 	if (temp->type == '1')
 		(*fd) = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (temp->type == '2')
@@ -85,7 +85,7 @@ char	**ft_args(int i, t_arg *arr)
 			&& arr->type != '4')
 		{
 			args[n] = arr->item;
-			printf("args[n]=%s\n", args[n]);
+			//printf("args[n]=%s\n", args[n]);
 			n++;
 		}
 		arr = arr->next;
@@ -123,7 +123,7 @@ void	ft_pipe(t_env *my_env, int i, t_arg *arr, int *fd_old)
 	path = ft_get_path(my_env, args[0]);
 	if (path == NULL)
 		return ;
-	printf("path=%s\n", path);
+	//printf("path=%s\n", path);
 	env = ft_create_env_arr(my_env);
 	pid = fork();
 	if (pid == 0)
@@ -164,7 +164,7 @@ int	ft_adapter(t_env *my_env)
 	fd[1] = 1;
 	fd_0 = dup(0);
 	fd_1 = dup(1);
-	printf("fd_0=%d, fd_1=%d\n", fd_0, fd_1);
+	//printf("fd_0=%d, fd_1=%d\n", fd_0, fd_1);
 	i = 0;
 	flag = 0;
 	temp = g_all.a_first;
