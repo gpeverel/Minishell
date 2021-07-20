@@ -4,7 +4,9 @@ int	ft_switcher(int *fd, char **args, t_env *my_env)
 {
 	pid_t	pid;
 
-	if (ft_strcmp(args[0], "cd") == 0)
+	if (args[0] == NULL)
+		return (0);
+	else if (ft_strcmp(args[0], "cd") == 0)
 		ft_cd(my_env, args[1]);
 	else if (ft_strcmp(args[0], "echo") == 0)
 		ft_echo(fd[2], &args[1]);
@@ -20,7 +22,7 @@ int	ft_switcher(int *fd, char **args, t_env *my_env)
 		ft_exit(&args[1]);
 	else
 		fr_exec(fd, my_env, args, pid);
-	return (0);
+	return (1);
 }
 
 void	ft_reddir_r(t_arg *temp, int *fd)
