@@ -64,20 +64,3 @@ void	f(t_env *l, void (*k)(char *, int), void (*c)(char *, int), int fd)
 		l = l->next;
 	}
 }
-
-void	ft_lstclear_env(t_env **lst)
-{
-	t_env	*l;
-
-	if (*lst)
-	{
-		while (*lst)
-		{
-			l = (*lst)->next;
-			free((*lst)->content);
-			free(*lst);
-			(*lst) = NULL;
-			*lst = l;
-		}
-	}
-}

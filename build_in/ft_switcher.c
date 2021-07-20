@@ -2,6 +2,8 @@
 
 int	ft_switcher(int *fd, char **args, t_env *my_env)
 {
+	pid_t	pid;
+
 	if (ft_strcmp(args[0], "cd") == 0)
 		ft_cd(my_env, args[1]);
 	else if (ft_strcmp(args[0], "echo") == 0)
@@ -17,7 +19,7 @@ int	ft_switcher(int *fd, char **args, t_env *my_env)
 	else if (ft_strcmp(args[0], "exit") == 0)
 		ft_exit(&args[1]);
 	else
-		fr_exec(fd, my_env, args);
+		fr_exec(fd, my_env, args, pid);
 	return (0);
 }
 

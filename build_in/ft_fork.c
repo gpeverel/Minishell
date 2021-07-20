@@ -70,9 +70,8 @@ char	*ft_get_path(t_env *my_env, char *arg)
 	return (path);
 }
 
-void	fr_exec(int *fd, t_env *my_env, char **args)
+void	fr_exec(int *fd, t_env *my_env, char **args, pid_t pid)
 {
-	pid_t	pid;
 	char	*path;
 	char	**env;
 	int		status;

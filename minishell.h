@@ -155,7 +155,7 @@ t_env	*ft_unset(t_env *my_env, char **args);
 void	ft_exit(char **args);
 int		ft_adapter(t_env *my_env);
 int		ft_lstsize_env(t_env *lst);
-void	fr_exec(int *fd, t_env *my_env, char **args);
+void	fr_exec(int *fd, t_env *my_env, char **args, pid_t pid);
 char	*ft_path_command(char *path, char *command);
 char	*ft_strcat(char *dst, char *src, char *three);
 void	ft_free_arr(char **env);
