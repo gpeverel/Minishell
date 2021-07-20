@@ -1,23 +1,23 @@
 #include "../minishell.h"
 
-int	ft_switcher(int fd_in, int fd_out, char **args, t_env *my_env)
+int	ft_switcher(int *fd, char **args, t_env *my_env)
 {
 	if (ft_strcmp(args[0], "cd") == 0)
 		ft_cd(my_env, args[1]);
 	else if (ft_strcmp(args[0], "echo") == 0)
-		ft_echo(fd_out, &args[1]);
+		ft_echo(fd[2], &args[1]);
 	else if (ft_strcmp(args[0], "pwd") == 0)
-		ft_pwd(fd_out);
+		ft_pwd(fd[2]);
 	else if (ft_strcmp(args[0], "export") == 0)
-		ft_export(fd_out, my_env, &args[1]);
+		ft_export(fd[2], my_env, &args[1]);
 	else if (ft_strcmp(args[0], "env") == 0)
-		ft_print_myenv(fd_out, my_env, 0);
+		ft_print_myenv(fd[2], my_env, 0);
 	else if (ft_strcmp(args[0], "unset") == 0)
 		ft_unset(my_env, &args[1]);
 	else if (ft_strcmp(args[0], "exit") == 0)
 		ft_exit(&args[1]);
 	else
-		fr_exec(fd_in, fd_out, my_env, args);
+		fr_exec(fd, my_env, args);
 	return (0);
 }
 
@@ -96,7 +96,7 @@ int	getExec(t_env *my_env, int i, int *fd, t_arg *arr)
 		arr = arr->next;
 	}
 	args[n] = NULL;
-	ft_switcher(fd[0], fd[1], args, my_env);
+	ft_switcher(fd, args, my_env);
 	if (fd[1] != 1)
 		close(fd[1]);
 	if (fd[0] != 0)

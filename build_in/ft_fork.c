@@ -1,15 +1,13 @@
 #include "../minishell.h"
 
-char	*ft_check_path(t_env *my_env, char *arg)
+char	*ft_check_path(t_env *my_env, char *arg, int i)
 {
 	char		*path;
 	char		**path_test;
 	char		*path_end;
 	char		**paths_arr;
-	int			i;
 	struct stat	buf;
 
-	i = 0;
 	path_end = NULL;
 	path_test = ft_find_env(my_env, "PATH");
 	if (path_test == NULL)
@@ -55,12 +53,14 @@ char	**ft_create_env_arr(t_env *my_env)
 char	*ft_get_path(t_env *my_env, char *arg)
 {
 	char	*path;
+	int		i;
 
+	i = 0;
 	if (arg[0] == '/' || arg[0] == '.')
 		path = ft_strdup(arg);
 	else
 	{
-		path = ft_check_path(my_env, arg);
+		path = ft_check_path(my_env, arg, i);
 		if (path == NULL)
 		{
 			all.error = 127;
@@ -70,7 +70,7 @@ char	*ft_get_path(t_env *my_env, char *arg)
 	return (path);
 }
 
-void	fr_exec(int fd_in, int fd_out, t_env *my_env, char **args)
+void	fr_exec(int *fd, t_env *my_env, char **args)
 {
 	pid_t	pid;
 	char	*path;
@@ -82,13 +82,11 @@ void	fr_exec(int fd_in, int fd_out, t_env *my_env, char **args)
 		return ;
 	env = ft_create_env_arr(my_env);
 	pid = fork();
-	all.flag = 1;
 	if (pid == 0)
 	{
-		dup2(fd_in, 0);
-		dup2(fd_out, 1);
-		if (execve(path, args, env) == -1)
-			exit(1);
+		dup2(fd[0], 0);
+		dup2(fd[1], 1);
+		execve(path, args, env);
 	}
 	else if (pid > 0)
 		wait(&status);
@@ -97,7 +95,6 @@ void	fr_exec(int fd_in, int fd_out, t_env *my_env, char **args)
 		all.error = 1;
 		printf("error: fork\n");
 	}
-	all.flag = 0;
 	ft_free_arr(env);
 	free(path);
 	all.error = WEXITSTATUS(status);
