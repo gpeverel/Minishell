@@ -47,3 +47,14 @@ void	work_left_two_redir(t_env *my_env)
 	g_all.flag_red = 0;
 	close(fd);
 }
+
+char	*prepars_pipe_errors(char *str, int *i)
+{
+	if (str[*i] == '>' || str[*i] == '<')
+		return (ft_error("Ощибка синтаксиса!"));
+	if (str[*i] == '\0')
+		return (ft_error("Пайп в конце команды!"));
+	if (str[*i] == '|')
+		return (ft_error("Несколько пайпов сразу!"));
+	return ("+");
+}

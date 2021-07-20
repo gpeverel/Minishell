@@ -65,10 +65,8 @@ char	*pipe_pre_pars(char *str, int *i)
 		{
 			while (str[*i] == ' ')
 				(*i)++;
-			if (str[*i] == '\0')
-				return (ft_error("Пайп в конце команды!"));
-			if (str[*i] == '|')
-				return (ft_error("Несколько пайпов сразу!"));
+			if (prepars_pipe_errors(str, i) == NULL)
+				return (NULL);
 			continue ;
 		}
 		if (str[*i] == '>' || str[*i] == '<')

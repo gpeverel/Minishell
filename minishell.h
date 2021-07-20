@@ -47,6 +47,7 @@ typedef struct s_env
 
 t_all			g_all;
 
+char	*prepars_pipe_errors(char *str, int *i);
 char	*ft_error(char *err);
 char	*pars_bucket(char *str, int *i);
 char	*pars_double_bucket(char *str, int *i, t_env *my_env);
