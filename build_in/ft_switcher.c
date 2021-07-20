@@ -161,10 +161,13 @@ int	ft_adapter(t_env *my_env)
 	int		flag;
 	int		fd[2];
 	t_arg	*arr;
+	int		fd_0;
+	int		fd_1;
 
+	fd_0 = dup(0);
+	fd_1 = dup(1);
+	printf("fd_0=%d, fd_1=%d\n", fd_0, fd_1);
 	i = 0;
-	fd[0] = 0;
-	fd[1] = 1;
 	flag = 0;
 	temp = all.a_first;
 	arr = temp;
@@ -201,5 +204,9 @@ int	ft_adapter(t_env *my_env)
 		//printf("i=%d\n", i);
 		temp = temp->next;
 	}
+	dup2(fd_0, 0);
+	dup2(fd_1, 1);
+	close(fd_0);
+	close(fd_1);
 	return (0);
 }
