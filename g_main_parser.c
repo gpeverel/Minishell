@@ -49,13 +49,13 @@ int	check_bucket_in_str(char **str, int *i, t_env *my_env)
 {
 	if ((*str)[*i] == '\'')
 	{
-		all.check_dol = 2;
+		g_all.check_dol = 2;
 		(*str) = pars_bucket((*str), i);
 		return (1);
 	}
 	else if ((*str)[*i] == '\"')
 	{
-		all.check_dol = 2;
+		g_all.check_dol = 2;
 		(*str) = pars_double_bucket((*str), i, my_env);
 		return (1);
 	}
@@ -82,7 +82,7 @@ char	*check_main_symbols_str(char *str, int *i, t_env *my_env)
 		}
 		else
 		{
-			all.check_dol = 2;
+			g_all.check_dol = 2;
 			(*i)++;
 			if (str[*i] == '|')
 				break ;

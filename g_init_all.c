@@ -2,11 +2,11 @@
 
 void	initstruct(void)
 {
-	all.a_first = NULL;
-	all.a_last = NULL;
-	all.check_dol = 0;
-	all.pipe_on = 0;
-	all.flag = 0;
+	g_all.a_first = NULL;
+	g_all.a_last = NULL;
+	g_all.check_dol = 0;
+	g_all.pipe_on = 0;
+	g_all.flag = 0;
 }
 
 char	*join_str_bucket(char *str, int *i, int j)

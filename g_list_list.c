@@ -5,19 +5,19 @@ void	del_elem(void)
 	t_arg	*del_elem;
 
 	del_elem = NULL;
-	if (all.a_last == NULL)
+	if (g_all.a_last == NULL)
 		return ;
-	if (all.a_last->next == all.a_last)
+	if (g_all.a_last->next == g_all.a_last)
 	{
-		free(all.a_last);
-		all.a_last = NULL;
+		free(g_all.a_last);
+		g_all.a_last = NULL;
 	}
 	else
 	{
-		del_elem = all.a_first->next;
-		free(all.a_first);
-		all.a_first = del_elem;
-		all.a_last->next = del_elem;
+		del_elem = g_all.a_first->next;
+		free(g_all.a_first);
+		g_all.a_first = del_elem;
+		g_all.a_last->next = del_elem;
 	}
 }
 
@@ -26,9 +26,9 @@ void	del_all_pars_list(void)
 	t_arg	*tmp;
 	t_arg	*tmpsub;
 
-	if (all.a_last == NULL)
+	if (g_all.a_last == NULL)
 		return ;
-	tmpsub = all.a_first;
+	tmpsub = g_all.a_first;
 	while (tmpsub)
 	{
 		tmp = tmpsub;
@@ -46,16 +46,16 @@ void	push_elem(char *str)
 	tmp->item = str;
 	tmp->type = find_type_arg(str);
 	tmp->next = NULL;
-	if (all.a_last == NULL)
+	if (g_all.a_last == NULL)
 	{
-		all.a_last = tmp;
-		all.a_first = tmp;
-		all.a_last->next = NULL;
+		g_all.a_last = tmp;
+		g_all.a_first = tmp;
+		g_all.a_last->next = NULL;
 	}
 	else
 	{
-		all.a_last->next = tmp;
-		all.a_last = tmp;
+		g_all.a_last->next = tmp;
+		g_all.a_last = tmp;
 	}
 }
 
@@ -63,9 +63,9 @@ void	show_list(void)
 {
 	t_arg	*tmp;
 
-	if (all.a_last == NULL)
+	if (g_all.a_last == NULL)
 		return ;
-	tmp = all.a_first;
+	tmp = g_all.a_first;
 	printf("Обзор списка\n");
 	while (tmp)
 	{
@@ -80,7 +80,7 @@ char	find_type_arg(char *str)
 		return ('f');
 	else if (str[0] == '|' && ft_strlen(str) == 1)
 	{
-		all.pipe_on = 1;
+		g_all.pipe_on = 1;
 		return ('p');
 	}
 	else

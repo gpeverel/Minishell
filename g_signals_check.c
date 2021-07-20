@@ -2,7 +2,7 @@
 
 void	handle_signals(void)
 {
-	if (!all.flag)
+	if (!g_all.flag)
 	{
 		rl_on_new_line();
 		rl_redisplay();
@@ -11,7 +11,7 @@ void	handle_signals(void)
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
-	else if (all.flag_red)
+	else if (g_all.flag_red)
 	{
 		write(1, "\n", 1);
 		write(1, "> ", 2);
@@ -22,14 +22,14 @@ void	handle_signals(void)
 
 void	quit_signals(void)
 {
-	if (!all.flag)
+	if (!g_all.flag)
 	{
 		rl_on_new_line();
 		rl_redisplay();
 		write(1, "  ", 2);
 		write(1, "\b\b", 2);
 	}
-	else if (all.flag_red)
+	else if (g_all.flag_red)
 	{
 		write(1, "\n", 1);
 		write(1, "> ", 2);
@@ -52,7 +52,7 @@ void	if_there_is_str(int fd, char *str, t_env *my_env)
 		ft_adapter(my_env);
 	}
 	else
-		all.error = 258;
+		g_all.error = 258;
 	free(str);
 	del_all_pars_list();
 }

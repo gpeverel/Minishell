@@ -14,7 +14,7 @@ char	*get_key_in_env(t_env *my_env, char *key)
 	env = my_env;
 	if (key[0] == '?')
 	{
-		return (ft_itoa(all.error));
+		return (ft_itoa(g_all.error));
 	}
 	while (env)
 	{
@@ -33,7 +33,7 @@ int	go_to_end_key(char *tmp2, int z)
 	while (tmp2[i])
 		i++;
 	i += z;
-	all.check_dol = 2;
+	g_all.check_dol = 2;
 	return (i);
 }
 

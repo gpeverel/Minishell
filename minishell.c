@@ -67,10 +67,10 @@ char	*command_parser(char *str, t_env *my_env)
 			i++;
 		if (str[i] == '\0')
 			break ;
-		all.check_dol = 0;
+		g_all.check_dol = 0;
 		check_start_arg = i;
 		str = check_main_symbols_str(str, &i, my_env);
-		if (all.check_dol != 1)
+		if (g_all.check_dol != 1)
 		{
 			arg = init_arg(str, check_start_arg, i);
 			push_elem(arg);
@@ -86,7 +86,7 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
-	all.error = 0;
+	g_all.error = 0;
 	my_env = ft_create_my_env(env, NULL);
 	get_history_from_file();
 	fd = open("fhistory", O_WRONLY | O_APPEND, 0644);

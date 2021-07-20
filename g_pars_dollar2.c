@@ -17,8 +17,8 @@ void	while_key_end(int *i, char *str)
 void	if_str_null(char **tmp2, char *str, int *i)
 {
 	(*tmp2) = ft_strdup(str + *i);
-	if (all.check_dol != 2)
-		all.check_dol = 1;
+	if (g_all.check_dol != 2)
+		g_all.check_dol = 1;
 }
 
 char	*join_all_part(char **key, char *tmp2, char *str)
@@ -31,7 +31,7 @@ char	*join_all_part(char **key, char *tmp2, char *str)
 
 int	check_pipe_in_str(char *str, int *i)
 {
-	if (str[*i] == '|' && (all.check_dol == 2 || all.check_dol == 1))
+	if (str[*i] == '|' && (g_all.check_dol == 2 || g_all.check_dol == 1))
 		return (1);
 	else if (str[*i] == '|')
 	{
